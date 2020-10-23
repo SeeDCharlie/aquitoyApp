@@ -2,11 +2,11 @@ package com.example.aquitoyapp.modelos
 
 class Sesiones {
 
-    var id = 0
-    var email = ""
-    var nombre_usuario = ""
-    var contraseña = ""
-    var fecha_creacion = ""
-    var activo = 0
+    public var id = 0
+    public var email = ""
+    public var nombre_usuario = ""
+    public var contraseña = ""
+    public var fecha_creacion = ""
+    public var activo = 0
 
 }
