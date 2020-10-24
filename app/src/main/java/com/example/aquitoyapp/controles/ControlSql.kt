@@ -2,7 +2,6 @@ package com.example.aquitoyapp.controles
 
 import android.content.ContentValues
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
 import com.example.aquitoyapp.modelos.DbLite
 import com.example.aquitoyapp.modelos.Sesiones
 
@@ -11,7 +10,7 @@ class ControlSql(var context: Context) {
 
     val motor_db: DbLite  = DbLite(context)
 
-
+//metodo para agregar una sesion activa
     fun addSession(username: String, email: String, password: String, fecha: String): Long{
         val contenedorDatos = ContentValues().apply {
             put("email", email)
@@ -28,6 +27,7 @@ class ControlSql(var context: Context) {
         return respuesta
     }
 
+    // metodo de prueba que devuelve todas las sesiones guardadas
     fun getSessions(): MutableList<Sesiones> {
         val list: MutableList<Sesiones> = ArrayList()
         val db = this.motor_db.readableDatabase

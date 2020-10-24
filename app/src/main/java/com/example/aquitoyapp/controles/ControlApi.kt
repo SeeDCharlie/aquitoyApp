@@ -7,6 +7,8 @@ class ControlApi(context: Context) {
 
     val api = Api(context)
 
+    fun loggin(username: String, passw: String) {
 
+    }
 
 }
