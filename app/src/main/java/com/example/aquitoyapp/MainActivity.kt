@@ -1,5 +1,6 @@
 package com.example.aquitoyapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -7,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aquitoyapp.controles.ControlApi
 import com.example.aquitoyapp.controles.ControlSql
+import com.example.aquitoyapp.vistas.menuPrincipal
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,9 +31,12 @@ class MainActivity : AppCompatActivity() {
 
     fun btnLogginAction(username: String, password: String) {
         if (this.controlapi.loggin(username, password)) {
-            println("")
-        }
+            val intent = Intent(this, menuPrincipal::class.java).apply {
+                putExtra("username", username)
+            }
 
+            startActivity(intent)
+        }
     }
 
     fun showMsj(msj: String) {
