@@ -11,18 +11,20 @@ import org.json.JSONObject
 
 class Api(var context: Context){
 
-    private var baseUrl = "http://soportec.co/mensajeria/webservices"
+    private var baseUrl = "http://soportec.co/mensajeria/webservices/"
     private var requestExecute = Volley.newRequestQueue(this.context)
 
 
-    fun respuestaPost(datos: JSONObject, direccion: String): JsonObjectRequest {
+    fun respuestaPost(datos: JSONObject, direccion: String): JSONObject {
         val url = this.baseUrl + direccion
+        var datos = JSONObject()
         val request = JsonObjectRequest(
             Request.Method.POST, url, datos,
             { response ->
                 try {
-                    var respuesta = JSONObject(response.get("dats").toString())
                     if (response.get("ok") == true) {
+                        datos.put("dats", response.get("dats"))
+                        datos.put("ok", response.get("ok"))
                         showMsj("ok!")
                     } else {
                         showMsj("")
@@ -37,7 +39,7 @@ class Api(var context: Context){
         request.retryPolicy = DefaultRetryPolicy(
             DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,0, 1f )
         this.requestExecute.add(request)
-        return request
+        return datos
     }
 
 

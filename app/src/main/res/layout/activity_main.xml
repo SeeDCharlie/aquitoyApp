@@ -17,7 +17,7 @@
         app:srcCompat="@drawable/usr_uno" />
 
     <EditText
-        android:id="@+id/editTextPassword"
+        android:id="@+id/inpTextPassword"
         android:layout_width="211dp"
         android:layout_height="46dp"
         android:layout_marginBottom="28dp"
@@ -42,7 +42,7 @@
         android:ems="10"
         android:inputType="number"
         android:text="Documento"
-        app:layout_constraintBottom_toTopOf="@+id/editTextPassword"
+        app:layout_constraintBottom_toTopOf="@+id/inpTextPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
