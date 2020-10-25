@@ -9,39 +9,39 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.aquitoyapp.controles.ControlApi
 import com.example.aquitoyapp.controles.ControlSql
 import com.example.aquitoyapp.vistas.menuPrincipal
+import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
-    val controldb: ControlSql = ControlSql(this)
-    val controlapi = ControlApi(this)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val username = findViewById<EditText>(R.id.inpTextUser)
-        val password = findViewById<EditText>(R.id.inpTextPassword)
+        var controldb = ControlSql(this)
+        var controlapi = ControlApi(this)
 
         findViewById<Button>(R.id.btnIngresar).setOnClickListener {
-            btnLogginAction(username.text.toString(), password.text.toString())
+            //btnLogginAction(controlapi)
+            val username = findViewById<EditText>(R.id.inpTextUser).text.toString()
+            val password = findViewById<EditText>(R.id.inpTextPassword).text.toString()
+            controlapi.loggin(username, password, ::btnLogginAction)
+
         }
 
     }
 
-
-    fun btnLogginAction(username: String, password: String) {
-        if (this.controlapi.loggin(username, password)) {
-            val intent = Intent(this, menuPrincipal::class.java).apply {
-                putExtra("username", username)
-            }
-
-            startActivity(intent)
-        }
+    fun btnLogginAction(datos_usuario: JSONObject) {
+        val intent = Intent(this, menuPrincipal::class.java)
+        intent.putExtra("datos_usuario", datos_usuario.toString())
+        startActivity(intent)
     }
+
 
     fun showMsj(msj: String) {
         var duration = Toast.LENGTH_SHORT
-        var showMsj = Toast.makeText(this, msj, duration)
+        var showMsj = Toast.makeText(this.baseContext, msj, duration)
         showMsj.show()
     }
 }

@@ -8,15 +8,13 @@ class ControlApi(context: Context) {
 
     val api = Api(context)
 
-    fun loggin(username: String, passw: String): Boolean {
+    fun loggin(username: String, passw: String, funcion: (datos: JSONObject) -> Unit) {
         val datos = JSONObject()
+        datos.put("loggin", true)
         datos.put("username", username)
         datos.put("password", passw)
 
-        var respuesta = this.api.respuestaPost(datos, "log_api.php")
-
-        return respuesta.getBoolean("ok")
-
+        this.api.respuestaPost(datos, "log_api.php", funcion)
     }
 
 

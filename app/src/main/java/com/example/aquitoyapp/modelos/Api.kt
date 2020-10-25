@@ -15,20 +15,19 @@ class Api(var context: Context){
     private var requestExecute = Volley.newRequestQueue(this.context)
 
 
-    fun respuestaPost(datos: JSONObject, direccion: String): JSONObject {
+    fun respuestaPost(datos: JSONObject, direccion: String, funcion: (datos: JSONObject) -> Unit) {
         val url = this.baseUrl + direccion
-        var datos = JSONObject()
         val request = JsonObjectRequest(
             Request.Method.POST, url, datos,
             { response ->
                 try {
                     if (response.get("ok") == true) {
-                        datos.put("dats", response.get("dats"))
-                        datos.put("ok", response.get("ok"))
                         showMsj("ok!")
+                        funcion(response)
                     } else {
-                        showMsj("")
+                        showMsj(response.getString("dats"))
                     }
+
                 } catch (e: Exception) {
                     showMsj("Exception: ${e}")
                 }
@@ -39,10 +38,8 @@ class Api(var context: Context){
         request.retryPolicy = DefaultRetryPolicy(
             DefaultRetryPolicy.DEFAULT_TIMEOUT_MS,0, 1f )
         this.requestExecute.add(request)
-        return datos
+
     }
-
-
 
     fun showMsj( msj: String) {
         var duration = Toast.LENGTH_SHORT
