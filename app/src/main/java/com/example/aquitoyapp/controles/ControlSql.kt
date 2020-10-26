@@ -14,15 +14,19 @@ class ControlSql(var context: Context) {
 //metodo para agregar una sesion activa
 fun addSession(
     id_user: Int,
-    username: String,
     email: String,
+    nombres: String,
+    apellidos: String,
+    documento: String,
     password: String,
     fecha: String
 ): Long {
     val contenedorDatos = ContentValues().apply {
         put("id_user", id_user)
         put("email", email)
-        put("nombre_usuario", username)
+        put("nombres", nombres)
+        put("apellidos", nombres)
+        put("documento", nombres)
         put("contraseña", password)
         put("fecha_creacion", fecha)
         put("activo", 1)
@@ -46,8 +50,9 @@ fun addSession(
                 sesion_aux._id = cursor.getInt(cursor.getColumnIndex("_id"))
                 sesion_aux.id_user = cursor.getInt(cursor.getColumnIndex("id_user"))
                 sesion_aux.email = cursor.getString(cursor.getColumnIndex("email"))
-                sesion_aux.nombre_usuario =
-                    cursor.getString(cursor.getColumnIndex("nombre_usuario"))
+                sesion_aux.nombres = cursor.getString(cursor.getColumnIndex("nombres"))
+                sesion_aux.apellidos = cursor.getString(cursor.getColumnIndex("apellidos"))
+                sesion_aux.documento = cursor.getString(cursor.getColumnIndex("documento"))
                 sesion_aux.contraseña = cursor.getString(cursor.getColumnIndex("contraseña"))
                 sesion_aux.fecha_creacion =
                     cursor.getString(cursor.getColumnIndex("fecha_creacion"))

@@ -5,16 +5,17 @@
     android:id="@+id/lyuUno"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1CECE"
+    android:background="#EFEFEF"
     tools:context=".vistas.menuPrincipal">
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="278dp"
-        android:layout_height="99dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="48dp"
+        android:layout_width="371dp"
+        android:layout_height="91dp"
+        android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/logo_uno" />
 
@@ -23,7 +24,7 @@
         android:layout_width="144dp"
         android:layout_height="132dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="84dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/img_tres" />
@@ -33,9 +34,51 @@
         android:layout_width="146dp"
         android:layout_height="130dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="84dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toEndOf="@+id/btnDos"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/img_cuatro" />
+
+    <TextView
+        android:id="@+id/textViewUno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="Pendientes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDos" />
+
+    <TextView
+        android:id="@+id/textViewDos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="148dp"
+        android:text="En Curso"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnTres" />
+
+    <TextView
+        android:id="@+id/textViewTres"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="48dp"
+        android:text="Domiciliario : "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="110dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="35dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/logout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
