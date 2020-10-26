@@ -3,8 +3,9 @@ package com.example.aquitoyapp.controles
 import android.content.Context
 import com.example.aquitoyapp.modelos.Api
 import org.json.JSONObject
+import java.io.Serializable
 
-class ControlApi(context: Context) {
+class ControlApi(context: Context) : Serializable {
 
     val api = Api(context)
 

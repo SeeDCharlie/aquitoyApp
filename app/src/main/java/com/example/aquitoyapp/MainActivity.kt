@@ -7,6 +7,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aquitoyapp.controles.ControlApi
+import com.example.aquitoyapp.controles.ControlSql
 import com.example.aquitoyapp.controles.controlSesion
 import com.example.aquitoyapp.vistas.menuPrincipal
 import org.json.JSONObject
@@ -15,6 +16,7 @@ import org.json.JSONObject
 class MainActivity : AppCompatActivity() {
 
     var control_sesion: controlSesion? = null
+    var controldb: ControlSql? = null
     var controlapi: ControlApi? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
         control_sesion = controlSesion(this)
         controlapi = ControlApi(this)
+        controldb = ControlSql(this)
 
         checkSesion()
 
@@ -38,13 +41,13 @@ class MainActivity : AppCompatActivity() {
 
     //aqui se verifica que haya una sesion activa para ejecutar el resto de la aplicacion con los datos de la sesion
     fun checkSesion() {
-        var query = "select * from userSession.sesiones where activo = 1 order by desc;"
-        //var resultado = controldb?.getSessions(query)
+        var query = "select * from userSessionDb.sesiones where activo = 1 order by desc;"
+        /*var resultado = controldb?.getSessions(query)
         //var resultado = control_sesion.checkSesion()
-        /*if (resultado) {
+        if (arrayOf(resultado).count() > 0) {
             val intent = Intent(this, menuPrincipal::class.java)
-            showMsj("sesion to string : " + sesionAux.toString())
-            intent.putExtra("datos_usuario", sesionAux.toString())
+            showMsj("sesion to string : " + resultado!!.get(0).toString())
+            intent.putExtra("datos_usuario", resultado.get(0).toString())
             finish()
             startActivity(intent)
         }*/

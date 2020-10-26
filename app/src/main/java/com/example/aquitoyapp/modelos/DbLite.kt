@@ -3,16 +3,15 @@ package com.example.aquitoyapp.modelos
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import java.io.Serializable
 
 
-class DbLite ( context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DbLite(context: Context) : Serializable, SQLiteOpenHelper(context, "userSessionDb", null, 1) {
 
-    init {
-        this.writableDatabase.execSQL(getSqlTables())
-    }
 
     override fun onCreate(db: SQLiteDatabase?) {
 
+        db?.execSQL(getSqlTables())
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
@@ -22,7 +21,7 @@ class DbLite ( context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
 
     companion object {
         const val DATABASE_VERSION = 1
-        const val DATABASE_NAME = "userSession"
+        const val DATABASE_NAME = "userSessionDb"
     }
         //query para la creacion de la tabla en la base de datos sqlite
 

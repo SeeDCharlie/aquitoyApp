@@ -4,23 +4,24 @@ import android.content.ContentValues
 import android.content.Context
 import com.example.aquitoyapp.modelos.DbLite
 import com.example.aquitoyapp.modelos.Sesiones
+import java.io.Serializable
 
 
-class ControlSql(var context: Context) {
+class ControlSql(var context: Context) : Serializable {
 
-    val motor_db: DbLite  = DbLite(context)
+    val motor_db: DbLite = DbLite(context)
 
 
-//metodo para agregar una sesion activa
-fun addSession(
-    id_user: Int,
-    email: String,
-    nombres: String,
-    apellidos: String,
-    documento: String,
-    password: String,
-    fecha: String
-): Long {
+    //metodo para agregar una sesion activa
+    fun addSession(
+        id_user: Int,
+        email: String,
+        nombres: String,
+        apellidos: String,
+        documento: String,
+        password: String,
+        fecha: String
+    ): Long {
     val contenedorDatos = ContentValues().apply {
         put("id_user", id_user)
         put("email", email)

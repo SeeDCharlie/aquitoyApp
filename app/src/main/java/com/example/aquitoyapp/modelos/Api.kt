@@ -8,8 +8,9 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
+import java.io.Serializable
 
-class Api(var context: Context){
+class Api(var context: Context) : Serializable {
 
     private var baseUrl = "http://soportec.co/mensajeria/webservices/"
     private var requestExecute = Volley.newRequestQueue(this.context)

@@ -1,6 +1,8 @@
 package com.example.aquitoyapp.modelos
 
-class Sesiones {
+import java.io.Serializable
+
+class Sesiones : Serializable {
     var _id = -1
     var id_user = -1
     var email = ""
