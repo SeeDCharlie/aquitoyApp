@@ -11,38 +11,23 @@ class DbLite(context: Context) : Serializable, SQLiteOpenHelper(context, "userSe
 
     override fun onCreate(db: SQLiteDatabase?) {
 
-        db?.execSQL(getSqlTables())
+        db?.execSQL(
+            "create table if not exists  sesiones(\n" +
+                    "    id                integer primary key AUTOINCREMENT,\n" +
+                    "    id_user           integer,\n" +
+                    "    email             text,\n" +
+                    "    nombres           text,\n" +
+                    "    apellidos         text,\n" +
+                    "    documento         text,\n" +
+                    "    contraseña        text,\n" +
+                    "    fecha_creacion    text,\n" +
+                    "    activo            integer default 0);"
+        )
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("drop table if exists sesiones;")
         onCreate(db)
-    }
-
-    companion object {
-        const val DATABASE_VERSION = 1
-        const val DATABASE_NAME = "userSessionDb"
-    }
-        //query para la creacion de la tabla en la base de datos sqlite
-
-    fun getSqlTables(): String {
-
-        return "create table if not exists  sesiones(\n" +
-                "    id                integer primary key AUTOINCREMENT,\n" +
-                "    id_user           integer,\n" +
-                "    email             TEXT,\n" +
-                "    nombres           text,\n" +
-                "    apellidos         text\n" +
-                "    documento         text\n" +
-                "    contraseña        text,\n" +
-                "    fecha_creacion    text,\n" +
-                "    activo            integer default 0);"
-        }
-
-        //devuelve la base de datos lista para editar o para ingresar datos
-
-    fun getDb():SQLiteDatabase{
-        return this.writableDatabase
     }
 
 

@@ -22,33 +22,34 @@ class ControlSql(var context: Context) : Serializable {
         password: String,
         fecha: String
     ): Long {
-    val contenedorDatos = ContentValues().apply {
-        put("id_user", id_user)
-        put("email", email)
-        put("nombres", nombres)
-        put("apellidos", nombres)
-        put("documento", nombres)
-        put("contraseña", password)
-        put("fecha_creacion", fecha)
-        put("activo", 1)
-    }
+        val contenedorDatos = ContentValues().apply {
+            put("id_user", id_user)
+            put("email", email)
+            put("nombres", nombres)
+            put("apellidos", apellidos)
+            put("documento", documento)
+            put("contraseña", password)
+            put("fecha_creacion", fecha)
+            put("activo", 1)
+        }
 
-    val db = this.motor_db.writableDatabase
+        val db = this.motor_db.writableDatabase
         val respuesta = db.insert("sesiones", null, contenedorDatos)
-        db.close()
+        //db.close()
 
         return respuesta
     }
 
     // metodo de prueba que devuelve todas las sesiones guardadas
     fun getSessions(query: String): ArrayList<Sesiones> {
+
         val list: ArrayList<Sesiones> = ArrayList<Sesiones>()
         val db = this.motor_db.readableDatabase
         val cursor = db.rawQuery(query, null)
         if (cursor.moveToFirst()) {
             do {
                 val sesion_aux = Sesiones()
-                sesion_aux._id = cursor.getInt(cursor.getColumnIndex("_id"))
+                sesion_aux._id = cursor.getInt(cursor.getColumnIndex("id"))
                 sesion_aux.id_user = cursor.getInt(cursor.getColumnIndex("id_user"))
                 sesion_aux.email = cursor.getString(cursor.getColumnIndex("email"))
                 sesion_aux.nombres = cursor.getString(cursor.getColumnIndex("nombres"))
@@ -61,6 +62,7 @@ class ControlSql(var context: Context) : Serializable {
                 list.add(sesion_aux)
             } while (cursor.moveToNext())
         }
+        db.close()
         return list
     }
 
