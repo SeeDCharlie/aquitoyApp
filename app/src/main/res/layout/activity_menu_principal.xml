@@ -36,7 +36,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="84dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintEnd_toStartOf="@+id/btnDos"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/btnDos"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/img_cuatro" />
@@ -56,20 +57,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="148dp"
         android:text="En Curso"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.201"
         app:layout_constraintStart_toEndOf="@+id/btnDos"
         app:layout_constraintTop_toBottomOf="@+id/btnTres" />
 
     <TextView
         android:id="@+id/textViewTres"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="253dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
         android:text="Domiciliario : "
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.197"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,5 +85,15 @@
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/img_logout_peq" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="342dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="4dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTres" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
