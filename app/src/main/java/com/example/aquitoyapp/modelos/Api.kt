@@ -28,14 +28,11 @@ class Api(var context: Context) : Serializable {
                     } else {
                         showMsj(response.getString("dats"))
                     }
-
                 } catch (e: Exception) {
                     showMsj("Exception: ${e}")
                 }
             }, { error: VolleyError ->
-
                 showMsj(">>>>>>>>>>>> \n Error!! ${error.message} \n Causa : ")
-                println(">>>>>>>>>>>> \n Error!! ${error.message} \n Causa : ")
             })
 
         request.retryPolicy = DefaultRetryPolicy(

@@ -2,6 +2,7 @@ package com.example.aquitoyapp.controles
 
 import android.content.ContentValues
 import android.content.Context
+import android.widget.Toast
 import com.example.aquitoyapp.modelos.DbLite
 import com.example.aquitoyapp.modelos.Sesiones
 import java.io.Serializable
@@ -35,8 +36,7 @@ class ControlSql(var context: Context) : Serializable {
 
         val db = this.motor_db.writableDatabase
         val respuesta = db.insert("sesiones", null, contenedorDatos)
-        //db.close()
-
+        db.close()
         return respuesta
     }
 
@@ -66,5 +66,29 @@ class ControlSql(var context: Context) : Serializable {
         return list
     }
 
+    fun actualizarDato(
+        nombreTabla: String,
+        valores: ContentValues,
+        seleccion: String,
+        argumentos_seleccion: Array<String>
+    ): Boolean {
+        try {
+            val db = motor_db.writableDatabase
+            //selection = "${FeedEntry.COLUMN_NAME_TITLE} LIKE ?"
+            //selectionArgs = arrayOf("MyOldTitle")
+            val count = db.update(
+                nombreTabla,
+                valores,
+                seleccion,
+                argumentos_seleccion
+            )
+            return true
+        } catch (error: Exception) {
+            Toast.makeText(context, "error: ${error}", Toast.LENGTH_SHORT).show()
+            return false
+
+        }
+
+    }
 
 }

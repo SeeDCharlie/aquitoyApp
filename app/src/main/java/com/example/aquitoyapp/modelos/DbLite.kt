@@ -8,9 +8,7 @@ import java.io.Serializable
 
 class DbLite(context: Context) : Serializable, SQLiteOpenHelper(context, "userSessionDb", null, 1) {
 
-
     override fun onCreate(db: SQLiteDatabase?) {
-
         db?.execSQL(
             "create table if not exists  sesiones(\n" +
                     "    id                integer primary key AUTOINCREMENT,\n" +
@@ -29,6 +27,5 @@ class DbLite(context: Context) : Serializable, SQLiteOpenHelper(context, "userSe
         db.execSQL("drop table if exists sesiones;")
         onCreate(db)
     }
-
 
 }

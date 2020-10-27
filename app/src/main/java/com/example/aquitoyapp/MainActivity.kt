@@ -46,8 +46,11 @@ class MainActivity : AppCompatActivity() {
         var query = "select * from sesiones where activo = 1 order by id desc;"
         var resultado = controldb?.getSessions(query)
         if (!resultado!!.isEmpty()) {
-            //showMsj("sesion to string : " + Gson().toJson(resultado!!.get(0)))
-            var ca = resultado.get(0).documento
+            controlapi!!.logout(
+                resultado.get(0).documento,
+                resultado.get(0).contraseña,
+                ::checkSesionAux
+            )
             showMsj(
                 "check doc : " + resultado.get(0).documento + "   check passw : " + resultado.get(
                     0
@@ -60,6 +63,10 @@ class MainActivity : AppCompatActivity() {
             )
 
         }
+    }
+
+    fun checkSesionAux(d: JSONObject?): Boolean {
+        return true
     }
 
     //funcion que se debe ejecutar si la autenticacion del usuario es correcta
@@ -84,7 +91,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun showMsj(msj: String) {
-        var showMsj = Toast.makeText(this.baseContext, msj, Toast.LENGTH_SHORT)
+        val showMsj = Toast.makeText(this.baseContext, msj, Toast.LENGTH_SHORT)
         showMsj.show()
     }
 }

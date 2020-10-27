@@ -7,7 +7,7 @@ import java.io.Serializable
 
 class ControlApi(context: Context) : Serializable {
 
-    val api = Api(context)
+    private val api = Api(context)
 
     fun loggin(username: String, passw: String, funcion: (datos: JSONObject) -> Unit) {
         val datos = JSONObject()
@@ -18,5 +18,12 @@ class ControlApi(context: Context) : Serializable {
         this.api.respuestaPost(datos, "log_api.php", funcion)
     }
 
+    fun logout(documento: String, contraseña: String, funcion: (datos: JSONObject) -> Unit) {
+        val datos = JSONObject()
+        datos.put("logout", true)
+        datos.put("documento", documento)
+        datos.put("contraseña", contraseña)
+        this.api.respuestaPost(datos, "logOut.php", funcion)
+    }
 
 }
