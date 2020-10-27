@@ -28,7 +28,7 @@ class Api(var context: Context) : Serializable {
                         showMsj(response.getString("dats"))
                     }
                 } catch (e: Exception) {
-                    showMsj("Exception: ${e}")
+                    showMsj("Error: ${e}")
                 }
             }, { error: VolleyError ->
                 showMsj(">>>>>>>>>>>> \n Error!! ${error} \n Causa : ${error.cause}")
