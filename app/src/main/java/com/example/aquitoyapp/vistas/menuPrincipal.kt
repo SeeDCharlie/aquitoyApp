@@ -23,20 +23,20 @@ class menuPrincipal : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu_principal)
 
-
-
         initView()
 
         //Creacion del evento del boton Domicilios activos
         findViewById<ImageButton>(R.id.btnTres).setOnClickListener {
+            //inicia la nueva vista y actividad para manejar los domicilios activos o en curso
             val vista = Intent(this, DomiciliosActivosActivity::class.java)
+            vista.putExtra("datos_usuario", datosUsuario!!.toString())
             startActivity(vista)
         }
         //Creacion del evento del boton Domicilios Disponibles
         findViewById<ImageButton>(R.id.btnDos).setOnClickListener {
+            //inicia la nueva vista y actividad para manejar los domicilios disponibles
             val vista = Intent(this, DomiciliosDisponiblesActivity::class.java)
-            //intent.putExtra("datos_usuario", datos_usuario.toString())
-            //finish()
+            vista.putExtra("datos_usuario", datosUsuario!!.toString())
             startActivity(vista)
         }
         //Creacion del evento del boton cerrar sesion

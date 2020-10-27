@@ -15,7 +15,9 @@
         <activity android:name=".vistas.DomiciliosActivosActivity"></activity>
         <activity android:name=".vistas.DomiciliosDisponiblesActivity" />
         <activity android:name=".vistas.menuPrincipal" />
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

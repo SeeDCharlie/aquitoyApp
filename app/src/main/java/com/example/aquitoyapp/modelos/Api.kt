@@ -23,7 +23,6 @@ class Api(var context: Context) : Serializable {
             { response ->
                 try {
                     if (response.get("ok") == true) {
-                        showMsj("ok!")
                         funcion(response.getJSONObject("dats"))
                     } else {
                         showMsj(response.getString("dats"))
@@ -32,7 +31,7 @@ class Api(var context: Context) : Serializable {
                     showMsj("Exception: ${e}")
                 }
             }, { error: VolleyError ->
-                showMsj(">>>>>>>>>>>> \n Error!! ${error.message} \n Causa : ")
+                showMsj(">>>>>>>>>>>> \n Error!! ${error} \n Causa : ${error.cause}")
             })
 
         request.retryPolicy = DefaultRetryPolicy(

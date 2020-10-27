@@ -28,10 +28,6 @@ class MainActivity : AppCompatActivity() {
 
         checkSesion()
 
-        controldb!!.getSessions("select * from sesiones;").forEach { row ->
-            println(">>>>>>>>>>>>>>>>idx : " + row._id + "  documento : " + row.documento + "  contraseña : " + row.contraseña + "  email : " + row.email + "   activo: " + row.activo)
-        }
-
         findViewById<Button>(R.id.btnIngresar).setOnClickListener {
             val username = findViewById<EditText>(R.id.inpTextUser).text.toString()
             val password = findViewById<EditText>(R.id.inpTextPassword).text.toString()
@@ -50,11 +46,6 @@ class MainActivity : AppCompatActivity() {
                 resultado.get(0).documento,
                 resultado.get(0).contraseña,
                 ::checkSesionAux
-            )
-            showMsj(
-                "check doc : " + resultado.get(0).documento + "   check passw : " + resultado.get(
-                    0
-                ).contraseña
             )
             controlapi!!.loggin(
                 resultado.get(0).documento,
@@ -84,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             SimpleDateFormat("yyyy-mm-dd").format(Date())
         )
         intent.putExtra("datos_usuario", datos_usuario.toString())
-        showMsj("datos_usuario" + datos_usuario.toString())
+        showMsj("Bienvenido " + datos_usuario.getString("usu_nombre"))
         finish()
         startActivity(intent)
     }
