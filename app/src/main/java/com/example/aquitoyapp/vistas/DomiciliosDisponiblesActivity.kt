@@ -3,12 +3,17 @@ package com.example.aquitoyapp.vistas
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ImageButton
+import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aquitoyapp.MainActivity
 import com.example.aquitoyapp.R
 import com.example.aquitoyapp.controles.ControlApi
 import com.example.aquitoyapp.controles.ControlSql
+import com.example.aquitoyapp.modelos.DomDisponible
+import com.example.aquitoyapp.modelos.rowAdapterDomDisp
 import org.json.JSONObject
 
 class DomiciliosDisponiblesActivity : AppCompatActivity() {
@@ -31,6 +36,11 @@ class DomiciliosDisponiblesActivity : AppCompatActivity() {
                 ::btnLogOutAction
             )
         }
+        //creacion evento lista de domicilios
+        findViewById<ListView>(R.id.listViewUno).setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
+            val intent = Intent(this, TomarDomicilioActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
@@ -48,6 +58,30 @@ class DomiciliosDisponiblesActivity : AppCompatActivity() {
         controlapi = ControlApi(this)
         controldblite = ControlSql(this)
         datosUsuario = JSONObject(intent.getStringExtra("datos_usuario"))
+        controlapi!!.domicilios_disponibles(
+            datosUsuario!!.getInt("usu_id"),
+            datosUsuario!!.getString("usu_documento"),
+            datosUsuario!!.getString("usu_pass"),
+            ::cargarDomicilios
+        )
+    }
+
+    fun cargarDomicilios(domicilios: JSONObject) {
+        var listViewDomicilios = findViewById<ListView>(R.id.listViewUno)
+        var listaDatosDom = mutableListOf<DomDisponible>()
+
+        domicilios.keys().forEach {
+            var dom: JSONObject = domicilios.getJSONObject(it)
+            listaDatosDom.add(
+                DomDisponible(
+                    dom.getString("dom_origen"),
+                    dom.getString("dom_destino"),
+                    dom.getString("estadodom_nombre")
+                )
+            )
+
+        }
+        listViewDomicilios.adapter = rowAdapterDomDisp(this, R.layout.row_uno, listaDatosDom)
 
     }
 
