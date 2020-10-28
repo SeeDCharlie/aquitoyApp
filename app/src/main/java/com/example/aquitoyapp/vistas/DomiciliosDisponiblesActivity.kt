@@ -21,6 +21,7 @@ class DomiciliosDisponiblesActivity : AppCompatActivity() {
     var datosDomicilio: JSONObject? = null
     var controlapi: ControlApi? = null
     var controldblite: ControlSql? = null
+    var datosUsuario: JSONObject? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,29 +30,30 @@ class DomiciliosDisponiblesActivity : AppCompatActivity() {
         initView()
 
         //Creacion del evento del boton cerrar sesion
-        findViewById<ImageButton>(R.id.btnSiete).setOnClickListener {
+        findViewById<ImageButton>(R.id.imageButton3).setOnClickListener {
             controlapi!!.logout(
-                datosDomicilio!!.getString("usu_documento"),
-                datosDomicilio!!.getString("usu_pass"),
+                datosUsuario!!.getString("usu_documento"),
+                datosUsuario!!.getString("usu_pass"),
                 ::btnLogOutAction
             )
         }
         //creacion evento lista de domicilios
         findViewById<ListView>(R.id.listViewUno).setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
             val vista = Intent(this, TomarDomicilioActivity::class.java)
+            println(">>>>>>>>>>>>>> datos : \n" + datosDomicilio.toString())
             vista.putExtra("datosDomi", datosDomicilio!!.getString(position.toString()))
             startActivity(vista)
         }
 
     }
 
-    private fun btnLogOutAction(datos: JSONObject?) {
+    fun btnLogOutAction(datos: JSONObject?) {
         val valores = ContentValues().apply { put("activo", 0) }
         controldblite!!.actualizarDato(
             "sesiones",
             valores,
             "documento = ?",
-            arrayOf(datosDomicilio!!.getString("usu_documento"))
+            arrayOf(datosUsuario!!.getString("usu_documento"))
         )
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
@@ -61,11 +63,11 @@ class DomiciliosDisponiblesActivity : AppCompatActivity() {
     fun initView() {
         controlapi = ControlApi(this)
         controldblite = ControlSql(this)
-        datosDomicilio = JSONObject(intent.getStringExtra("datos_usuario"))
+        datosUsuario = JSONObject(intent.getStringExtra("datos_usuario"))
         controlapi!!.domicilios_disponibles(
-            datosDomicilio!!.getInt("usu_id"),
-            datosDomicilio!!.getString("usu_documento"),
-            datosDomicilio!!.getString("usu_pass"),
+            datosUsuario!!.getInt("usu_id"),
+            datosUsuario!!.getString("usu_documento"),
+            datosUsuario!!.getString("usu_pass"),
             ::cargarDomicilios
         )
     }
@@ -73,7 +75,7 @@ class DomiciliosDisponiblesActivity : AppCompatActivity() {
     fun cargarDomicilios(domicilios: JSONObject) {
         var listViewDomicilios = findViewById<ListView>(R.id.listViewUno)
         var listaDatosDom = mutableListOf<DomDisponible>()
-
+        datosDomicilio = domicilios
         domicilios.keys().forEach {
             var dom: JSONObject = domicilios.getJSONObject(it)
             listaDatosDom.add(

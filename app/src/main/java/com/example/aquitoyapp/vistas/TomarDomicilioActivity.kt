@@ -7,6 +7,7 @@ import com.example.aquitoyapp.R
 import org.json.JSONObject
 
 class TomarDomicilioActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tomar_domicilio)

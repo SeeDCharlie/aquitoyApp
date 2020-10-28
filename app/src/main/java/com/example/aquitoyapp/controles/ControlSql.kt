@@ -82,6 +82,7 @@ class ControlSql(var context: Context) : Serializable {
                 seleccion,
                 argumentos_seleccion
             )
+            db.close()
             return true
         } catch (error: Exception) {
             Toast.makeText(context, "error: ${error}", Toast.LENGTH_SHORT).show()

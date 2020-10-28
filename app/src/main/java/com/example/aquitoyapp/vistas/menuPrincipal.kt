@@ -66,8 +66,9 @@ class menuPrincipal : AppCompatActivity() {
             arrayOf(datosUsuario!!.getString("usu_documento"))
         )
         val intent = Intent(this, MainActivity::class.java)
-        finish()
         startActivity(intent)
+        finish()
+
     }
 
 }
