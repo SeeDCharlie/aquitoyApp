@@ -18,7 +18,7 @@ import org.json.JSONObject
 
 class DomiciliosDisponiblesActivity : AppCompatActivity() {
 
-    var datosUsuario: JSONObject? = null
+    var datosDomicilio: JSONObject? = null
     var controlapi: ControlApi? = null
     var controldblite: ControlSql? = null
 
@@ -31,15 +31,16 @@ class DomiciliosDisponiblesActivity : AppCompatActivity() {
         //Creacion del evento del boton cerrar sesion
         findViewById<ImageButton>(R.id.btnSiete).setOnClickListener {
             controlapi!!.logout(
-                datosUsuario!!.getString("usu_documento"),
-                datosUsuario!!.getString("usu_pass"),
+                datosDomicilio!!.getString("usu_documento"),
+                datosDomicilio!!.getString("usu_pass"),
                 ::btnLogOutAction
             )
         }
         //creacion evento lista de domicilios
         findViewById<ListView>(R.id.listViewUno).setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
-            val intent = Intent(this, TomarDomicilioActivity::class.java)
-            startActivity(intent)
+            val vista = Intent(this, TomarDomicilioActivity::class.java)
+            vista.putExtra("datosDomi", datosDomicilio!!.getString(position.toString()))
+            startActivity(vista)
         }
 
     }
@@ -47,7 +48,10 @@ class DomiciliosDisponiblesActivity : AppCompatActivity() {
     private fun btnLogOutAction(datos: JSONObject?) {
         val valores = ContentValues().apply { put("activo", 0) }
         controldblite!!.actualizarDato(
-            "sesiones", valores, "documento = ?", arrayOf(datosUsuario!!.getString("usu_documento"))
+            "sesiones",
+            valores,
+            "documento = ?",
+            arrayOf(datosDomicilio!!.getString("usu_documento"))
         )
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
@@ -57,11 +61,11 @@ class DomiciliosDisponiblesActivity : AppCompatActivity() {
     fun initView() {
         controlapi = ControlApi(this)
         controldblite = ControlSql(this)
-        datosUsuario = JSONObject(intent.getStringExtra("datos_usuario"))
+        datosDomicilio = JSONObject(intent.getStringExtra("datos_usuario"))
         controlapi!!.domicilios_disponibles(
-            datosUsuario!!.getInt("usu_id"),
-            datosUsuario!!.getString("usu_documento"),
-            datosUsuario!!.getString("usu_pass"),
+            datosDomicilio!!.getInt("usu_id"),
+            datosDomicilio!!.getString("usu_documento"),
+            datosDomicilio!!.getString("usu_pass"),
             ::cargarDomicilios
         )
     }

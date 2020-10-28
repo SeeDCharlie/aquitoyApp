@@ -12,7 +12,7 @@ import java.io.Serializable
 
 class Api(var context: Context) : Serializable {
 
-    private var baseUrl = "http://soportec.co/mensajeria/webservices/"
+    private var baseUrl = "https://soportec.co/mensajeria/webservices/"
     private var requestExecute = Volley.newRequestQueue(this.context)
 
 
@@ -32,6 +32,7 @@ class Api(var context: Context) : Serializable {
                 }
             }, { error: VolleyError ->
                 showMsj(">>>>>>>>>>>> \n Error!! ${error} \n Causa : ${error.cause}")
+                println(">>>>>>>>>>>> \n Error!! ${error} \n Causa : ${error.cause}")
             })
 
         request.retryPolicy = DefaultRetryPolicy(

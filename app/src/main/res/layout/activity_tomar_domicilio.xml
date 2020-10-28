@@ -31,7 +31,7 @@
         app:layout_constraintStart_toEndOf="@+id/button" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvToDoOrigen"
         android:layout_width="334dp"
         android:layout_height="40dp"
         android:layout_marginTop="32dp"
@@ -50,10 +50,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvToDoDestino" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvToDoDestino"
         android:layout_width="334dp"
         android:layout_height="42dp"
         android:layout_marginTop="4dp"
@@ -61,10 +61,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tvToDoOrigen" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvToDoDescripcion"
         android:layout_width="327dp"
         android:layout_height="33dp"
         android:layout_marginTop="20dp"
@@ -75,18 +75,18 @@
         app:layout_constraintTop_toBottomOf="@+id/divider5" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tvToDoNotas"
         android:layout_width="325dp"
         android:layout_height="36dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Notas : "
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/tvToDoCliente" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvToDoCliente"
         android:layout_width="320dp"
         android:layout_height="44dp"
         android:layout_marginTop="8dp"
@@ -94,18 +94,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tvToDoFechaAsig" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tvToDoFechaAsig"
         android:layout_width="324dp"
         android:layout_height="36dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:text="Fecha Asignacion : "
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/tvToDoDescripcion" />
 
     <ImageView
         android:id="@+id/imageView4"
