@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".vistas.TomarDomicilioActivity"></activity>
+        <activity android:name=".vistas.DomicilioActivoActivity"></activity>
+        <activity android:name=".vistas.TomarDomicilioActivity" />
         <activity android:name=".vistas.DomiciliosActivosActivity" />
         <activity android:name=".vistas.DomiciliosDisponiblesActivity" />
         <activity android:name=".vistas.menuPrincipal" />

@@ -1,6 +1,8 @@
 package com.example.aquitoyapp.vistas
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aquitoyapp.R
@@ -28,8 +30,22 @@ class TomarDomicilioActivity : AppCompatActivity() {
         tvCinco.text = tvCinco.text.toString() + datosDomi.getString("cli_nombre")
         tvSeis.text = tvSeis.text.toString() + datosDomi.getString("dom_notas")
 
+        //Eventos
+
+        findViewById<Button>(R.id.btnToDoUno).setOnClickListener {
+
+            var vista = Intent(this, DomicilioActivoActivity::class.java)
+            startActivity(vista)
+        }
+
+        findViewById<Button>(R.id.btnToDoDos).setOnClickListener {
+            finish()
+        }
+
 
     }
+
+
 
 
 }
