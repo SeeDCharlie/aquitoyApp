@@ -42,6 +42,7 @@ class DomiciliosDisponiblesActivity : AppCompatActivity() {
             val vista = Intent(this, TomarDomicilioActivity::class.java)
             println(">>>>>>>>>>>>>> datos : \n" + datosDomicilio.toString())
             vista.putExtra("datosDomi", datosDomicilio!!.getString(position.toString()))
+            vista.putExtra("datos_usuario", datosUsuario!!.toString())
             startActivity(vista)
         }
 
