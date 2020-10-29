@@ -39,6 +39,21 @@ class ControlApi(context: Context) : Serializable {
         this.api.respuestaPost(datos, "domiciliosDisponibles.php", funcion)
     }
 
+    fun domicilios_activos(
+        id_user: Int,
+        documento: String,
+        contraseña: String,
+        funcion: (datos: JSONObject) -> Unit
+    ) {
+        val datos = JSONObject()
+        datos.put("domicilios_activos", true)
+        datos.put("documento", documento)
+        datos.put("contraseña", contraseña)
+        datos.put("id_user", id_user)
+        this.api.respuestaPost(datos, "domiciliosActivos.php", funcion)
+
+    }
+
     fun empezar_domicilio(
         id_user: Int,
         id_domicilio: Int,

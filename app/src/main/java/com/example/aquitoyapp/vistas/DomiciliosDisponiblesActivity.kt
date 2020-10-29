@@ -40,7 +40,6 @@ class DomiciliosDisponiblesActivity : AppCompatActivity() {
         //creacion evento lista de domicilios
         findViewById<ListView>(R.id.listViewUno).setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
             val vista = Intent(this, TomarDomicilioActivity::class.java)
-            println(">>>>>>>>>>>>>> datos : \n" + datosDomicilio.toString())
             vista.putExtra("datosDomi", datosDomicilio!!.getString(position.toString()))
             vista.putExtra("datos_usuario", datosUsuario!!.toString())
             startActivity(vista)
