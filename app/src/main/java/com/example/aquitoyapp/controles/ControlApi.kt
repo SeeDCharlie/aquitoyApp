@@ -5,13 +5,8 @@ import com.example.aquitoyapp.modelos.Api
 import org.json.JSONObject
 import java.io.Serializable
 
-interface responseHttp {
-    fun action(obj: JSONObject) {
-        //cualquier codigo
-    }
-}
 
-class ControlApi(var context: Context) : Serializable, responseHttp {
+class ControlApi(var context: Context) : Serializable {
 
     private val api = Api(context)
 

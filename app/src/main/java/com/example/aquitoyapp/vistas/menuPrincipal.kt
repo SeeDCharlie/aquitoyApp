@@ -47,6 +47,13 @@ class menuPrincipal : AppCompatActivity() {
                 ::btnLogOutAction
             )
         }
+        //evento boton 'Nuevo docmicilio'
+        findViewById<ImageButton>(R.id.btnMePrTres).setOnClickListener {
+            val vista = Intent(this, NuevoDomicilioActivity::class.java)
+            vista.putExtra("datos_usuario", datosUsuario!!.toString())
+            startActivity(vista)
+        }
+
     }
 
     fun initView() {
