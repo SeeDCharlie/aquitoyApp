@@ -5,15 +5,23 @@ import com.example.aquitoyapp.modelos.Api
 import org.json.JSONObject
 import java.io.Serializable
 
-class ControlApi(context: Context) : Serializable {
+interface responseHttp {
+    fun action(obj: JSONObject) {
+        //cualquier codigo
+    }
+}
+
+class ControlApi(var context: Context) : Serializable, responseHttp {
 
     private val api = Api(context)
+
 
     fun loggin(username: String, passw: String, funcion: (datos: JSONObject) -> Unit) {
         val datos = JSONObject()
         datos.put("loggin", true)
         datos.put("username", username)
         datos.put("password", passw)
+
         this.api.respuestaPost(datos, "log_api.php", funcion)
     }
 
@@ -23,6 +31,14 @@ class ControlApi(context: Context) : Serializable {
         datos.put("documento", documento)
         datos.put("contraseña", contraseña)
         this.api.respuestaPost(datos, "logOut.php", funcion)
+    }
+
+    fun checkSesion(documento: String, contraseña: String, funcion: (datos: JSONObject) -> Unit) {
+        val datos = JSONObject()
+        datos.put("check_session", true)
+        datos.put("documento", documento)
+        datos.put("contraseña", contraseña)
+        this.api.respuestaPost(datos, "checkSession.php", funcion)
     }
 
     fun domicilios_disponibles(

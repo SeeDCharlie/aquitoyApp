@@ -42,8 +42,7 @@ class MainActivity : AppCompatActivity() {
         var query = "select * from sesiones where activo = 1 order by id desc;"
         var resultado = controldb?.getSessions(query)
         if (!resultado!!.isEmpty()) {
-
-            controlapi!!.loggin(
+            controlapi!!.checkSesion(
                 resultado.get(0).documento,
                 resultado.get(0).contraseña,
                 ::btnLogginAction

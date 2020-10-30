@@ -12,6 +12,8 @@ import com.example.aquitoyapp.R
 class rowAdapterDomDisp(context: Context, var resources: Int, var items: List<DomDisponible>) :
     ArrayAdapter<DomDisponible>(context, resources, items) {
     var contexts = context
+
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val layoutInflater: LayoutInflater = LayoutInflater.from(contexts)
         val view = layoutInflater.inflate(resources, null)
