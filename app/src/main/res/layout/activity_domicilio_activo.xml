@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?android:attr/windowBackground"
     tools:context=".vistas.DomicilioActivoActivity">
 
     <ImageButton
@@ -12,6 +13,7 @@
         android:layout_height="76dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="20dp"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/img_logout_peq" />
@@ -30,14 +32,14 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="341dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="163dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="28dp"
         android:text="Domicilio en Curso"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+        app:layout_constraintHorizontal_bias="0.205"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,16 +47,15 @@
         android:id="@+id/divider6"
         android:layout_width="363dp"
         android:layout_height="1dp"
-        android:layout_marginTop="20dp"
-        android:background="?android:attr/listDivider"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/holo_red_dark"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
 
     <TextView
         android:id="@+id/txtDoAcDos"
-        android:layout_width="331dp"
+        android:layout_width="330dp"
         android:layout_height="30dp"
         android:layout_marginTop="3dp"
         android:text="Origen : "
@@ -65,7 +66,7 @@
 
     <TextView
         android:id="@+id/txtDoAcCuatro"
-        android:layout_width="334dp"
+        android:layout_width="330dp"
         android:layout_height="29dp"
         android:layout_marginTop="6dp"
         android:text="Cliente : "
@@ -76,7 +77,7 @@
 
     <TextView
         android:id="@+id/txtDoAcTres"
-        android:layout_width="329dp"
+        android:layout_width="330dp"
         android:layout_height="28dp"
         android:layout_marginTop="3dp"
         android:text="Destino : "
@@ -87,9 +88,9 @@
 
     <TextView
         android:id="@+id/txtDoAcUno"
-        android:layout_width="328dp"
+        android:layout_width="330dp"
         android:layout_height="26dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="10dp"
         android:text="Descripcion : "
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -98,7 +99,7 @@
 
     <TextView
         android:id="@+id/txtDoAcSeis"
-        android:layout_width="333dp"
+        android:layout_width="330dp"
         android:layout_height="23dp"
 
         android:layout_marginTop="6dp"
@@ -110,14 +111,14 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="132dp"
+        android:layout_width="130dp"
         android:layout_height="25dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:text="Evidencias Origen"
         app:layout_constraintEnd_toStartOf="@+id/btnDoAcAdduno"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDoAcSeis" />
+        app:layout_constraintTop_toBottomOf="@+id/divider7" />
 
     <ImageButton
         android:id="@+id/btnDoAcAddNote"
@@ -133,7 +134,7 @@
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="135dp"
+        android:layout_width="130dp"
         android:layout_height="22dp"
         android:layout_marginTop="8dp"
         android:text="Evidencias Destino"
@@ -146,17 +147,17 @@
         android:id="@+id/btnDoAcAdduno"
         android:layout_width="60dp"
         android:layout_height="57dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="112dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/txtDoAcSeis"
+        app:layout_constraintTop_toBottomOf="@+id/divider7"
         app:srcCompat="@drawable/img_anadir" />
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="134dp"
+        android:layout_width="130dp"
         android:layout_height="20dp"
         android:layout_marginTop="16dp"
         android:text="Añadir Nota"
@@ -179,7 +180,7 @@
 
     <TextView
         android:id="@+id/txtDoAcCinco"
-        android:layout_width="336dp"
+        android:layout_width="330dp"
         android:layout_height="24dp"
         android:layout_marginTop="6dp"
         android:text="Fecha  : "
@@ -187,5 +188,36 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDoAcCuatro" />
+
+    <View
+        android:id="@+id/divider7"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/holo_red_dark"
+        app:layout_constraintTop_toBottomOf="@+id/txtDoAcSeis"
+        tools:layout_editor_absoluteX="1dp" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="51dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="24dp"
+        android:background="@color/exit_btn_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/img_check" />
+
+    <ImageButton
+        android:id="@+id/imageButton4"
+        android:layout_width="51dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="5dp"
+        android:background="@android:color/background_light"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/img_cerrar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

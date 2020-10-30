@@ -42,11 +42,7 @@ class MainActivity : AppCompatActivity() {
         var query = "select * from sesiones where activo = 1 order by id desc;"
         var resultado = controldb?.getSessions(query)
         if (!resultado!!.isEmpty()) {
-            controlapi!!.logout(
-                resultado.get(0).documento,
-                resultado.get(0).contraseña,
-                ::checkSesionAux
-            )
+
             controlapi!!.loggin(
                 resultado.get(0).documento,
                 resultado.get(0).contraseña,
@@ -56,9 +52,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun checkSesionAux(d: JSONObject?): Boolean {
-        return true
-    }
 
     //funcion que se debe ejecutar si la autenticacion del usuario es correcta
 
