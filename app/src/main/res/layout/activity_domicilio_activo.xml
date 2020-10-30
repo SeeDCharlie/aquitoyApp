@@ -32,8 +32,8 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="163dp"
-        android:layout_height="18dp"
+        android:layout_width="176dp"
+        android:layout_height="28dp"
         android:layout_marginTop="28dp"
         android:text="Domicilio en Curso"
         android:textSize="18sp"

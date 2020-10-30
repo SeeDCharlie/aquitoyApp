@@ -16,8 +16,8 @@
 
     <TextView
         android:id="@+id/textViewUno"
-        android:layout_width="125dp"
-        android:layout_height="21dp"
+        android:layout_width="282dp"
+        android:layout_height="19dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:text="Origen:"
@@ -26,8 +26,8 @@
 
     <TextView
         android:id="@+id/tvRowDos"
-        android:layout_width="124dp"
-        android:layout_height="21dp"
+        android:layout_width="284dp"
+        android:layout_height="18dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="5dp"
         android:text="Destino:"
@@ -36,8 +36,8 @@
 
     <TextView
         android:id="@+id/textViewTres"
-        android:layout_width="125dp"
-        android:layout_height="19dp"
+        android:layout_width="282dp"
+        android:layout_height="16dp"
         android:layout_marginStart="16dp"
 
         android:layout_marginTop="4dp"
