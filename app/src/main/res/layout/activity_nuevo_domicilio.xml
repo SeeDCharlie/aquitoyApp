@@ -173,7 +173,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="30dp"
                     android:layout_weight="1"
-                    android:background="#F43425"
+                    android:background="#B33434"
                     android:text="cancelar" />
             </LinearLayout>
 

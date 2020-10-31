@@ -16,7 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".vistas.NuevoDomicilioActivity"></activity>
+        <activity android:name=".vistas.NuevoClienteActivity"></activity>
+        <activity
+            android:name=".vistas.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".vistas.NuevoDomicilioActivity" />
         <activity android:name=".vistas.DomicilioActivoActivity" />
         <activity android:name=".vistas.TomarDomicilioActivity" />
         <activity android:name=".vistas.DomiciliosActivosActivity" />
