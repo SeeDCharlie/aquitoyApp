@@ -1,6 +1,8 @@
 package com.example.aquitoyapp.vistas
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aquitoyapp.R
 import com.example.aquitoyapp.controles.ControlApi
@@ -16,6 +18,20 @@ class NuevoDomicilioActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_nuevo_domicilio)
+
+
+        //creacion de eventos
+
+        //boton nuevo cliente
+        findViewById<Button>(R.id.btnNuDoUno).setOnClickListener {
+            var vista = Intent(this, NuevoClienteActivity::class.java)
+            startActivity(vista)
+        }
+
+        //boton cancelar
+        findViewById<Button>(R.id.btnNuDoCuatro).setOnClickListener {
+            finish()
+        }
     }
 
     fun initView() {
