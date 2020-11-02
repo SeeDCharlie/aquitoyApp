@@ -9,7 +9,7 @@
     tools:context=".vistas.NuevoDomicilioActivity">
 
     <TextView
-        android:id="@+id/txtNuDoUno"
+        android:id="@+id/txtNuDo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="16"
@@ -21,6 +21,7 @@
         android:textStyle="bold" />
 
     <ScrollView
+        android:id="@+id/txtNuClNombreCli"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -53,7 +54,7 @@
                 android:background="#F43A2C" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/txtNuDoTres"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -101,7 +102,7 @@
                 android:background="#F43A2C" />
 
             <EditText
-                android:id="@+id/txtNuDoOrigen"
+                android:id="@+id/edtNuDoUno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -114,7 +115,7 @@
                 android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName2"
+                android:id="@+id/edtNuDoDos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -127,7 +128,7 @@
                 android:inputType="textPersonName" />
 
             <EditText
-                android:id="@+id/editTextTextMultiLine"
+                android:id="@+id/edtNuDoTres"
                 android:layout_width="match_parent"
                 android:layout_height="129dp"
                 android:layout_marginLeft="30dp"
@@ -141,7 +142,7 @@
                 android:inputType="textMultiLine" />
 
             <EditText
-                android:id="@+id/editTextTextMultiLine2"
+                android:id="@+id/edtNudoCuatro"
                 android:layout_width="match_parent"
                 android:layout_height="139dp"
                 android:layout_marginLeft="30dp"
