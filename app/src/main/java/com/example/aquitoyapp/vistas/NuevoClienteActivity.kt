@@ -1,9 +1,9 @@
 package com.example.aquitoyapp.vistas
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aquitoyapp.R
@@ -14,6 +14,7 @@ class NuevoClienteActivity : AppCompatActivity() {
 
     var datosUsuario: JSONObject? = null
     var controlapi: ControlApi? = null
+    var datosDomicilio: JSONObject? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,15 +42,20 @@ class NuevoClienteActivity : AppCompatActivity() {
 
     fun initView() {
         datosUsuario = JSONObject(intent.getStringExtra("datos_usuario"))
+        datosDomicilio = JSONObject(intent.getStringExtra("datos_domicilio"))
         controlapi = ControlApi(this)
+
     }
 
     fun btnRegistrarClienteAction(obj: JSONObject) {
 
         Toast.makeText(this, obj.getString("msj"), Toast.LENGTH_SHORT).show()
 
-        var txtCliente = findViewById<TextView>(R.id.txtNuDoTres)
-        txtCliente.text = txtCliente.text.toString() + obj.getString("nombre_cliente")
+        var v = Intent(this, NuevoDomicilioActivity::class.java)
+        v.putExtra("datos_usuario", datosUsuario!!.toString())
+        v.putExtra("datos_domicilio", datosDomicilio!!.toString())
+        startActivity(v)
+
         finish()
     }
 

@@ -15,6 +15,7 @@ class NuevoDomicilioActivity : AppCompatActivity() {
     var controlapi: ControlApi? = null
     var controldblite: ControlSql? = null
     var datosUsuario: JSONObject? = null
+    private var datosDomicilio: JSONObject? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +29,7 @@ class NuevoDomicilioActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnNuDoUno).setOnClickListener {
             var vista = Intent(this, NuevoClienteActivity::class.java)
             vista.putExtra("datos_usuario", datosUsuario!!.toString())
+            vista.putExtra("datos_domicilio", getDatosDomicilio().toString())
             startActivity(vista)
         }
 
@@ -41,6 +43,12 @@ class NuevoDomicilioActivity : AppCompatActivity() {
         controlapi = ControlApi(this)
         controldblite = ControlSql(this)
         datosUsuario = JSONObject(intent.getStringExtra("datos_usuario"))
+        try {
+            datosDomicilio = JSONObject(intent.getStringExtra("datos_domicilio"))
+            setDatosDomicilio()
+        } catch (error: Exception) {
+            print("sin datos de domicilio")
+        }
 
     }
 
@@ -51,9 +59,16 @@ class NuevoDomicilioActivity : AppCompatActivity() {
         dats.put("destino", findViewById<TextView>(R.id.edtNuDoDos).text.toString())
         dats.put("descripcion", findViewById<TextView>(R.id.edtNuDoTres).text.toString())
         dats.put("notas", findViewById<TextView>(R.id.edtNudoCuatro).text.toString())
-        dats.put("nombre_cliente", findViewById<TextView>(R.id.edtNuDoTres).text.toString())
-        dats.put("nombre_cliente", findViewById<TextView>(R.id.edtNuDoTres).text.toString())
         return dats
+    }
+
+    fun setDatosDomicilio() {
+        findViewById<TextView>(R.id.txtNuDoTres).text =
+            "Cliente : " + datosDomicilio!!.getString("nombre_cliente")
+        findViewById<TextView>(R.id.edtNuDoUno).text = datosDomicilio!!.getString("origen")
+        findViewById<TextView>(R.id.edtNuDoDos).text = datosDomicilio!!.getString("destino")
+        findViewById<TextView>(R.id.edtNuDoTres).text = datosDomicilio!!.getString("descripcion")
+        findViewById<TextView>(R.id.edtNudoCuatro).text = datosDomicilio!!.getString("notas")
     }
 
 
