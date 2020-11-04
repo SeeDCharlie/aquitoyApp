@@ -62,6 +62,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
+                android:duplicateParentState="true"
                 android:text="Cliente : "
                 android:textSize="18sp"
                 android:textStyle="bold" />

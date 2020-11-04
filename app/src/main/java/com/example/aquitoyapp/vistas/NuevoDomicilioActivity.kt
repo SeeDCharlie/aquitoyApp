@@ -30,6 +30,7 @@ class NuevoDomicilioActivity : AppCompatActivity() {
             var vista = Intent(this, NuevoClienteActivity::class.java)
             vista.putExtra("datos_usuario", datosUsuario!!.toString())
             vista.putExtra("datos_domicilio", getDatosDomicilio().toString())
+            finish()
             startActivity(vista)
         }
 
