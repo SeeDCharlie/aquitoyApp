@@ -16,9 +16,8 @@ class GetClienteActivity : AppCompatActivity() {
     var datosUsuario: JSONObject? = null
     var datosDomicilio: JSONObject? = null
     var controlapi: ControlApi? = null
-    var listaCli: RecyclerView? = null
-    var layoutM: RecyclerView.LayoutManager? = null
-    var adaptador: rowAdapterClientes? = null
+    var listaClientes: RecyclerView? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,14 +30,16 @@ class GetClienteActivity : AppCompatActivity() {
         controlapi = ControlApi(this)
         datosUsuario = JSONObject(intent.getStringExtra("datos_usuario"))
         datosDomicilio = JSONObject(intent.getStringExtra("datos_domicilio"))
-        clientes = ArrayList()
-        listaCli = findViewById<RecyclerView>(R.id.listGetClUno)
+        clientes = ArrayList<Cliente>()
+        listaClientes = findViewById(R.id.listGetClUno)
+        println("antes del de desastre !!!")
+        listaClientes?.layoutManager = LinearLayoutManager(this)
+        println("despues del de desastre !!!")
         controlapi!!.getClientes(
             datosUsuario!!.getString("usu_documento"),
             datosUsuario!!.getString("usu_pass"),
             ::cargarClientes
         )
-
     }
 
     fun cargarClientes(clientes: JSONObject) {
@@ -48,14 +49,14 @@ class GetClienteActivity : AppCompatActivity() {
                 Cliente(
                     cli.getInt("cli_id"),
                     cli.getString("cli_nombre"),
-                    cli.getString("cli_telefonos")
+                    cli.getString("cli_telefono")
                 )
             )
         }
-        layoutM = LinearLayoutManager(this)
-        adaptador = rowAdapterClientes(this.clientes!!)
-        listaCli?.layoutManager = layoutM
-        listaCli?.adapter = adaptador
+        println(">>>>>>>><>>< \n Clientes : " + this.clientes!!.toString())
+
+        val adap = rowAdapterClientes(this.clientes!!)
+        listaClientes?.adapter = adap
     }
 
 

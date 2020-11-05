@@ -3,43 +3,31 @@ package com.example.aquitoyapp.modelos
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.aquitoyapp.R
 import kotlinx.android.synthetic.main.row_dos.view.*
 
-class rowAdapterClientes(items: ArrayList<Cliente>) :
+class rowAdapterClientes(val items: ArrayList<Cliente>) :
     RecyclerView.Adapter<rowAdapterClientes.ViewHolder>() {
 
-    var items: ArrayList<Cliente>? = null
-    var viewHolder: ViewHolder? = null
-
-    init {
-        this.items = items
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items?.get(position)
-        holder.id_cliente?.text = item?.id_cliente.toString()
-        holder.nombre?.text = item?.nombre
-        holder.telefono?.text = item?.telefono
+        holder.render(items.get(position))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val vista = LayoutInflater.from(parent.context).inflate(R.layout.row_dos, parent, false)
-        viewHolder = ViewHolder(vista)
-        return viewHolder!!
+        val layo = LayoutInflater.from(parent.context)
+        return ViewHolder(layo.inflate(R.layout.row_dos, parent, false))
     }
 
-    override fun getItemCount(): Int {
-        return items?.size!!
-    }
+    override fun getItemCount(): Int = items.size
 
-    class ViewHolder(vista: View) : RecyclerView.ViewHolder(vista) {
-        var vista = vista
-        var id_cliente: TextView? = vista.txtRowDosUno
-        var nombre: TextView? = vista.txtRowDosDos
-        var telefono: TextView? = vista.txtRowDosTres
+    class ViewHolder(val vista: View) : RecyclerView.ViewHolder(vista) {
+
+        fun render(cliente: Cliente) {
+            vista.txtRowDosUno.text = cliente.id_cliente.toString()
+            vista.txtRowDosDos.text = cliente.nombre
+            vista.txtRowDosTres.text = cliente.telefono
+        }
     }
 }
 
