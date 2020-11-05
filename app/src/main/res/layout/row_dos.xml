@@ -3,42 +3,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="15dp"
-        android:layout_weight="0"
-        app:srcCompat="@drawable/img_cliente_uno" />
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="66dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/txtRowDosUno"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="0"
+            app:srcCompat="@drawable/img_cliente_uno" />
 
-        <TextView
-            android:id="@+id/txtRowDosDos"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="66dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtRowDosTres"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txtRowDosUno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/txtRowDosDos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/txtRowDosTres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:id="@+id/divider9"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_weight="0"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="#C62A2A"
+        android:scrollbarSize="4dp" />
+
 </LinearLayout>
