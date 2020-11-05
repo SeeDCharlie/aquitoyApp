@@ -6,6 +6,17 @@
     android:orientation="vertical"
     tools:context=".vistas.GetClienteActivity">
 
+    <TextView
+        android:id="@+id/txtGetClUno"
+        android:layout_width="match_parent"
+        android:layout_height="29dp"
+        android:layout_weight="0"
+        android:background="#E64343"
+        android:gravity="center"
+        android:text="Clientes Registrados"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
     <SearchView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,8 +24,22 @@
 
     </SearchView>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listGetClUno"
+                android:layout_width="match_parent"
+                android:layout_height="654dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>
