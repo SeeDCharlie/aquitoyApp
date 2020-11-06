@@ -41,11 +41,17 @@ class NuevoDomicilioActivity : AppCompatActivity() {
             vista.putExtra("datos_domicilio", getDatosDomicilio().toString())
             startActivity(vista)
         }
+        //boton registrar domicilio
+
+        findViewById<Button>(R.id.btnNuDoTres).setOnClickListener {
+
+        }
 
         //boton cancelar
         findViewById<Button>(R.id.btnNuDoCuatro).setOnClickListener {
             finish()
         }
+
     }
 
     fun initView() {
@@ -79,6 +85,10 @@ class NuevoDomicilioActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.edtNuDoDos).text = datosDomicilios!!.getString("destino")
         findViewById<TextView>(R.id.edtNuDoTres).text = datosDomicilios!!.getString("descripcion")
         findViewById<TextView>(R.id.edtNudoCuatro).text = datosDomicilios!!.getString("notas")
+    }
+
+    fun registrarDomicilioAction(obj: JSONObject) {
+
     }
 
 

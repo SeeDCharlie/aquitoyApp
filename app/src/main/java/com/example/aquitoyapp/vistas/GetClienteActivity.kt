@@ -1,5 +1,6 @@
 package com.example.aquitoyapp.vistas
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
@@ -8,12 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aquitoyapp.R
 import com.example.aquitoyapp.controles.ControlApi
 import com.example.aquitoyapp.modelos.Cliente
+import com.example.aquitoyapp.modelos.eventRecyclerView
 import com.example.aquitoyapp.modelos.rowAdapterClientes
 import org.json.JSONObject
 import java.util.*
 import kotlin.collections.ArrayList
 
-class GetClienteActivity : AppCompatActivity() {
+class GetClienteActivity : AppCompatActivity(), eventRecyclerView {
 
     var clientes: ArrayList<Cliente>? = null
     var clientesAux: ArrayList<Cliente>? = null
@@ -32,6 +34,8 @@ class GetClienteActivity : AppCompatActivity() {
 
 
         //eventos
+        //evento de busqueda, cada que el texto cambia en laobj.getString("nombre_cliente") barra de busqueda se
+        //filtran los registros de los clientes
 
         searchv!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -75,20 +79,31 @@ class GetClienteActivity : AppCompatActivity() {
         )
     }
 
+    // funcion que se activa cuando se envia una la peticion de los clientes al servidor
     fun cargarClientes(clientes: JSONObject) {
         clientes.keys().forEach {
-            var cli = clientes.getJSONObject(it)
+            var cliente = clientes.getJSONObject(it)
             this.clientes!!.add(
                 Cliente(
-                    cli.getInt("cli_id"),
-                    cli.getString("cli_nombre"),
-                    cli.getString("cli_telefono")
+                    cliente.getInt("cli_id"),
+                    cliente.getString("cli_nombre"),
+                    cliente.getString("cli_telefono")
                 )
             )
         }
         clientesAux!!.addAll(this.clientes!!)
-        adapter = rowAdapterClientes(this.clientesAux!!)
+        adapter = rowAdapterClientes(this.clientesAux!!, this)
         listaClientes?.adapter = adapter
+    }
+
+    override fun onCLick(pocicion: Int) {
+        datosDomicilio!!.put("id_cliente", clientesAux!!.get(pocicion).id_cliente)
+        datosDomicilio!!.put("nombre_cliente", clientesAux!!.get(pocicion).nombre)
+        var vista = Intent(this, NuevoDomicilioActivity::class.java)
+        vista.putExtra("datos_usuario", datosUsuario!!.toString())
+        vista.putExtra("datos_domicilio", datosDomicilio!!.toString())
+        startActivity(vista)
+        finish()
     }
 
 

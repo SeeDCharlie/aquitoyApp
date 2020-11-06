@@ -7,11 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.aquitoyapp.R
 import kotlinx.android.synthetic.main.row_dos.view.*
 
-class rowAdapterClientes(val items: ArrayList<Cliente>) :
+class rowAdapterClientes(val items: ArrayList<Cliente>, val event: eventRecyclerView) :
     RecyclerView.Adapter<rowAdapterClientes.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.render(items.get(position))
+        holder.itemView.setOnClickListener {
+            event.onCLick(position)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
