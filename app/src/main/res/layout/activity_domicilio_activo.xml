@@ -1,223 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="?android:attr/windowBackground"
     tools:context=".vistas.DomicilioActivoActivity">
 
-    <ImageButton
-        android:id="@+id/btnDoAcLogout"
-        android:layout_width="79dp"
-        android:layout_height="76dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="20dp"
-        android:background="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/img_logout_peq" />
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="282dp"
-        android:layout_height="76dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnDoAcLogout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/logo_uno" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="176dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="28dp"
-        android:text="Domicilio en Curso"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton4"
-        app:layout_constraintHorizontal_bias="0.205"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <View
-        android:id="@+id/divider6"
-        android:layout_width="363dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/holo_red_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:text="Domicilio en Curso"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/imageButton4"
+                app:layout_constraintHorizontal_bias="0.205"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtDoAcDos"
-        android:layout_width="330dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="3dp"
-        android:text="Origen : "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDoAcUno" />
+            <View
+                android:id="@+id/divider7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/holo_red_dark"
+                app:layout_constraintTop_toBottomOf="@+id/txtDoAcSeis"
+                tools:layout_editor_absoluteX="1dp" />
 
-    <TextView
-        android:id="@+id/txtDoAcCuatro"
-        android:layout_width="330dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="6dp"
-        android:text="Cliente : "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDoAcTres" />
+            <TextView
+                android:id="@+id/txtDoAcDos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:text="Origen : "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDoAcUno" />
 
-    <TextView
-        android:id="@+id/txtDoAcTres"
-        android:layout_width="330dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="3dp"
-        android:text="Destino : "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDoAcDos" />
+            <TextView
+                android:id="@+id/txtDoAcTres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:text="Destino : "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDoAcDos" />
 
-    <TextView
-        android:id="@+id/txtDoAcUno"
-        android:layout_width="330dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="10dp"
-        android:text="Descripcion : "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider6" />
+            <TextView
+                android:id="@+id/txtDoAcUno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:text="Descripcion : "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider6" />
 
-    <TextView
-        android:id="@+id/txtDoAcSeis"
-        android:layout_width="330dp"
-        android:layout_height="23dp"
+            <TextView
+                android:id="@+id/txtDoAcCinco"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:text="Fecha  : "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDoAcCuatro" />
 
-        android:layout_marginTop="6dp"
-        android:text="Hora : "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDoAcCinco" />
+            <TextView
+                android:id="@+id/txtDoAcSeis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="130dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="15dp"
-        android:text="Evidencias Origen"
-        app:layout_constraintEnd_toStartOf="@+id/btnDoAcAdduno"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider7" />
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:text="Hora : "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDoAcCinco" />
 
-    <ImageButton
-        android:id="@+id/btnDoAcAddNote"
-        android:layout_width="59dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="112dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/btnDoAcAdddos"
-        app:srcCompat="@drawable/img_add_note" />
+            <TextView
+                android:id="@+id/txtDoAcCuatro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:text="Cliente : "
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtDoAcTres" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="130dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="8dp"
-        android:text="Evidencias Destino"
-        app:layout_constraintEnd_toStartOf="@+id/btnDoAcAdddos"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDoAcAdduno" />
+            <View
+                android:id="@+id/divider11"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/holo_red_dark" />
 
-    <ImageButton
-        android:id="@+id/btnDoAcAdduno"
-        android:layout_width="60dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="112dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/divider7"
-        app:srcCompat="@drawable/img_anadir" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="Evidencias Origen"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/btnDoAcAdduno"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider7" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="130dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="16dp"
-        android:text="Añadir Nota"
-        app:layout_constraintEnd_toStartOf="@+id/btnDoAcAddNote"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDoAcAdddos" />
+            <ImageButton
+                android:id="@+id/btnDoAcAdduno"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/cardview_shadow_end_color"
+                android:backgroundTint="@android:color/holo_red_dark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView5"
+                app:layout_constraintTop_toBottomOf="@+id/divider7"
+                app:srcCompat="@drawable/add_img_dos" />
 
-    <ImageButton
-        android:id="@+id/btnDoAcAdddos"
-        android:layout_width="59dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="112dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/btnDoAcAdduno"
-        app:srcCompat="@drawable/img_anadir" />
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="Evidencias Destino"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/btnDoAcAdddos"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnDoAcAdduno" />
 
-    <TextView
-        android:id="@+id/txtDoAcCinco"
-        android:layout_width="330dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="6dp"
-        android:text="Fecha  : "
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDoAcCuatro" />
+            <ImageButton
+                android:id="@+id/btnDoAcAdddos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/cardview_shadow_end_color"
+                android:backgroundTint="@android:color/holo_red_dark"
+                app:srcCompat="@drawable/add_img_dos" />
 
-    <View
-        android:id="@+id/divider7"
-        android:layout_width="409dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:background="@android:color/holo_red_dark"
-        app:layout_constraintTop_toBottomOf="@+id/txtDoAcSeis"
-        tools:layout_editor_absoluteX="1dp" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="Añadir Nota"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/btnDoAcAddNote"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnDoAcAdddos" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="51dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
-        android:background="@color/exit_btn_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_check" />
+            <ImageButton
+                android:id="@+id/btnDoAcAddNote"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/cardview_shadow_end_color"
+                android:backgroundTint="@android:color/holo_red_dark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/btnDoAcAdddos"
+                app:srcCompat="@drawable/add_note_img_dos" />
 
-    <ImageButton
-        android:id="@+id/imageButton4"
-        android:layout_width="51dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="5dp"
-        android:background="@android:color/background_light"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_cerrar" />
+            <View
+                android:id="@+id/divider12"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/holo_red_dark" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
+                    android:background="@color/exit_btn_background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/img_check" />
+
+                <ImageButton
+                    android:id="@+id/imageButton4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_weight="1"
+                    android:background="#E8BABA"
+                    app:layout_constraintEnd_toStartOf="@+id/imageButton"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/img_cerrar" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
