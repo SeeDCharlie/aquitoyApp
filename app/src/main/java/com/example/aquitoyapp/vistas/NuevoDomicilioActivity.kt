@@ -48,7 +48,7 @@ class NuevoDomicilioActivity : AppCompatActivity() {
                 datosUsuario!!.getString("usu_documento"),
                 datosUsuario!!.getInt("usu_id"),
                 datosUsuario!!.getString("usu_pass"),
-                datosDomicilios!!,
+                getDatosDomicilio(),
                 ::registrarDomicilioAction
             )
         }
@@ -68,6 +68,7 @@ class NuevoDomicilioActivity : AppCompatActivity() {
             datosDomicilios = JSONObject(intent.getStringExtra("datos_domicilio"))
             setDatosDomicilio()
         } catch (error: Exception) {
+            datosDomicilios = JSONObject("{'id_cliente':-1}")
             print("sin datos de domicilio")
         }
 
@@ -81,6 +82,7 @@ class NuevoDomicilioActivity : AppCompatActivity() {
         dats.put("destino", findViewById<TextView>(R.id.edtNuDoDos).text.toString())
         dats.put("descripcion", findViewById<TextView>(R.id.edtNuDoTres).text.toString())
         dats.put("notas", findViewById<TextView>(R.id.edtNudoCuatro).text.toString())
+        dats.put("id_cliente", datosDomicilios!!.getInt("id_cliente"))
         return dats
     }
 
