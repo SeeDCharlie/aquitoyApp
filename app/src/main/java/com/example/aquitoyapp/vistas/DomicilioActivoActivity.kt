@@ -17,6 +17,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
 
     var datosUsuario: JSONObject? = null
     var datosDomicilio: JSONObject? = null
+    var switchCamara = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,12 +30,14 @@ class DomicilioActivoActivity : AppCompatActivity() {
 
         //tomar evidencias del inicio del domicilio
         findViewById<ImageButton>(R.id.btnDoAcAdduno).setOnClickListener {
+            switchCamara = 1
             getFoto()
         }
 
         //tomar evidencias del final del domicilio
 
         findViewById<ImageButton>(R.id.btnDoAcAdddos).setOnClickListener {
+            switchCamara = 0
             getFoto()
         }
 
@@ -74,10 +77,13 @@ class DomicilioActivoActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == 1 && resultCode == RESULT_OK) {
             val imageBitmap = data!!.extras?.get("data") as Bitmap
-            val layoutOrigen: LinearLayout = findViewById<LinearLayout>(R.id.lilDoAcUno)
             val img = ImageView(this)
             img.setImageBitmap(imageBitmap)
-            layoutOrigen.addView(img)
+            if (switchCamara == 1) {
+                findViewById<LinearLayout>(R.id.lilDoAcUno).addView(img)
+            } else if (switchCamara == 0) {
+                findViewById<LinearLayout>(R.id.lilDoAcDos).addView(img)
+            }
         }
     }
 }
