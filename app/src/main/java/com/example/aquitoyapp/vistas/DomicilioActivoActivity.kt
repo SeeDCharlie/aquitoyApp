@@ -1,6 +1,9 @@
 package com.example.aquitoyapp.vistas
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aquitoyapp.R
@@ -18,6 +21,18 @@ class DomicilioActivoActivity : AppCompatActivity() {
 
         initView()
 
+        //eventos
+
+        //tomar evidencias del inicio del domicilio
+        findViewById<ImageButton>(R.id.btnDoAcAdduno).setOnClickListener {
+            getFoto()
+        }
+
+        //tomar evidencias del final del domicilio
+
+        findViewById<ImageButton>(R.id.btnDoAcAdddos).setOnClickListener {
+            getFoto()
+        }
 
     }
 
@@ -40,6 +55,13 @@ class DomicilioActivoActivity : AppCompatActivity() {
         txtFecha.text = txtFecha.text.toString() + datosDomicilio!!.getString("dom_fechainicio")
         txtHora.text = txtHora.text.toString() + datosDomicilio!!.getString("dom_horainicio")
 
+    }
 
+    fun getFoto() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(packageManager)?.also {
+                startActivityForResult(takePictureIntent, 1)
+            }
+        }
     }
 }
