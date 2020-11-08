@@ -255,6 +255,23 @@
                 android:text="Imagenes al Recoger"
                 android:textStyle="bold" />
 
+            <HorizontalScrollView
+                android:id="@+id/scrDoAcUno"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp">
+
+                <LinearLayout
+                    android:id="@+id/lilDoAcUno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="match_parent"
@@ -265,6 +282,23 @@
                 android:layout_marginBottom="5dp"
                 android:text="Imganes al Entregar "
                 android:textStyle="bold" />
+
+            <HorizontalScrollView
+                android:id="@+id/scrDoAcDos"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp">
+
+                <LinearLayout
+                    android:id="@+id/lilDoAcDos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
 
             <View
                 android:id="@+id/divider12"

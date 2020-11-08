@@ -1,9 +1,13 @@
 package com.example.aquitoyapp.vistas
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aquitoyapp.R
@@ -62,6 +66,18 @@ class DomicilioActivoActivity : AppCompatActivity() {
             takePictureIntent.resolveActivity(packageManager)?.also {
                 startActivityForResult(takePictureIntent, 1)
             }
+        }
+    }
+
+    // oyente que captura la imagen tomada
+    @SuppressLint("MissingSuperCall")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            val imageBitmap = data!!.extras?.get("data") as Bitmap
+            val layoutOrigen: LinearLayout = findViewById<LinearLayout>(R.id.lilDoAcUno)
+            val img = ImageView(this)
+            img.setImageBitmap(imageBitmap)
+            layoutOrigen.addView(img)
         }
     }
 }
