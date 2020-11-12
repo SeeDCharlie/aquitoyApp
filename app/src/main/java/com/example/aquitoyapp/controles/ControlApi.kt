@@ -120,5 +120,21 @@ class ControlApi(var context: Context) : Serializable {
         this.api.respuestaPost(datos, "nuevoDomicilio.php", funcion)
     }
 
+    fun agregarNotaDomicilio(
+        documento: String,
+        contraseña: String,
+        id_dom: Int,
+        nota: String,
+        funcion: (datos: JSONObject) -> Unit
+    ) {
+        val datos = JSONObject()
+        datos.put("agregar_nota", true)
+        datos.put("documento", documento)
+        datos.put("id_dom", id_dom)
+        datos.put("contraseña", contraseña)
+        datos.put("nota", nota)
+        this.api.respuestaPost(datos, "agregarNota.php", funcion)
+    }
+
 
 }

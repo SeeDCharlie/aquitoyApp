@@ -250,7 +250,6 @@
                 android:layout_marginRight="50dp"
                 android:layout_marginBottom="5dp"
                 android:background="@color/cardview_shadow_end_color"
-                android:backgroundTint="@android:color/holo_red_dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/textView8"

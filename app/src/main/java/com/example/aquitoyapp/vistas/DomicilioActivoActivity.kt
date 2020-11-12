@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aquitoyapp.R
+import com.example.aquitoyapp.controles.ControlApi
 import org.json.JSONObject
 
 class DomicilioActivoActivity : AppCompatActivity() {
@@ -18,6 +19,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
     var datosUsuario: JSONObject? = null
     var datosDomicilio: JSONObject? = null
     var switchCamara = -1
+    var controlapi: ControlApi? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,16 +43,26 @@ class DomicilioActivoActivity : AppCompatActivity() {
             getFoto()
         }
 
-        //boton que muestra la ubicacion en el mapa
+        //evento boton que muestra la ubicacion en el mapa
 
         findViewById<ImageButton>(R.id.btnDoAcMap).setOnClickListener {
             var vistaMapa = Intent()
+        }
+
+        //evento del boton para añadir una nueva nota al domicilio
+
+        findViewById<ImageButton>(R.id.btnDoAcAddNote).setOnClickListener {
+            var vista = Intent(this, NuevaNotaDom::class.java)
+            vista.putExtra("datos_domicilio", datosDomicilio!!.toString())
+            vista.putExtra("datos_usuario", datosUsuario!!.toString())
+            startActivity(vista)
         }
 
     }
 
     //carga y asignacion de variables
     fun initView() {
+        controlapi = ControlApi(this)
         datosDomicilio = JSONObject(intent.getStringExtra("datos_domicilio"))
         datosUsuario = JSONObject(intent.getStringExtra("datos_usuario"))
 
