@@ -41,9 +41,15 @@ class DomicilioActivoActivity : AppCompatActivity() {
             getFoto()
         }
 
+        //boton que muestra la ubicacion en el mapa
+
+        findViewById<ImageButton>(R.id.btnDoAcMap).setOnClickListener {
+            var vistaMapa = Intent()
+        }
+
     }
 
-
+    //carga y asignacion de variables
     fun initView() {
         datosDomicilio = JSONObject(intent.getStringExtra("datos_domicilio"))
         datosUsuario = JSONObject(intent.getStringExtra("datos_usuario"))
@@ -64,6 +70,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
 
     }
 
+    //funcion que llama la camara del sistema
     fun getFoto() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             takePictureIntent.resolveActivity(packageManager)?.also {
