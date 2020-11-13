@@ -5,10 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aquitoyapp.R
 import com.example.aquitoyapp.controles.ControlApi
@@ -58,6 +55,24 @@ class DomicilioActivoActivity : AppCompatActivity() {
             startActivity(vista)
         }
 
+        //boton que confirma que el domicilio esta terminado
+
+        findViewById<ImageButton>(R.id.btnDoAcOk).setOnClickListener {
+            controlapi!!.terminarDomicilio(
+                datosUsuario!!.getString("usu_documento"),
+                datosUsuario!!.getString("usu_pass"),
+                datosDomicilio!!.getInt("dom_id"),
+                ::terminarDomicilio
+            )
+
+        }
+
+        //boton para cancelar el domicilio
+
+        findViewById<ImageButton>(R.id.btnDoAcCancel).setOnClickListener {
+
+        }
+
     }
 
     //carga y asignacion de variables
@@ -80,6 +95,13 @@ class DomicilioActivoActivity : AppCompatActivity() {
         txtFecha.text = txtFecha.text.toString() + datosDomicilio!!.getString("dom_fechainicio")
         txtHora.text = txtHora.text.toString() + datosDomicilio!!.getString("dom_horainicio")
 
+    }
+
+    //funcion que se ejecuta depues de que el domiciliario termina un domicilio
+
+    fun terminarDomicilio(obj: JSONObject) {
+        Toast.makeText(this, obj.getString("msj"), Toast.LENGTH_SHORT).show()
+        finish()
     }
 
     //funcion que llama la camara del sistema

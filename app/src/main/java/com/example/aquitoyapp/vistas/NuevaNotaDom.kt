@@ -27,6 +27,7 @@ class NuevaNotaDom : AppCompatActivity() {
         findViewById<Button>(R.id.btnNuNoUno).setOnClickListener {
             var nota = findViewById<TextView>(R.id.txtNuNoNota).text.toString()
             if (nota != "") {
+
                 controlapi!!.agregarNotaDomicilio(
                     datosUsuario!!.getString("usu_documento"),
                     datosUsuario!!.getString("usu_pass"),
