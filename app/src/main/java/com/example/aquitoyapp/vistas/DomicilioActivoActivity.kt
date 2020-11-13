@@ -64,15 +64,18 @@ class DomicilioActivoActivity : AppCompatActivity() {
                 datosDomicilio!!.getInt("dom_id"),
                 ::terminarDomicilio
             )
-
         }
 
         //boton para cancelar el domicilio
 
         findViewById<ImageButton>(R.id.btnDoAcCancel).setOnClickListener {
-
+            controlapi!!.cancelarDomicilio(
+                datosUsuario!!.getString("usu_documento"),
+                datosUsuario!!.getString("usu_pass"),
+                datosDomicilio!!.getInt("dom_id"),
+                ::terminarDomicilio
+            )
         }
-
     }
 
     //carga y asignacion de variables
