@@ -280,8 +280,7 @@
             <HorizontalScrollView
                 android:id="@+id/scrDoAcUno"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
+                android:layout_height="100dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="30dp"
@@ -308,8 +307,7 @@
             <HorizontalScrollView
                 android:id="@+id/scrDoAcDos"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
+                android:layout_height="100dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
