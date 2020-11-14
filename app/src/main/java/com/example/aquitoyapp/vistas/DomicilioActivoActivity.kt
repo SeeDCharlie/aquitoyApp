@@ -5,8 +5,11 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aquitoyapp.R
@@ -20,12 +23,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
     var datosDomicilio: JSONObject? = null
     var switchCamara = -1
     var controlapi: ControlApi? = null
-    var currentPhotoPath: String = ""
-
-    //image pick code
     private val IMAGE_PICK_CODE = 1000
-
-    //Permission code
     private val PERMISSION_CODE = 1001
 
 
@@ -169,13 +167,38 @@ class DomicilioActivoActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             val img = ImageView(this)
+            Toast.makeText(this, "uri de img : " + data?.data, Toast.LENGTH_SHORT).show()
+            var p = data?.data?.toString()
+            var uriFile = data?.data
             img.setImageURI(data?.data)
             if (switchCamara == 1) {
                 findViewById<LinearLayout>(R.id.lilDoAcUno).addView(img)
+                controlapi!!.cargarEvidencia(
+                    datosUsuario!!.getString("usu_documento"),
+                    datosUsuario!!.getString("usu_pass"),
+                    datosDomicilio!!.getInt("dom_id"),
+                    getRealPathFromURI(uriFile!!)!!, this
+                )
+
             } else if (switchCamara == 0) {
                 findViewById<LinearLayout>(R.id.lilDoAcDos).addView(img)
             }
         }
+    }
+
+
+    private fun getRealPathFromURI(contentURI: Uri): String? {
+        val filePath: String
+        val cursor: Cursor? = contentResolver.query(contentURI, null, null, null, null)
+        if (cursor == null) {
+            filePath = contentURI.path!!.toString()
+        } else {
+            cursor.moveToFirst()
+            val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            filePath = cursor.getString(idx)
+            cursor.close()
+        }
+        return filePath
     }
 
 

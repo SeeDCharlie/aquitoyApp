@@ -1,10 +1,13 @@
 package com.example.aquitoyapp.controles
 
+import android.app.Activity
 import android.content.Context
 import com.example.aquitoyapp.modelos.Api
+import com.example.aquitoyapp.modelos.UploadUtility
 import org.json.JSONObject
 import java.io.Serializable
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ControlApi(var context: Context) : Serializable {
 
@@ -162,6 +165,22 @@ class ControlApi(var context: Context) : Serializable {
         datos.put("id_dom", id_dom)
         datos.put("contraseña", contraseña)
         this.api.respuestaPost(datos, "cancelarDomicilio.php", funcion)
+    }
+
+    fun cargarEvidencia(
+        documento: String,
+        contraseña: String,
+        id_dom: Int,
+        urlFile: String,
+        activity: Activity
+    ) {
+
+        val uploadUtility = UploadUtility(activity)
+        val dateFormat = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val uploadName: String = "img_${id_dom}_${dateFormat}.jpeg"
+
+        uploadUtility.uploadFile(urlFile, uploadName)
+
     }
 
 }
