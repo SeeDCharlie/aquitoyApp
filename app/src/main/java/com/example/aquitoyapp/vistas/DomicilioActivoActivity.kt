@@ -14,6 +14,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aquitoyapp.R
 import com.example.aquitoyapp.controles.ControlApi
+import com.example.aquitoyapp.controles.ControlSql
 import org.json.JSONObject
 
 
@@ -23,6 +24,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
     var datosDomicilio: JSONObject? = null
     var switchCamara = -1
     var controlapi: ControlApi? = null
+    var controldb: ControlSql? = null
     private val IMAGE_PICK_CODE = 1000
     private val PERMISSION_CODE = 1001
 
@@ -90,6 +92,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
     //carga y asignacion de variables
     fun initView() {
         controlapi = ControlApi(this, this)
+        controldb = ControlSql(this)
         datosDomicilio = JSONObject(intent.getStringExtra("datos_domicilio"))
         datosUsuario = JSONObject(intent.getStringExtra("datos_usuario"))
 
@@ -107,6 +110,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
         txtFecha.text = txtFecha.text.toString() + datosDomicilio!!.getString("dom_fechainicio")
         txtHora.text = txtHora.text.toString() + datosDomicilio!!.getString("dom_horainicio")
 
+        cargarFotos(datosDomicilio!!.getInt("dom_id"))
     }
 
     //funcion que se ejecuta depues de que el domiciliario termina un domicilio
@@ -167,8 +171,6 @@ class DomicilioActivoActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             val img = ImageView(this)
-            Toast.makeText(this, "uri de img : " + data?.data, Toast.LENGTH_SHORT).show()
-            var p = data?.data?.toString()
             var uriFile = data?.data
             img.setImageURI(data?.data)
             if (switchCamara == 1) {
@@ -179,6 +181,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
                     datosDomicilio!!.getInt("dom_id"),
                     getRealPathFromURI(uriFile!!)!!
                 )
+                controldb!!.addEviden(datosDomicilio!!.getInt("dom_id"), uriFile.toString(), 1)
 
             } else if (switchCamara == 0) {
                 findViewById<LinearLayout>(R.id.lilDoAcDos).addView(img)
@@ -188,6 +191,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
                     datosDomicilio!!.getInt("dom_id"),
                     getRealPathFromURI(uriFile!!)!!
                 )
+                controldb!!.addEviden(datosDomicilio!!.getInt("dom_id"), uriFile.toString(), 0)
             }
         }
     }
@@ -205,6 +209,35 @@ class DomicilioActivoActivity : AppCompatActivity() {
             cursor.close()
         }
         return filePath
+    }
+
+    private fun cargarFotos(id_dom: Int) {
+        var query = "select uri from urievidencias where id_dom = $id_dom and origen_destino = 0;"
+        var queryDos =
+            "select uri from urievidencias where id_dom = $id_dom and origen_destino = 1;"
+        var resultado = controldb?.getUriPhotosDomi(query)
+
+        if (!resultado!!.isEmpty()) {
+            resultado.forEach {
+                val img = ImageView(this)
+                var uriFile = Uri.parse(it)
+                img.setImageURI(uriFile)
+                findViewById<LinearLayout>(R.id.lilDoAcDos).addView(img)
+            }
+
+        }
+        resultado = controldb?.getUriPhotosDomi(queryDos)
+        if (!resultado!!.isEmpty()) {
+            resultado.forEach {
+                val img = ImageView(this)
+                var uriFile = Uri.parse(it)
+                img.setImageURI(uriFile)
+                findViewById<LinearLayout>(R.id.lilDoAcUno).addView(img)
+            }
+
+        }
+
+
     }
 
 

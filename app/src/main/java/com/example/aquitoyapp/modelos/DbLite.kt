@@ -11,7 +11,7 @@ class DbLite(context: Context) : Serializable, SQLiteOpenHelper(context, "userSe
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(
             "create table if not exists  sesiones(\n" +
-                    "    id                integer primary key AUTOINCREMENT,\n" +
+                    "id                integer primary key AUTOINCREMENT,\n" +
                     "    id_user           integer,\n" +
                     "    email             text,\n" +
                     "    nombres           text,\n" +
@@ -20,6 +20,13 @@ class DbLite(context: Context) : Serializable, SQLiteOpenHelper(context, "userSe
                     "    contraseña        text,\n" +
                     "    fecha_creacion    text,\n" +
                     "    activo            integer default 0);"
+        )
+        db?.execSQL(
+            "create table if not exists urievidencias(\n" +
+                    "    id      integer primary key AUTOINCREMENT,\n" +
+                    "    id_dom  integer,\n" +
+                    "    uri     text,\n" +
+                    "    origen_destino integer); \n"
         )
     }
 

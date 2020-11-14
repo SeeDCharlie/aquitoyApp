@@ -65,6 +65,38 @@ class ControlSql(var context: Context) : Serializable {
         db.close()
         return list
     }
+    //------------------------------------------------------------------------
+
+    fun addEviden(
+        id_dom: Int,
+        uri: String,
+        origen_destino: Int
+    ): Long {
+        val contenedorDatos = ContentValues().apply {
+            put("id_dom", id_dom)
+            put("uri", uri)
+            put("origen_destino", origen_destino)
+        }
+
+        val db = this.motor_db.writableDatabase
+        val respuesta = db.insert("urievidencias", null, contenedorDatos)
+        db.close()
+        return respuesta
+    }
+
+    fun getUriPhotosDomi(query: String): ArrayList<String> {
+        val list: ArrayList<String> = ArrayList<String>()
+        val db = this.motor_db.readableDatabase
+        val cursor = db.rawQuery(query, null)
+        if (cursor.moveToFirst()) {
+            do {
+                list.add(cursor.getString(cursor.getColumnIndex("uri")))
+            } while (cursor.moveToNext())
+        }
+        db.close()
+
+        return list
+    }
 
     fun actualizarDato(
         nombreTabla: String,
