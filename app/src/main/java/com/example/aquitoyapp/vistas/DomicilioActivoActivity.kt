@@ -177,11 +177,17 @@ class DomicilioActivoActivity : AppCompatActivity() {
                     datosUsuario!!.getString("usu_documento"),
                     datosUsuario!!.getString("usu_pass"),
                     datosDomicilio!!.getInt("dom_id"),
-                    getRealPathFromURI(uriFile!!)!!, this
+                    getRealPathFromURI(uriFile!!)!!
                 )
 
             } else if (switchCamara == 0) {
                 findViewById<LinearLayout>(R.id.lilDoAcDos).addView(img)
+                controlapi!!.cargarEvidencia(
+                    datosUsuario!!.getString("usu_documento"),
+                    datosUsuario!!.getString("usu_pass"),
+                    datosDomicilio!!.getInt("dom_id"),
+                    getRealPathFromURI(uriFile!!)!!
+                )
             }
         }
     }

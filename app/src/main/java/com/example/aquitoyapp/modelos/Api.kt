@@ -27,6 +27,11 @@ class Api(var context: Context, activity: Activity? = null) : Serializable {
 
     private var baseUrl = "https://soportec.co/mensajeria/webservices/"
     private var requestExecute = Volley.newRequestQueue(context)
+    var activity = activity
+    var dialog: ProgressDialog? = null
+    var serverURL: String = "https://soportec.co/mensajeria/webservices/guardarEvidencia.php"
+    var serverUploadDirectoryPath: String = "http://soportec.co/mensajeria/webservices/uploads/"
+    val client = OkHttpClient()
 
 
     // funcion para el envio de una peticion POST
@@ -65,20 +70,16 @@ class Api(var context: Context, activity: Activity? = null) : Serializable {
 
     //--------------------------------------------------------------------------------------
 
-    var activity = activity
-    var dialog: ProgressDialog? = null
-    var serverURL: String = "https://soportec.co/mensajeria/webservices/guardarEvidencia.php"
-    var serverUploadDirectoryPath: String = "http://soportec.co/mensajeria/webservices/uploads/"
-    val client = OkHttpClient()
 
-
-    fun uploadFile(sourceFilePath: String, uploadedFileName: String? = null) {
-        uploadFile(File(sourceFilePath), uploadedFileName)
-    }
-
-
-    fun uploadFile(sourceFile: File, uploadedFileName: String? = null) {
+    fun uploadFile(
+        documento: String,
+        contraseña: String,
+        dom_id: Int,
+        sourceFilePath: String,
+        uploadedFileName: String?
+    ) {
         Thread {
+            val sourceFile = File(sourceFilePath)
             val mimeType = getMimeType(sourceFile)
             if (mimeType == null) {
                 Log.e("file error", " >>>>>>Not able to get mime type")
@@ -94,7 +95,13 @@ class Api(var context: Context, activity: Activity? = null) : Serializable {
                             fileName,
                             sourceFile.asRequestBody(mimeType?.toMediaTypeOrNull())
                         ).addFormDataPart(
-                            "documento", "carlos"
+                            "documento", documento
+                        ).addFormDataPart(
+                            "contraseña", contraseña
+                        ).addFormDataPart(
+                            "guardar_evidencia", true.toString()
+                        ).addFormDataPart(
+                            "dom_id", dom_id.toString()
                         ).build()
 
                 val request: okhttp3.Request =
@@ -104,7 +111,8 @@ class Api(var context: Context, activity: Activity? = null) : Serializable {
 
                 if (response.isSuccessful) {
                     Log.d("File upload", "success, path: $serverUploadDirectoryPath$fileName")
-                    showToast("Imagen Cargada Con Exito:\n${response.body!!.string()}")
+                    val jResponse = JSONObject(response.body!!.string()).getJSONObject("dats")
+                    showToast(jResponse.getString("msj"))
                 } else {
                     Log.e("File upload", "fallo al cargar la imagen")
                     showToast("Fallo al cargar la imagen!")
