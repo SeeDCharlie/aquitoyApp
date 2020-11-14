@@ -3,15 +3,14 @@ package com.example.aquitoyapp.controles
 import android.app.Activity
 import android.content.Context
 import com.example.aquitoyapp.modelos.Api
-import com.example.aquitoyapp.modelos.UploadUtility
 import org.json.JSONObject
 import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ControlApi(var context: Context) : Serializable {
+class ControlApi(var context: Context, activity: Activity? = null) : Serializable {
 
-    private val api = Api(context)
+    private val api = Api(context, activity)
 
 
     fun loggin(username: String, passw: String, funcion: (datos: JSONObject) -> Unit) {
@@ -175,11 +174,11 @@ class ControlApi(var context: Context) : Serializable {
         activity: Activity
     ) {
 
-        val uploadUtility = UploadUtility(activity)
+
         val dateFormat = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val uploadName: String = "img_${id_dom}_${dateFormat}.jpeg"
 
-        uploadUtility.uploadFile(urlFile, uploadName)
+        this.api.uploadFile(urlFile, uploadName)
 
     }
 

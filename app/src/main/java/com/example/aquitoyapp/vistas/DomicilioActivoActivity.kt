@@ -89,7 +89,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
 
     //carga y asignacion de variables
     fun initView() {
-        controlapi = ControlApi(this)
+        controlapi = ControlApi(this, this)
         datosDomicilio = JSONObject(intent.getStringExtra("datos_domicilio"))
         datosUsuario = JSONObject(intent.getStringExtra("datos_usuario"))
 
