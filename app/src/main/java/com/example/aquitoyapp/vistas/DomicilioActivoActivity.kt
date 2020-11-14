@@ -139,7 +139,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
             pickImageFromGallery()
         }
     }
-
+    //funcion que inicia la galeria de imagebes para seleccionar una image
     private fun pickImageFromGallery() {
         //Intent to pick image
         val intent = Intent(Intent.ACTION_PICK)
@@ -147,6 +147,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
         startActivityForResult(intent, IMAGE_PICK_CODE)
     }
 
+    //funcion que pide permisos para acceder a la galeria de imagenes
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -166,7 +167,8 @@ class DomicilioActivoActivity : AppCompatActivity() {
             }
         }
     }
-    //oy
+
+    //oyente que captura la imagen seleccionada de la galeria de imagenes
     @SuppressLint("MissingSuperCall")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
