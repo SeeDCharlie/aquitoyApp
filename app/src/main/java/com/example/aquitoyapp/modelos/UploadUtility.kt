@@ -16,12 +16,11 @@ class UploadUtility(activity: Activity) {
     var activity = activity
     var dialog: ProgressDialog? = null
     var serverURL: String = "https://soportec.co/mensajeria/webservices/guardarEvidencia.php"
-    var serverUploadDirectoryPath: String = "http://soportec.co/mensajeria/webservices/uploads"
+    var serverUploadDirectoryPath: String = "http://soportec.co/mensajeria/webservices/uploads/"
     val client = OkHttpClient()
 
-    fun uploadFile(sourceFilePath: String, uploadedFileName: String? = null) {
-        showToast("cargando img\n${sourceFilePath}")
 
+    fun uploadFile(sourceFilePath: String, uploadedFileName: String? = null) {
         uploadFile(File(sourceFilePath), uploadedFileName)
     }
 
@@ -85,7 +84,7 @@ class UploadUtility(activity: Activity) {
         activity.runOnUiThread {
             if (show) {
                 @Suppress("DEPRECATION")
-                dialog = ProgressDialog.show(activity, "", "Cargando Imagen...", true)
+                dialog = ProgressDialog.show(activity, "Aquitoy Msj", "Cargando Imagen...", true)
             } else {
                 dialog?.dismiss()
             }
