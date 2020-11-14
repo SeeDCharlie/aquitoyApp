@@ -41,8 +41,7 @@ class UploadUtility(activity: Activity) {
                             "uploaded_file",
                             fileName,
                             sourceFile.asRequestBody(mimeType?.toMediaTypeOrNull())
-                        )
-                        .build()
+                        ).build()
 
                 val request: Request = Request.Builder().url(serverURL).post(requestBody).build()
 
@@ -50,10 +49,10 @@ class UploadUtility(activity: Activity) {
 
                 if (response.isSuccessful) {
                     Log.d("File upload", "success, path: $serverUploadDirectoryPath$fileName")
-                    showToast("File uploaded successfully at $serverUploadDirectoryPath$fileName")
+                    showToast("Imagen Cargada Con Exito:\n${uploadedFileName}")
                 } else {
-                    Log.e("File upload", "fallo al cargar laimagen")
-                    showToast("File uploading failed  ")
+                    Log.e("File upload", "fallo al cargar la imagen")
+                    showToast("Fallo al cargar la imagen!")
                 }
             } catch (ex: Exception) {
                 ex.printStackTrace()
