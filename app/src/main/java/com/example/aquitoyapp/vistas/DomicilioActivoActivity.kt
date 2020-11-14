@@ -166,7 +166,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
             }
         }
     }
-
+    //oy
     @SuppressLint("MissingSuperCall")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
@@ -196,7 +196,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
         }
     }
 
-
+    //funcion que devuelve la ruta url de una uri
     private fun getRealPathFromURI(contentURI: Uri): String? {
         val filePath: String
         val cursor: Cursor? = contentResolver.query(contentURI, null, null, null, null)
@@ -211,6 +211,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
         return filePath
     }
 
+    //funcion que carga las fotos localmente de un domicilio que esta activo
     private fun cargarFotos(id_dom: Int) {
         var query = "select uri from urievidencias where id_dom = $id_dom and origen_destino = 0;"
         var queryDos =
