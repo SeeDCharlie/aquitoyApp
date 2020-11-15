@@ -46,7 +46,9 @@ class GetClienteActivity : AppCompatActivity(), eventRecyclerView {
                 if (p0!!.isNotEmpty()) {
                     clientesAux!!.clear()
                     clientes!!.forEach {
-                        if (it.nombre.toLowerCase(Locale.ROOT)
+                        // busca coincidencias en nombre y nombre comercial en tabla clientes
+                        if (it.nombrecomercial.toLowerCase(Locale.ROOT)
+                                .contains(p0.toLowerCase(Locale.ROOT)) or it.nombre.toLowerCase(Locale.ROOT)
                                 .contains(p0.toLowerCase(Locale.ROOT))
                         ) {
                             clientesAux!!.add(it)
@@ -86,6 +88,7 @@ class GetClienteActivity : AppCompatActivity(), eventRecyclerView {
             this.clientes!!.add(
                 Cliente(
                     cliente.getInt("cli_id"),
+                    cliente.getString("cli_nombrecomercial"),
                     cliente.getString("cli_nombre"),
                     cliente.getString("cli_telefono")
                 )
@@ -96,9 +99,9 @@ class GetClienteActivity : AppCompatActivity(), eventRecyclerView {
         listaClientes?.adapter = adapter
     }
 
-    override fun onCLick(pocicion: Int) {
-        datosDomicilio!!.put("id_cliente", clientesAux!!.get(pocicion).id_cliente)
-        datosDomicilio!!.put("nombre_cliente", clientesAux!!.get(pocicion).nombre)
+    override fun onCLick(posicion: Int) {
+        datosDomicilio!!.put("id_cliente", clientesAux!!.get(posicion).id_cliente)
+        datosDomicilio!!.put("nombre_cliente", clientesAux!!.get(posicion).nombrecomercial)
         var vista = Intent(this, NuevoDomicilioActivity::class.java)
         vista.putExtra("datos_usuario", datosUsuario!!.toString())
         vista.putExtra("datos_domicilio", datosDomicilio!!.toString())

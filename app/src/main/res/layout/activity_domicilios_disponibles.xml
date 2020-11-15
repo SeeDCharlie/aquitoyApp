@@ -18,7 +18,7 @@
         android:background="#E64343"
         android:gravity="center"
 
-        android:text="Domicilios Libres"
+        android:text="DOMICILIOS SIN ASIGNAR"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

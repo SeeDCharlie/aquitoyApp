@@ -28,7 +28,8 @@ class rowAdapterClientes(val items: ArrayList<Cliente>, val event: eventRecycler
 
         fun render(cliente: Cliente) {
             vista.txtRowDosUno.text = cliente.id_cliente.toString()
-            vista.txtRowDosDos.text = cliente.nombre
+            vista.txtRowDosDos.text = cliente.nombrecomercial
+            vista.txtRowDosCuatro.text = cliente.nombre
             vista.txtRowDosTres.text = cliente.telefono
         }
     }

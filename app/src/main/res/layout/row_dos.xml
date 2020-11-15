@@ -46,6 +46,11 @@
                 android:id="@+id/txtRowDosTres"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/txtRowDosCuatro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
 

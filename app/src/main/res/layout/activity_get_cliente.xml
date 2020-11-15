@@ -7,14 +7,14 @@
     tools:context=".vistas.GetClienteActivity">
 
 
-<TextView
+    <TextView
         android:id="@+id/txtGetClUno"
         android:layout_width="match_parent"
         android:layout_height="29dp"
         android:layout_weight="0"
         android:background="#E64343"
         android:gravity="center"
-        android:text="Clientes Registrados"
+        android:text="CLIENTES REGISTRADOS"
         android:textSize="18sp"
         android:textStyle="bold" />
 
