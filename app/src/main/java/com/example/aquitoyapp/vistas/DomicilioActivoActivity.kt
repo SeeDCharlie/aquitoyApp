@@ -67,7 +67,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
         }
 
         //boton que confirma que el domicilio esta terminado
-
+/*
         findViewById<ImageButton>(R.id.btnDoAcOk).setOnClickListener {
             controlapi!!.terminarDomicilio(
                 datosUsuario!!.getString("usu_documento"),
@@ -75,7 +75,19 @@ class DomicilioActivoActivity : AppCompatActivity() {
                 datosDomicilio!!.getInt("dom_id"),
                 ::terminarDomicilio
             )
+        }    */
+
+        //boton que guarda avances de domicilio activo
+
+        findViewById<ImageButton>(R.id.btnDoAcOk).setOnClickListener {
+            controlapi!!.guardarDomicilio(
+                datosUsuario!!.getString("usu_documento"),
+                datosUsuario!!.getString("usu_pass"),
+                datosDomicilio!!.getInt("dom_id"),
+                ::terminarDomicilio
+            )
         }
+
 
         //boton para cancelar el domicilio
 
