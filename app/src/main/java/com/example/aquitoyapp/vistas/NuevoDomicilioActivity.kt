@@ -17,6 +17,10 @@ class NuevoDomicilioActivity : AppCompatActivity() {
     var datosUsuario: JSONObject? = null
     var datosDomicilios: JSONObject? = null
 
+    var OPCION_CLIENTE_ESCOGIDO: Int = 1
+    var OPCION_CLIENTE_ORIGEN: Int = 2
+    var OPCION_CLIENTE_DESTINO: Int = 3
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,17 +43,29 @@ class NuevoDomicilioActivity : AppCompatActivity() {
             var vista = Intent(this, GetClienteActivity::class.java)
             vista.putExtra("datos_usuario", datosUsuario!!.toString())
             vista.putExtra("datos_domicilio", getDatosDomicilio().toString())
+            vista.putExtra("opcionVista", OPCION_CLIENTE_ESCOGIDO.toString())
+            finish()
             startActivity(vista)
         }
         // boton direccion origen
         findViewById<Button>(R.id.btnNuDoOrigen).setOnClickListener {
-
+            var vista = Intent(this, GetClienteActivity::class.java)
+            vista.putExtra("datos_usuario", datosUsuario!!.toString())
+            vista.putExtra("datos_domicilio", getDatosDomicilio().toString())
+            vista.putExtra("opcionVista", OPCION_CLIENTE_ORIGEN.toString())
+            finish()
+            startActivity(vista)
         }
 
         //boton direccion destino
 
-        findViewById<Button>(R.id.btnNuDoOrigen).setOnClickListener {
-
+        findViewById<Button>(R.id.btnNuDoDestino).setOnClickListener {
+            var vista = Intent(this, GetClienteActivity::class.java)
+            vista.putExtra("datos_usuario", datosUsuario!!.toString())
+            vista.putExtra("datos_domicilio", getDatosDomicilio().toString())
+            vista.putExtra("opcionVista", OPCION_CLIENTE_DESTINO.toString())
+            finish()
+            startActivity(vista)
         }
 
         //boton registrar domicilio
@@ -85,7 +101,7 @@ class NuevoDomicilioActivity : AppCompatActivity() {
 
     }
 
-
+    //recoge todos los datos del formulario y los retorna
     fun getDatosDomicilio(): JSONObject {
         var dats = JSONObject()
         dats.put("nombre_cliente", findViewById<TextView>(R.id.txtNuDoTres).text.toString())
@@ -97,9 +113,11 @@ class NuevoDomicilioActivity : AppCompatActivity() {
         return dats
     }
 
+    //intriduce todos los datos o compos al formulario
+    //los datos viejedel objeto json datosDomicilio que se tranmite entre vistas
     fun setDatosDomicilio() {
         findViewById<TextView>(R.id.txtNuDoTres).text =
-            "Cliente : " + datosDomicilios!!.getString("nombre_cliente")
+            datosDomicilios!!.getString("nombre_cliente")
         findViewById<TextView>(R.id.txtNuDoOrigen).text = datosDomicilios!!.getString("origen")
         findViewById<TextView>(R.id.txtNuDoDestino).text = datosDomicilios!!.getString("destino")
         findViewById<TextView>(R.id.edtNuDoTres).text = datosDomicilios!!.getString("descripcion")

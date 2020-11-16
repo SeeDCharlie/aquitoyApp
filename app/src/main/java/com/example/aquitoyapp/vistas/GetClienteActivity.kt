@@ -25,6 +25,7 @@ class GetClienteActivity : AppCompatActivity(), eventRecyclerView {
     var listaClientes: RecyclerView? = null
     var searchv: SearchView? = null
     var adapter: rowAdapterClientes? = null
+    var opcionVista: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +72,7 @@ class GetClienteActivity : AppCompatActivity(), eventRecyclerView {
         datosDomicilio = JSONObject(intent.getStringExtra("datos_domicilio"))
         clientes = ArrayList<Cliente>()
         clientesAux = ArrayList<Cliente>()
+        opcionVista = intent.getStringExtra("opcionVista")!!.toInt()
         searchv = findViewById<SearchView>(R.id.schGetClUno)
         listaClientes = findViewById(R.id.listGetClUno)
         listaClientes?.layoutManager = LinearLayoutManager(this)
@@ -101,13 +103,24 @@ class GetClienteActivity : AppCompatActivity(), eventRecyclerView {
     }
 
     override fun onCLick(posicion: Int) {
-        datosDomicilio!!.put("id_cliente", clientesAux!!.get(posicion).id_cliente)
-        datosDomicilio!!.put("nombre_cliente", clientesAux!!.get(posicion).nombrecomercial)
+
         var vista = Intent(this, NuevoDomicilioActivity::class.java)
+        if (opcionVista == 1) {
+            datosDomicilio!!.put("id_cliente", clientesAux!!.get(posicion).id_cliente)
+            datosDomicilio!!.put("nombre_cliente", clientesAux!!.get(posicion).nombrecomercial)
+        }
+        if (opcionVista == 2) {
+            datosDomicilio!!.put("origen", clientesAux!!.get(posicion).direccion)
+        }
+        if (opcionVista == 3) {
+            datosDomicilio!!.put("destino", clientesAux!!.get(posicion).direccion)
+        }
+
         vista.putExtra("datos_usuario", datosUsuario!!.toString())
         vista.putExtra("datos_domicilio", datosDomicilio!!.toString())
         startActivity(vista)
         finish()
+
     }
 
 
