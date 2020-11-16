@@ -3,6 +3,7 @@ package com.example.aquitoyapp.vistas
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -25,8 +26,12 @@ class DomicilioActivoActivity : AppCompatActivity() {
     var switchCamara = -1
     var controlapi: ControlApi? = null
     var controldb: ControlSql? = null
-    private val IMAGE_PICK_CODE = 1000
-    private val PERMISSION_CODE = 1001
+    var image_uri: Uri? = null
+    /*private val IMAGE_PICK_CODE = 1000
+    private val PERMISSION_CODE = 1001*/
+
+    private val PERMISSION_CODE = 1000
+    private val IMAGE_CAPTURE_CODE = 1001
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +59,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
         //evento boton que muestra la ubicacion en el mapa
 
         findViewById<ImageButton>(R.id.btnDoAcMap).setOnClickListener {
-            var vistaMapa = Intent()
+            //var vistaMapa = Intent()
         }
 
         //evento del boton para añadir una nueva nota al domicilio
@@ -136,7 +141,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
 
     //funcion que llama la camara del sistema
     fun getFoto() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
                 PackageManager.PERMISSION_DENIED
             ) {
@@ -151,14 +156,42 @@ class DomicilioActivoActivity : AppCompatActivity() {
         } else {
             //system OS is < Marshmallow
             pickImageFromGallery()
+        }*/
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA)
+                == PackageManager.PERMISSION_DENIED ||
+                checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_DENIED
+            ) {
+                //permission was not enabled
+                val permission =
+                    arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                //show popup to request permission
+                requestPermissions(permission, PERMISSION_CODE)
+            } else {
+                //permission already granted
+                pickImageFromGallery()
+            }
+        } else {
+            //system os is < marshmallow
+            pickImageFromGallery()
         }
+
     }
     //funcion que inicia la galeria de imagebes para seleccionar una image
     private fun pickImageFromGallery() {
-        //Intent to pick image
+        /*//Intent to pick image
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
-        startActivityForResult(intent, IMAGE_PICK_CODE)
+        startActivityForResult(intent, IMAGE_PICK_CODE)*/*/
+        val values = ContentValues()
+        values.put(MediaStore.Images.Media.TITLE, "New Picture")
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+        image_uri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        //camera intent
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
+        startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE)
     }
 
     //funcion que pide permisos para acceder a la galeria de imagenes
@@ -167,7 +200,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        when (requestCode) {
+        /*when (requestCode) {
             PERMISSION_CODE -> {
                 if (grantResults.size > 0 && grantResults[0] ==
                     PackageManager.PERMISSION_GRANTED
@@ -179,15 +212,28 @@ class DomicilioActivoActivity : AppCompatActivity() {
                     Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
+        }*/
+        when (requestCode) {
+            PERMISSION_CODE -> {
+                if (grantResults.size > 0 && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED
+                ) {
+                    //permission from popup was granted
+                    pickImageFromGallery()
+                } else {
+                    //permission from popup was denied
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
     //oyente que captura la imagen seleccionada de la galeria de imagenes
     @SuppressLint("MissingSuperCall")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+        if (resultCode == Activity.RESULT_OK /*&& requestCode == IMAGE_PICK_CODE*/) {
             val img = ImageView(this)
-            var uriFile = data?.data
+            var uriFile = image_uri
             img.setImageURI(data?.data)
             if (switchCamara == 1) {
                 findViewById<LinearLayout>(R.id.lilDoAcUno).addView(img)
@@ -212,7 +258,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
                     2,
                     getRealPathFromURI(uriFile!!)!!
                 )
-                //se guardan las rutas de las evidenciasen el una base de datos local
+                //se guardan las rutas de las evidenciasen en una base de datos local
                 controldb!!.addEviden(datosDomicilio!!.getInt("dom_id"), uriFile.toString(), 0)
             }
         }
