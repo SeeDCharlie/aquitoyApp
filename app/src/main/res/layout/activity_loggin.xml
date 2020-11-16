@@ -11,9 +11,13 @@
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="match_parent"
-        android:layout_height="192dp"
-        android:layout_gravity="fill|top"
+        android:layout_height="wrap_content"
+        android:layout_gravity="clip_horizontal|clip_vertical|start|fill"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:drawingCacheQuality="auto"
         android:foregroundGravity="fill"
+        android:scaleType="centerInside"
         app:srcCompat="@drawable/portadaapp" />
 
     <ImageView
