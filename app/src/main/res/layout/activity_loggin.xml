@@ -11,16 +11,15 @@
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="match_parent"
-        android:layout_height="198dp"
-        android:layout_gravity="top"
-        android:layout_weight="0"
+        android:layout_height="192dp"
+        android:layout_gravity="fill|top"
+        android:foregroundGravity="fill"
         app:srcCompat="@drawable/portadaapp" />
 
     <ImageView
         android:id="@+id/imageView7"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
+        android:layout_height="48dp"
         app:srcCompat="@drawable/logo_uno" />
 
     <TextView
@@ -28,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="2dp"
         android:layout_weight="0"
@@ -70,21 +69,22 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="30dp"
-        android:layout_marginBottom="2dp"
-        android:layout_weight="0"
+        android:layout_marginBottom="5dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnIngresar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:layout_marginLeft="50dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="30dp"
         android:layout_weight="0"
         android:backgroundTint="#CD4B4B"
+        android:foregroundGravity="bottom"
         android:text="Iniciar sesion"
         android:textColor="#FFFFFF"
         android:textStyle="bold" />
