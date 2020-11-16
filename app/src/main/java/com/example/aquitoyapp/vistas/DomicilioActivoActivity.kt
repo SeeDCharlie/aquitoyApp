@@ -3,23 +3,31 @@ package com.example.aquitoyapp.vistas
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+
 import android.provider.MediaStore
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.toolbox.Volley
 import com.example.aquitoyapp.R
 import com.example.aquitoyapp.controles.ControlApi
 import com.example.aquitoyapp.controles.ControlSql
+import com.example.aquitoyapp.modelos.apiInterfaz
+import okhttp3.OkHttpClient
+
 import org.json.JSONObject
 
 
-class DomicilioActivoActivity : AppCompatActivity() {
+class DomicilioActivoActivity : AppCompatActivity(),
+    apiInterfaz {
 
     var datosUsuario: JSONObject? = null
     var datosDomicilio: JSONObject? = null
@@ -27,8 +35,20 @@ class DomicilioActivoActivity : AppCompatActivity() {
     var controlapi: ControlApi? = null
     var controldb: ControlSql? = null
     var image_uri: Uri? = null
-    /*private val IMAGE_PICK_CODE = 1000
-    private val PERMISSION_CODE = 1001*/
+
+    override var context: Context = this
+    override var activity: Activity = this
+
+    override var baseUrl = "https://soportec.co/mensajeria/webservices/"
+    override var requestExecute = Volley.newRequestQueue(context)
+
+    override var dialog: ProgressDialog? = null
+    override var serverURL: String =
+        "https://soportec.co/mensajeria/webservices/guardarEvidencia.php"
+    override var serverUploadDirectoryPath: String =
+        "http://soportec.co/mensajeria/webservices/uploads/"
+    override val client = OkHttpClient()
+
 
     private val PERMISSION_CODE = 1000
     private val IMAGE_CAPTURE_CODE = 1001
@@ -85,6 +105,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
         //boton que guarda avances de domicilio activo
 
         findViewById<ImageButton>(R.id.btnDoAcOk).setOnClickListener {
+
             controlapi!!.guardarDomicilio(
                 datosUsuario!!.getString("usu_documento"),
                 datosUsuario!!.getString("usu_pass"),
@@ -139,24 +160,10 @@ class DomicilioActivoActivity : AppCompatActivity() {
         finish()
     }
 
-    //funcion que llama la camara del sistema
+    //funcion que pide permisos a los usuarios para utilizar la camara
+    //y abrir la camara para luegorecuperar la imagen tomada
     fun getFoto() {
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                PackageManager.PERMISSION_DENIED
-            ) {
-                //permission denied
-                val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-                //show popup to request runtime permission
-                requestPermissions(permissions, PERMISSION_CODE)
-            } else {
-                //permission already granted
-                pickImageFromGallery()
-            }
-        } else {
-            //system OS is < Marshmallow
-            pickImageFromGallery()
-        }*/
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_DENIED ||
@@ -178,12 +185,10 @@ class DomicilioActivoActivity : AppCompatActivity() {
         }
 
     }
-    //funcion que inicia la galeria de imagebes para seleccionar una image
+
+    //funcion que inicia la camara para tomar una evidencia
     private fun pickImageFromGallery() {
-        /*//Intent to pick image
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, IMAGE_PICK_CODE)*/*/
+
         val values = ContentValues()
         values.put(MediaStore.Images.Media.TITLE, "New Picture")
         values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
@@ -216,7 +221,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
         }
     }
 
-    //oyente que captura la imagen seleccionada de la galeria de imagenes
+    //oyente que captura la imagen seleccionada de la camara
     @SuppressLint("MissingSuperCall")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK /*&& requestCode == IMAGE_PICK_CODE*/) {
@@ -295,6 +300,13 @@ class DomicilioActivoActivity : AppCompatActivity() {
         }
 
 
+    }
+
+
+    //nuevo metodo que se ejecuta despues deuna llamada a la api
+
+    override fun acionPots(obj: JSONObject) {
+        TODO("Not yet implemented")
     }
 
 
