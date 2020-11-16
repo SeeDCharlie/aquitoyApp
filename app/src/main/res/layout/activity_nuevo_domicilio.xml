@@ -53,36 +53,53 @@
                 android:layout_marginBottom="20dp"
                 android:background="#F43A2C" />
 
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:text="Cliente : "
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:text="Cliente : "
-                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtNuDoTres"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
                     android:layout_weight="15"
                     android:duplicateParentState="true"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnNuDoDos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:background="#009688"
+                    android:text="Existente" />
             </LinearLayout>
+
+            <View
+                android:id="@+id/divider14"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="?android:attr/listDivider" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,20 +110,12 @@
                 <Button
                     android:id="@+id/btnNuDoUno"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
+                    android:layout_height="1dp"
                     android:layout_weight="1"
                     android:background="#4CAF50"
-                    android:text="Nuevo" />
+                    android:text="Nuevo"
+                    android:visibility="invisible" />
 
-                <Button
-                    android:id="@+id/btnNuDoDos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:layout_weight="1"
-                    android:background="#009688"
-                    android:text="Existente" />
             </LinearLayout>
 
             <View
