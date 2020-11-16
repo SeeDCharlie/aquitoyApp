@@ -80,6 +80,7 @@ class DomiciliosDisponiblesActivity : AppCompatActivity() {
             var dom: JSONObject = domicilios.getJSONObject(it)
             listaDatosDom.add(
                 DomDisponible(
+                    dom.getString("cli_nombre"),
                     dom.getString("dom_origen"),
                     dom.getString("dom_destino"),
                     dom.getString("estadodom_nombre")

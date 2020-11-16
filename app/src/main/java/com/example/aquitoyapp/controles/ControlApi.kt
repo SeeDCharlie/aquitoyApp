@@ -156,6 +156,7 @@ class ControlApi(var context: Context, activity: Activity? = null) : Serializabl
         documento: String,
         contraseña: String,
         id_dom: Int,
+
         funcion: (datos: JSONObject) -> Unit
     ) {
         val datos = JSONObject()

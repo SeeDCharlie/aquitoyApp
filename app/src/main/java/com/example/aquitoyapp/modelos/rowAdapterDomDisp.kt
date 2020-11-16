@@ -18,11 +18,13 @@ class rowAdapterDomDisp(context: Context, var resources: Int, var items: List<Do
         val layoutInflater: LayoutInflater = LayoutInflater.from(contexts)
         val view = layoutInflater.inflate(resources, null)
 
+        val txtCliente: TextView = view.findViewById(R.id.textViewCuatro)
         val txtOrigen: TextView = view.findViewById(R.id.textViewUno)
         val txtDestino: TextView = view.findViewById(R.id.tvRowDos)
         val txtEstado: TextView = view.findViewById(R.id.textViewTres)
 
         var myItem: DomDisponible = items[position]
+        txtCliente.text = txtCliente.text.toString() + myItem.cliente
         txtDestino.text = txtDestino.text.toString() + myItem.destino
         txtOrigen.text = txtOrigen.text.toString() + myItem.origen
         txtEstado.text = txtEstado.text.toString() + myItem.estado

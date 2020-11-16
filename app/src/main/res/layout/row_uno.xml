@@ -28,6 +28,19 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textViewCuatro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+
+                android:layout_marginTop="4dp"
+
+                android:text="Cliente: "
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imageViewCuatro"
+                app:layout_constraintTop_toBottomOf="@+id/tvRowDos" />
+
+            <TextView
                 android:id="@+id/textViewUno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
