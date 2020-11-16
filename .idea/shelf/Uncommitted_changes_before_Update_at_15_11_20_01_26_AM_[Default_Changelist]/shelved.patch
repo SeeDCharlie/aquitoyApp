@@ -1,0 +1,68 @@
+Index: app/src/main/java/com/example/aquitoyapp/modelos/Api.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.aquitoyapp.modelos\n\nimport android.app.Activity\nimport android.app.ProgressDialog\nimport android.content.Context\nimport android.util.Log\nimport android.webkit.MimeTypeMap\nimport android.widget.Toast\nimport com.android.volley.DefaultRetryPolicy\nimport com.android.volley.Request\nimport com.android.volley.VolleyError\nimport com.android.volley.toolbox.JsonObjectRequest\nimport com.android.volley.toolbox.Volley\nimport okhttp3.MediaType.Companion.toMediaTypeOrNull\nimport okhttp3.MultipartBody\nimport okhttp3.OkHttpClient\nimport okhttp3.RequestBody\nimport okhttp3.RequestBody.Companion.asRequestBody\nimport okhttp3.Response\nimport org.json.JSONObject\nimport java.io.File\nimport java.io.Serializable\n\n\n@Suppress(\"DEPRECATION\")\nclass Api(var context: Context, activity: Activity? = null) : Serializable {\n\n    private var baseUrl = \"https://soportec.co/mensajeria/webservices/\"\n    private var requestExecute = Volley.newRequestQueue(context)\n    var activity = activity\n    var dialog: ProgressDialog? = null\n    var serverURL: String = \"https://soportec.co/mensajeria/webservices/guardarEvidencia.php\"\n    var serverUploadDirectoryPath: String = \"http://soportec.co/mensajeria/webservices/uploads/\"\n    val client = OkHttpClient()\n\n\n    // funcion para el envio de una peticion POST\n    fun respuestaPost(datos: JSONObject, direccion: String, funcion: (datos: JSONObject) -> Unit) {\n        val url = this.baseUrl + direccion\n        val request = JsonObjectRequest(\n            Request.Method.POST, url, datos,\n            { response ->\n                try {\n                    if (response.get(\"ok\") == true) {\n                        funcion(response.getJSONObject(\"dats\"))\n                    } else {\n                        showMsj(response.getString(\"dats\"))\n                    }\n                } catch (e: Exception) {\n                    showMsj(\"Error: ${e}\")\n                }\n            }, { error: VolleyError ->\n                showMsj(\">>>>>>>>>>>> \\n Error!! ${error} \\n Causa : ${error.cause}\")\n                println(\">>>>>>>>>>>> \\n Error!! ${error} \\n Causa : ${error.cause}\")\n            })\n\n        request.retryPolicy = DefaultRetryPolicy(\n            DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, 0, 1f\n        )\n        this.requestExecute.add(request)\n\n    }\n\n\n    fun showMsj(msj: String) {\n        var duration = Toast.LENGTH_SHORT\n        var showMsj = Toast.makeText(this.context, msj, duration)\n        showMsj.show()\n    }\n\n    //--------------------------------------------------------------------------------------\n\n\n    fun uploadFile(\n        documento: String,\n        contraseña: String,\n        dom_id: Int,\n        sourceFilePath: String,\n        uploadedFileName: String?\n    ) {\n        Thread {\n            val sourceFile = File(sourceFilePath)\n            val mimeType = getMimeType(sourceFile)\n            if (mimeType == null) {\n                Log.e(\"file error\", \" >>>>>>Not able to get mime type\")\n            }\n            val fileName: String =\n                if (uploadedFileName == null) sourceFile.name else uploadedFileName\n            toggleProgressDialog(true)\n            try {\n                val requestBody: RequestBody =\n                    MultipartBody.Builder().setType(MultipartBody.FORM)\n                        .addFormDataPart(\n                            \"uploaded_file\",\n                            fileName,\n                            sourceFile.asRequestBody(mimeType?.toMediaTypeOrNull())\n                        ).addFormDataPart(\n                            \"documento\", documento\n                        ).addFormDataPart(\n                            \"contraseña\", contraseña\n                        ).addFormDataPart(\n                            \"guardar_evidencia\", true.toString()\n                        ).addFormDataPart(\n                            \"dom_id\", dom_id.toString()\n                        ).build()\n\n                val request: okhttp3.Request =\n                    okhttp3.Request.Builder().url(serverURL).post(requestBody).build()\n\n                val response: Response = client.newCall(request).execute()\n\n                if (response.isSuccessful) {\n                    Log.d(\"File upload\", \"success, path: $serverUploadDirectoryPath$fileName\")\n                    val jResponse = JSONObject(response.body!!.string()).getJSONObject(\"dats\")\n                    showToast(jResponse.getString(\"msj\"))\n                } else {\n                    Log.e(\"File upload\", \"fallo al cargar la imagen\")\n                    showToast(\"Fallo al cargar la imagen!\")\n                }\n            } catch (ex: Exception) {\n                ex.printStackTrace()\n                Log.e(\"File upload\", ex.toString())\n                showToast(\"File uploading failed : \" + ex)\n            }\n            toggleProgressDialog(false)\n        }.start()\n    }\n\n    // url = file path or whatever suitable URL you want.\n    fun getMimeType(file: File): String? {\n        var type: String? = null\n        val extension = MimeTypeMap.getFileExtensionFromUrl(file.path)\n        if (extension != null) {\n            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension)\n        }\n        return type\n    }\n\n    fun showToast(message: String) {\n        activity!!.runOnUiThread {\n            Toast.makeText(activity, message, Toast.LENGTH_LONG).show()\n        }\n    }\n\n    fun toggleProgressDialog(show: Boolean) {\n        activity!!.runOnUiThread {\n            if (show) {\n                @Suppress(\"DEPRECATION\")\n                dialog = ProgressDialog.show(activity, \"Aquitoy Msj\", \"Cargando Imagen...\", true)\n            } else {\n                dialog?.dismiss()\n            }\n        }\n    }\n\n}\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/aquitoyapp/modelos/Api.kt	(revision c459ae6d1f1d506656d17eaacef7b761417c4ed7)
++++ app/src/main/java/com/example/aquitoyapp/modelos/Api.kt	(date 1605405226000)
+@@ -91,8 +91,7 @@
+                 val requestBody: RequestBody =
+                     MultipartBody.Builder().setType(MultipartBody.FORM)
+                         .addFormDataPart(
+-                            "uploaded_file",
+-                            fileName,
++                            "uploaded_file", fileName,
+                             sourceFile.asRequestBody(mimeType?.toMediaTypeOrNull())
+                         ).addFormDataPart(
+                             "documento", documento
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_7\" project-jdk-name=\"1.8\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\n  </component>\n  <component name=\"ProjectType\">\n    <option name=\"id\" value=\"Android\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision c459ae6d1f1d506656d17eaacef7b761417c4ed7)
++++ .idea/misc.xml	(date 1605391903000)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+   <component name="ProjectType">
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\n  <component name=\"GradleSettings\">\n    <option name=\"linkedExternalProjectsSettings\">\n      <GradleProjectSettings>\n        <option name=\"testRunner\" value=\"PLATFORM\" />\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"gradleJvm\" value=\"1.8\" />\n        <option name=\"modules\">\n          <set>\n            <option value=\"$PROJECT_DIR$\" />\n            <option value=\"$PROJECT_DIR$/app\" />\n          </set>\n        </option>\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\n      </GradleProjectSettings>\n    </option>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/gradle.xml	(revision c459ae6d1f1d506656d17eaacef7b761417c4ed7)
++++ .idea/gradle.xml	(date 1605391703000)
+@@ -15,6 +15,7 @@
+           </set>
+         </option>
+         <option name="resolveModulePerSourceSet" value="false" />
++        <option name="useQualifiedModuleNames" value="true" />
+       </GradleProjectSettings>
+     </option>
+   </component>
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/compiler.xml	(date 1605391903000)
++++ .idea/compiler.xml	(date 1605391903000)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="CompilerConfiguration">
++    <bytecodeTargetLevel target="1.8" />
++  </component>
++</project>
+\ No newline at end of file
