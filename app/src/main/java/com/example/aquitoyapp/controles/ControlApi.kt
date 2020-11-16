@@ -152,6 +152,21 @@ class ControlApi(var context: Context, activity: Activity? = null) : Serializabl
         this.api.respuestaPost(datos, "terminarDomicilio.php", funcion)
     }
 
+    fun guardarDomicilio(
+        documento: String,
+        contraseña: String,
+        id_dom: Int,
+        funcion: (datos: JSONObject) -> Unit
+    ) {
+        val datos = JSONObject()
+        datos.put("terminar_domicilio", true)
+        datos.put("documento", documento)
+        datos.put("id_dom", id_dom)
+        datos.put("contraseña", contraseña)
+        this.api.respuestaPost(datos, "terminarDomicilio.php", funcion)
+    }
+
+
     fun cancelarDomicilio(
         documento: String,
         contraseña: String,
