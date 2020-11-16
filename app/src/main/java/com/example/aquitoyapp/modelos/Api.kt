@@ -75,8 +75,9 @@ class Api(var context: Context, activity: Activity? = null) : Serializable {
         documento: String,
         contraseña: String,
         dom_id: Int,
+        tipo_eviden: Int,
         sourceFilePath: String,
-        uploadedFileName: String?
+        uploadedFileName: String
     ) {
         Thread {
             val sourceFile = File(sourceFilePath)
@@ -91,8 +92,7 @@ class Api(var context: Context, activity: Activity? = null) : Serializable {
                 val requestBody: RequestBody =
                     MultipartBody.Builder().setType(MultipartBody.FORM)
                         .addFormDataPart(
-                            "uploaded_file",
-                            fileName,
+                            "uploaded_file", fileName,
                             sourceFile.asRequestBody(mimeType?.toMediaTypeOrNull())
                         ).addFormDataPart(
                             "documento", documento
@@ -102,6 +102,8 @@ class Api(var context: Context, activity: Activity? = null) : Serializable {
                             "guardar_evidencia", true.toString()
                         ).addFormDataPart(
                             "dom_id", dom_id.toString()
+                        ).addFormDataPart(
+                            "tipo_eviden", tipo_eviden.toString()
                         ).build()
 
                 val request: okhttp3.Request =

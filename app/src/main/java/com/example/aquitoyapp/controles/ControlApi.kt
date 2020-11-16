@@ -170,12 +170,13 @@ class ControlApi(var context: Context, activity: Activity? = null) : Serializabl
         documento: String,
         contraseña: String,
         id_dom: Int,
+        id_tipo_evidencia: Int,
         urlFile: String
     ) {
 
         val dateFormat = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val uploadName: String = "img_${id_dom}_${dateFormat}.jpeg"
-        this.api.uploadFile(documento, contraseña, id_dom, urlFile, uploadName)
+        this.api.uploadFile(documento, contraseña, id_dom, id_tipo_evidencia, urlFile, uploadName)
 
     }
 

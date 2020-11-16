@@ -177,22 +177,28 @@ class DomicilioActivoActivity : AppCompatActivity() {
             img.setImageURI(data?.data)
             if (switchCamara == 1) {
                 findViewById<LinearLayout>(R.id.lilDoAcUno).addView(img)
+                //secargan las evidencias al servidor
                 controlapi!!.cargarEvidencia(
                     datosUsuario!!.getString("usu_documento"),
                     datosUsuario!!.getString("usu_pass"),
                     datosDomicilio!!.getInt("dom_id"),
+                    1,
                     getRealPathFromURI(uriFile!!)!!
                 )
+                //se guardan las rutas de las evidenciasen el una base de datos local
                 controldb!!.addEviden(datosDomicilio!!.getInt("dom_id"), uriFile.toString(), 1)
 
             } else if (switchCamara == 0) {
                 findViewById<LinearLayout>(R.id.lilDoAcDos).addView(img)
+//               //secargan las evidencias al servidor
                 controlapi!!.cargarEvidencia(
                     datosUsuario!!.getString("usu_documento"),
                     datosUsuario!!.getString("usu_pass"),
                     datosDomicilio!!.getInt("dom_id"),
+                    2,
                     getRealPathFromURI(uriFile!!)!!
                 )
+                //se guardan las rutas de las evidenciasen el una base de datos local
                 controldb!!.addEviden(datosDomicilio!!.getInt("dom_id"), uriFile.toString(), 0)
             }
         }
