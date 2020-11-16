@@ -31,6 +31,7 @@ class rowAdapterClientes(val items: ArrayList<Cliente>, val event: eventRecycler
             vista.txtRowDosDos.text = cliente.nombrecomercial
             vista.txtRowDosCuatro.text = cliente.nombre
             vista.txtRowDosTres.text = cliente.telefono
+            vista.txtRowDosCinco.text = cliente.direccion
         }
     }
 }

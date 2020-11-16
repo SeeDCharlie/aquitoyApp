@@ -34,7 +34,7 @@ class GetClienteActivity : AppCompatActivity(), eventRecyclerView {
 
 
         //eventos
-        //evento de busqueda, cada que el texto cambia en laobj.getString("nombre_cliente") barra de busqueda se
+        //evento de busqueda, cada que el texto cambia en la barra de busqueda se
         //filtran los registros de los clientes
 
         searchv!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -90,7 +90,8 @@ class GetClienteActivity : AppCompatActivity(), eventRecyclerView {
                     cliente.getInt("cli_id"),
                     cliente.getString("cli_nombrecomercial"),
                     cliente.getString("cli_nombre"),
-                    cliente.getString("cli_telefono")
+                    cliente.getString("cli_telefono"),
+                    cliente.getString("cli_direccion")
                 )
             )
         }
