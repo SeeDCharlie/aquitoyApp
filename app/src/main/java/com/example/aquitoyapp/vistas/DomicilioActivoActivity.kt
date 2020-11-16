@@ -222,7 +222,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK /*&& requestCode == IMAGE_PICK_CODE*/) {
             val img = ImageView(this)
             var uriFile = image_uri
-            img.setImageURI(data?.data)
+            img.setImageURI(uriFile)
             if (switchCamara == 1) {
                 findViewById<LinearLayout>(R.id.lilDoAcUno).addView(img)
                 //secargan las evidencias al servidor
