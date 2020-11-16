@@ -4,8 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import com.example.aquitoyapp.controles.ControlApi
 import com.example.aquitoyapp.controles.ControlSql
+import com.example.aquitoyapp.controles.ReporteUbicacion
 import com.example.aquitoyapp.vistas.LogginActivity
 import com.example.aquitoyapp.vistas.menuPrincipal
 import org.json.JSONObject
@@ -19,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val workRequest: WorkRequest = OneTimeWorkRequest.Builder(ReporteUbicacion::class.java)
+            .build()
+        WorkManager.getInstance(this).enqueue(workRequest)
 
         controlapi = ControlApi(this)
         controldb = ControlSql(this)
@@ -46,6 +53,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //funcion que se ejecuta si hay una sesion iniciada en el celular
+
     fun logginAction(datos_usuario: JSONObject) {
         val intent = Intent(this, menuPrincipal::class.java)
         intent.putExtra("datos_usuario", datos_usuario.toString())
@@ -53,9 +62,6 @@ class MainActivity : AppCompatActivity() {
         finish()
         startActivity(intent)
     }
-
-
-    //funcion que se debe ejecutar si la autenticacion del usuario es correcta
 
 
     fun showMsj(msj: String) {

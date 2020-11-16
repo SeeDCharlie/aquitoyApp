@@ -99,6 +99,8 @@ class DomicilioActivoActivity : AppCompatActivity() {
                 ::terminarDomicilio
             )
         }
+
+
     }
 
     //carga y asignacion de variables

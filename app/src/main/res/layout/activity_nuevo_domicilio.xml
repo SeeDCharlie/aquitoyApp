@@ -67,7 +67,8 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_weight="1"
-                    android:text="Cliente : " />
+                    android:text="Cliente : "
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtNuDoTres"
@@ -127,12 +128,14 @@
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <EditText
                     android:id="@+id/txtNuDoOrigen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="4" />
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Direccion Origen"
+                    android:inputType="textPersonName" />
 
                 <Button
                     android:id="@+id/btnNuDoOrigen"
@@ -142,6 +145,7 @@
                     android:backgroundTint="#FF9800"
                     android:minWidth="100dip"
                     android:text="Origen" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -153,12 +157,14 @@
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <EditText
                     android:id="@+id/txtNuDoDestino"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="4" />
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Direccion Destino"
+                    android:inputType="textPersonName" />
 
                 <Button
                     android:id="@+id/btnNuDoDestino"
