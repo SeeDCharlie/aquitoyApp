@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".vistas.NuevaNotaDom"></activity>
+        <activity android:name=".vistas.LogginActivity"></activity>
+        <activity android:name=".vistas.NuevaNotaDom" />
         <activity android:name=".vistas.GetClienteActivity" />
         <activity android:name=".vistas.NuevoClienteActivity" />
         <activity android:name=".vistas.NuevoDomicilioActivity" />
@@ -43,7 +43,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
     </application>
 

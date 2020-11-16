@@ -2,16 +2,13 @@ package com.example.aquitoyapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.aquitoyapp.controles.ControlApi
 import com.example.aquitoyapp.controles.ControlSql
+import com.example.aquitoyapp.vistas.LogginActivity
 import com.example.aquitoyapp.vistas.menuPrincipal
 import org.json.JSONObject
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,12 +25,6 @@ class MainActivity : AppCompatActivity() {
 
         checkSesion()
 
-        findViewById<Button>(R.id.btnIngresar).setOnClickListener {
-            val username = findViewById<EditText>(R.id.inpTextUser).text.toString()
-            val password = findViewById<EditText>(R.id.inpTextPassword).text.toString()
-            controlapi!!.loggin(username, password, ::btnLogginAction)
-
-        }
 
     }
 
@@ -45,32 +36,26 @@ class MainActivity : AppCompatActivity() {
             controlapi!!.checkSesion(
                 resultado.get(0).documento,
                 resultado.get(0).contraseña,
-                ::btnLogginAction
+                ::logginAction
             )
 
+        } else {
+            var vista = Intent(this, LogginActivity::class.java)
+            finish()
+            startActivity(vista)
         }
     }
 
-
-    //funcion que se debe ejecutar si la autenticacion del usuario es correcta
-
-    fun btnLogginAction(datos_usuario: JSONObject) {
+    fun logginAction(datos_usuario: JSONObject) {
         val intent = Intent(this, menuPrincipal::class.java)
-
-        controldb!!.addSession(
-            datos_usuario.getInt("usu_id"),
-            datos_usuario.getString("usu_correo"),
-            datos_usuario.getString("usu_nombre"),
-            datos_usuario.getString("usu_apellidos"),
-            datos_usuario.getString("usu_documento"),
-            datos_usuario.getString("usu_pass"),
-            SimpleDateFormat("yyyy-mm-dd").format(Date())
-        )
         intent.putExtra("datos_usuario", datos_usuario.toString())
         showMsj("Bienvenido " + datos_usuario.getString("usu_nombre"))
         finish()
         startActivity(intent)
     }
+
+
+    //funcion que se debe ejecutar si la autenticacion del usuario es correcta
 
 
     fun showMsj(msj: String) {
