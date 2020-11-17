@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.soportec.aquitoyapp.R
 
-
 class rowAdapterDomDisp(context: Context, var resources: Int, var items: List<DomDisponible>) :
     ArrayAdapter<DomDisponible>(context, resources, items) {
     var contexts = context

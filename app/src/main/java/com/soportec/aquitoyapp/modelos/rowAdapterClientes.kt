@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.soportec.aquitoyapp.R
+
 import kotlinx.android.synthetic.main.row_dos.view.*
 
 class rowAdapterClientes(val items: ArrayList<Cliente>, val event: eventRecyclerView) :

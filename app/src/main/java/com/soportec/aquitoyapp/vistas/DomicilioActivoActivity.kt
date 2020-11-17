@@ -16,7 +16,7 @@ import android.provider.MediaStore
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.toolbox.Volley
-import com.example.aquitoyapp.R
+import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlApi
 import com.soportec.aquitoyapp.controles.ControlSql
 import com.soportec.aquitoyapp.modelos.apiInterfaz
