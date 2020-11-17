@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.soportec.aquitoyapp">
+    package="com.example.aquitoyapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -16,23 +16,23 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_aquitoy"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_aquitoy_round"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.soportec.aquitoyapp.vistas.LogginActivity"></activity>
-        <activity android:name="com.soportec.aquitoyapp.vistas.NuevaNotaDom" />
-        <activity android:name="com.soportec.aquitoyapp.vistas.GetClienteActivity" />
-        <activity android:name="com.soportec.aquitoyapp.vistas.NuevoClienteActivity" />
-        <activity android:name="com.soportec.aquitoyapp.vistas.NuevoDomicilioActivity" />
-        <activity android:name="com.soportec.aquitoyapp.vistas.DomicilioActivoActivity" />
-        <activity android:name="com.soportec.aquitoyapp.vistas.TomarDomicilioActivity" />
-        <activity android:name="com.soportec.aquitoyapp.vistas.DomiciliosActivosActivity" />
-        <activity android:name="com.soportec.aquitoyapp.vistas.DomiciliosDisponiblesActivity" />
-        <activity android:name="com.soportec.aquitoyapp.vistas.menuPrincipal" />
+        <activity android:name=".vistas.LogginActivity"></activity>
+        <activity android:name=".vistas.NuevaNotaDom" />
+        <activity android:name=".vistas.GetClienteActivity" />
+        <activity android:name=".vistas.NuevoClienteActivity" />
+        <activity android:name=".vistas.NuevoDomicilioActivity" />
+        <activity android:name=".vistas.DomicilioActivoActivity" />
+        <activity android:name=".vistas.TomarDomicilioActivity" />
+        <activity android:name=".vistas.DomiciliosActivosActivity" />
+        <activity android:name=".vistas.DomiciliosDisponiblesActivity" />
+        <activity android:name=".vistas.menuPrincipal" />
         <activity
-            android:name="com.soportec.aquitoyapp.MainActivity"
+            android:name=".MainActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +43,7 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.soportec.aquitoyapp"
+            android:authorities="com.example.aquitoyapp"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
