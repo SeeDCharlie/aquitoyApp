@@ -3,9 +3,7 @@ package com.soportec.aquitoyapp.vistas
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.ProgressDialog
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -15,18 +13,13 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.android.volley.toolbox.Volley
 import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlApi
 import com.soportec.aquitoyapp.controles.ControlSql
-import com.soportec.aquitoyapp.modelos.apiInterfaz
-import okhttp3.OkHttpClient
-
 import org.json.JSONObject
 
 
-class DomicilioActivoActivity : AppCompatActivity(),
-    apiInterfaz {
+class DomicilioActivoActivity : AppCompatActivity() {
 
     var datosUsuario: JSONObject? = null
     var datosDomicilio: JSONObject? = null
@@ -35,18 +28,18 @@ class DomicilioActivoActivity : AppCompatActivity(),
     var controldb: ControlSql? = null
     var image_uri: Uri? = null
 
-    override var context: Context = this
-    override var activity: Activity = this
+    /* override var context: Context = this
+     override var activity: Activity = this
 
-    override var baseUrl = "https://soportec.co/mensajeria/webservices/"
-    override var requestExecute = Volley.newRequestQueue(context)
+     override var baseUrl = "https://soportec.co/mensajeria/webservices/"
+     override var requestExecute = Volley.newRequestQueue(context)
 
-    override var dialog: ProgressDialog? = null
-    override var serverURL: String =
-        "https://soportec.co/mensajeria/webservices/guardarEvidencia.php"
-    override var serverUploadDirectoryPath: String =
-        "http://soportec.co/mensajeria/webservices/uploads/"
-    override val client = OkHttpClient()
+     override var dialog: ProgressDialog? = null
+     override var serverURL: String =
+         "https://soportec.co/mensajeria/webservices/guardarEvidencia.php"
+     override var serverUploadDirectoryPath: String =
+         "http://soportec.co/mensajeria/webservices/uploads/"
+     override val client = OkHttpClient()*/
 
 
     private val PERMISSION_CODE = 1000
@@ -304,8 +297,8 @@ class DomicilioActivoActivity : AppCompatActivity(),
 
     //nuevo metodo que se ejecuta despues deuna llamada a la api
 
-    override fun acionPots(obj: JSONObject) {
-        TODO("Not yet implemented")
+    fun acionPots(obj: JSONObject) {
+
     }
 
 
