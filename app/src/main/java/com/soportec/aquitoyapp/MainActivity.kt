@@ -20,6 +20,7 @@ import com.soportec.aquitoyapp.vistas.menuPrincipal
 import org.json.JSONObject
 
 
+@Suppress("DEPRECATED_IDENTITY_EQUALS")
 class MainActivity : AppCompatActivity() {
 
     var controldb: ControlSql? = null
@@ -41,23 +42,23 @@ class MainActivity : AppCompatActivity() {
 
     fun pedirPermisoGeolocalizacion() {
         if (ContextCompat.checkSelfPermission(
-                this@MainActivity,
+                this,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) !==
             PackageManager.PERMISSION_GRANTED
         ) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this@MainActivity,
+                    this,
                     Manifest.permission.ACCESS_FINE_LOCATION
                 )
             ) {
                 ActivityCompat.requestPermissions(
-                    this@MainActivity,
+                    this,
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1
                 )
             } else {
                 ActivityCompat.requestPermissions(
-                    this@MainActivity,
+                    this,
                     arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1
                 )
             }
