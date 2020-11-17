@@ -8,8 +8,8 @@ import android.widget.AdapterView
 import android.widget.ImageButton
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.aquitoyapp.R
 import com.soportec.aquitoyapp.MainActivity
-import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlApi
 import com.soportec.aquitoyapp.controles.ControlSql
 import com.soportec.aquitoyapp.modelos.DomDisponible
