@@ -28,18 +28,7 @@ class DomicilioActivoActivity : AppCompatActivity() {
     var controldb: ControlSql? = null
     var image_uri: Uri? = null
 
-    /* override var context: Context = this
-     override var activity: Activity = this
 
-     override var baseUrl = "https://soportec.co/mensajeria/webservices/"
-     override var requestExecute = Volley.newRequestQueue(context)
-
-     override var dialog: ProgressDialog? = null
-     override var serverURL: String =
-         "https://soportec.co/mensajeria/webservices/guardarEvidencia.php"
-     override var serverUploadDirectoryPath: String =
-         "http://soportec.co/mensajeria/webservices/uploads/"
-     override val client = OkHttpClient()*/
 
 
     private val PERMISSION_CODE = 1000
@@ -291,13 +280,6 @@ class DomicilioActivoActivity : AppCompatActivity() {
 
         }
 
-
-    }
-
-
-    //nuevo metodo que se ejecuta despues deuna llamada a la api
-
-    fun acionPots(obj: JSONObject) {
 
     }
 

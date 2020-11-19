@@ -1,26 +1,40 @@
 package com.soportec.aquitoyapp.controles
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 
-class ReporteUbicacion(appContext: Context, workerParams: WorkerParameters) : LocationListener,
+class ReporteUbicacion(appContext: Context, workerParams: WorkerParameters) :
     Worker(appContext, workerParams) {
 
-    private var locationManager: LocationManager? = null
-    var ctx = appContext
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     var lat: Double? = null
     var long: Double? = null
+    var ctx = appContext
 
+
+    @SuppressLint("MissingPermission")
     override fun doWork(): Result {
 
-
         while (true) {
-            println("mesaje en segundo plano: $lat --- $long")
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.ctx)
+
+
+            fusedLocationClient.lastLocation
+                .addOnSuccessListener { location: Location? ->
+                    if (location != null) {
+                        lat = location.latitude
+                        long = location.longitude
+                    }
+
+                    println("mesaje en segundo plano: $lat --- $long")
+                }
+
 
 
             Thread.sleep(1000 * 5)
@@ -30,9 +44,5 @@ class ReporteUbicacion(appContext: Context, workerParams: WorkerParameters) : Lo
     }
 
 
-    override fun onLocationChanged(p0: Location) {
-        lat = p0.latitude
-        long = p0.longitude
-    }
 
 }
