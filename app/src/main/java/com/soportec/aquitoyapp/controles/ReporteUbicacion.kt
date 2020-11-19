@@ -20,22 +20,16 @@ class ReporteUbicacion(appContext: Context, workerParams: WorkerParameters) :
 
     @SuppressLint("MissingPermission")
     override fun doWork(): Result {
-
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.ctx)
         while (true) {
-            fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.ctx)
-
 
             fusedLocationClient.lastLocation
                 .addOnSuccessListener { location: Location? ->
-                    if (location != null) {
-                        lat = location.latitude
-                        long = location.longitude
-                    }
-
-                    println("mesaje en segundo plano: $lat --- $long")
+                    lat = location?.latitude
+                    long = location?.longitude
                 }
 
-
+            println("coordenadas de ubicacions: $lat --- $long")
 
             Thread.sleep(1000 * 5)
         }
