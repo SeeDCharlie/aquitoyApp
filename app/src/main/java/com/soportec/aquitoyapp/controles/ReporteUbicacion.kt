@@ -42,7 +42,7 @@ class ReporteUbicacion(
 
             println("coordenadas de ubicacions: $lat --- $long")
 
-            Thread.sleep(1000 * 10)
+            Thread.sleep(1000 * 120)
         }
 
         return Result.success()
