@@ -30,14 +30,6 @@ class ControlApi(var context: Context, activity: Activity? = null) : Serializabl
         this.api.respuestaPost(datos, "logOut.php", funcion)
     }
 
-    fun checkSesion(documento: String, contraseña: String, funcion: (datos: JSONObject) -> Unit) {
-        val datos = JSONObject()
-        datos.put("check_session", true)
-        datos.put("documento", documento)
-        datos.put("contraseña", contraseña)
-        this.api.respuestaPost(datos, "checkSession.php", funcion)
-    }
-
     fun domicilios_disponibles(
         id_user: Int,
         documento: String,

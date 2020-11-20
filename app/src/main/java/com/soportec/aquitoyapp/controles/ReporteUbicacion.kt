@@ -9,6 +9,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.soportec.aquitoyapp.modelos.VariablesConf
 import com.soportec.aquitoyapp.modelos.apiInterfaz
 import org.json.JSONObject
 
@@ -23,7 +24,7 @@ class ReporteUbicacion(
     var control_db = ControlSql(appContext)
 
     override var context: Context = appContext
-    override var baseUrl: String = "https://soportec.co/mensajeria/webservices/"
+    override var baseUrl: String = VariablesConf.BASE_URL_API
     override var requestExecute: RequestQueue = Volley.newRequestQueue(context)
 
     @SuppressLint("MissingPermission")
