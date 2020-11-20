@@ -1,7 +1,6 @@
 package com.soportec.aquitoyapp.modelos
 
 
-import android.content.Context
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -11,11 +10,8 @@ import org.json.JSONObject
 
 interface apiInterfaz {
 
-    var context: Context
-
     var baseUrl: String
-    var requestExecute: RequestQueue
-
+    var requestExecute: RequestQueue?
 
     // funcion para el envio de una peticion POST
     fun respuestaPost(datos: JSONObject, direccion: String) {
@@ -36,7 +32,7 @@ interface apiInterfaz {
         request.retryPolicy = DefaultRetryPolicy(
             DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, 0, 1f
         )
-        this.requestExecute.add(request)
+        this.requestExecute!!.add(request)
 
     }
 
@@ -52,6 +48,5 @@ interface apiInterfaz {
     fun errorRequest(msj: String) {
 
     }
-
 
 }

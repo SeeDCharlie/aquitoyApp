@@ -17,11 +17,11 @@ import org.json.JSONObject
 
 class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
 
-    override var context: Context = ctx
+    var context: Context = ctx
 
     override var baseUrl: String = VariablesConf.BASE_URL_API
 
-    override var requestExecute: RequestQueue = Volley.newRequestQueue(context)
+    override var requestExecute: RequestQueue? = Volley.newRequestQueue(context)
 
     var controldb: ControlSql = ControlSql(context)
 

@@ -6,39 +6,43 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.Volley
 import com.soportec.aquitoyapp.R
-import com.soportec.aquitoyapp.controles.ControlApi
 import com.soportec.aquitoyapp.controles.ControlSql
+import com.soportec.aquitoyapp.modelos.VariablesConf
+import com.soportec.aquitoyapp.modelos.apiInterfaz
 import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.util.*
 
-class LogginActivity : AppCompatActivity() {
+class LogginActivity : AppCompatActivity(), apiInterfaz {
 
     var controldb: ControlSql? = null
-    var controlapi: ControlApi? = null
+
+    override var baseUrl: String = VariablesConf.BASE_URL_API
+
+    override var requestExecute: RequestQueue? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loggin)
 
-        controlapi = ControlApi(this)
         controldb = ControlSql(this)
-
+        requestExecute = Volley.newRequestQueue(this)
 
         findViewById<Button>(R.id.btnIngresar).setOnClickListener {
-            val username = findViewById<EditText>(R.id.inpTextUser).text.toString()
-            val password = findViewById<EditText>(R.id.inpTextPassword).text.toString()
-            controlapi!!.loggin(username, password, ::btnLogginAction)
-
+            var datos = JSONObject()
+            datos.put("loggin", true)
+            datos.put("username", findViewById<EditText>(R.id.inpTextUser).text.toString())
+            datos.put("password", findViewById<EditText>(R.id.inpTextPassword).text.toString())
+            respuestaPost(datos, "log_api.php")
         }
-
     }
-
 
     //funcion que se debe ejecutar si la autenticacion del usuario es correcta
 
-    fun btnLogginAction(datos_usuario: JSONObject) {
+    override fun acionPots(datos_usuario: JSONObject) {
         val intent = Intent(this, menuPrincipal::class.java)
 
         controldb!!.addSession(
@@ -51,14 +55,15 @@ class LogginActivity : AppCompatActivity() {
             SimpleDateFormat("yyyy-mm-dd").format(Date())
         )
         intent.putExtra("datos_usuario", datos_usuario.toString())
-        showMsj("Bienvenido " + datos_usuario.getString("usu_nombre"))
+        Toast.makeText(
+            this,
+            "Bienvenido " + datos_usuario.getString("usu_nombre"), Toast.LENGTH_SHORT
+        ).show()
         finish()
         startActivity(intent)
     }
 
 
-    fun showMsj(msj: String) {
-        val showMsj = Toast.makeText(this.baseContext, msj, Toast.LENGTH_SHORT)
-        showMsj.show()
-    }
 }
+
+
