@@ -17,9 +17,9 @@ class NuevoDomicilioActivity : AppCompatActivity() {
     var datosUsuario: JSONObject? = null
     var datosDomicilios: JSONObject? = null
 
-    var OPCION_CLIENTE_ESCOGIDO: Int = 1
-    var OPCION_CLIENTE_ORIGEN: Int = 2
-    var OPCION_CLIENTE_DESTINO: Int = 3
+    val OPCION_CLIENTE_ESCOGIDO: Int = 1
+    val OPCION_CLIENTE_ORIGEN: Int = 2
+    val OPCION_CLIENTE_DESTINO: Int = 3
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

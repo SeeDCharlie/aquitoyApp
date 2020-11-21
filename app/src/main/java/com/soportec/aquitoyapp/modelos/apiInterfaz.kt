@@ -40,13 +40,11 @@ interface apiInterfaz {
 
     }
 
-
     fun errorOk(obj: JSONObject) {
-
+        println("error : ${obj.getString("msj")}")
     }
-
     fun errorRequest(msj: String) {
-
+        println("error : ${msj}")
     }
 
 }

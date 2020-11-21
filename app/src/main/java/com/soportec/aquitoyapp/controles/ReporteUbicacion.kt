@@ -33,12 +33,14 @@ class ReporteUbicacion(
     @SuppressLint("MissingPermission")
     override fun doWork(): Result {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-        while (true) {
+        while (VariablesConf.CHECK_LOCATION) {
             fusedLocationClient.lastLocation
                 .addOnSuccessListener { location: Location? ->
                     lat = location?.latitude
                     long = location?.longitude
-                    sendLocation(lat!!, long!!)
+                    if (lat != null && long != null) {
+                        sendLocation(lat!!, long!!)
+                    }
                 }
             println("coordenadas de ubicacions: $lat --- $long")
             Thread.sleep(1000 * 120)

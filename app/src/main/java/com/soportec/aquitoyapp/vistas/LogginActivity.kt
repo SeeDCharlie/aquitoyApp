@@ -57,12 +57,20 @@ class LogginActivity : AppCompatActivity(), apiInterfaz {
         intent.putExtra("datos_usuario", datos_usuario.toString())
         Toast.makeText(
             this,
-            "Bienvenido " + datos_usuario.getString("usu_nombre"), Toast.LENGTH_SHORT
+            "Bienvenido " + datos_usuario.getString("usu_nombre"),
+            Toast.LENGTH_SHORT
         ).show()
         finish()
         startActivity(intent)
     }
 
+    override fun errorOk(obj: JSONObject) {
+        Toast.makeText(this, obj.getString("msj"), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun errorRequest(msj: String) {
+        Toast.makeText(this, msj, Toast.LENGTH_SHORT).show()
+    }
 
 }
 
