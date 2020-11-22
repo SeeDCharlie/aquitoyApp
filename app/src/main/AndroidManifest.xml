@@ -22,6 +22,14 @@
             android:name=".vistas.NavegacionAppActivity"
             android:label="@string/title_activity_navegacion_app"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".vistas.NavegacionActivity"
+            android:label="@string/title_activity_navegacion"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".vistas.NavgActivity"
+            android:label="@string/title_activity_navg"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".vistas.LogginActivity" />
         <activity android:name=".vistas.NuevaNotaDom" />
         <activity android:name=".vistas.GetClienteActivity" />
