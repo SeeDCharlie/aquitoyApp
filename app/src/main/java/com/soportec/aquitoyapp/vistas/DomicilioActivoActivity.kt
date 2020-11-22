@@ -29,8 +29,6 @@ class DomicilioActivoActivity : AppCompatActivity() {
     var image_uri: Uri? = null
 
 
-
-
     private val PERMISSION_CODE = 1000
     private val IMAGE_CAPTURE_CODE = 1001
 

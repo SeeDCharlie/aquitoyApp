@@ -49,7 +49,9 @@ class GetClienteActivity : AppCompatActivity(), eventRecyclerView {
                     clientes!!.forEach {
                         // busca coincidencias en nombre y nombre comercial en tabla clientes
                         if (it.nombrecomercial.toLowerCase(Locale.ROOT)
-                                .contains(p0.toLowerCase(Locale.ROOT)) or it.nombre.toLowerCase(Locale.ROOT)
+                                .contains(p0.toLowerCase(Locale.ROOT)) or it.nombre.toLowerCase(
+                                Locale.ROOT
+                            )
                                 .contains(p0.toLowerCase(Locale.ROOT))
                         ) {
                             clientesAux!!.add(it)
