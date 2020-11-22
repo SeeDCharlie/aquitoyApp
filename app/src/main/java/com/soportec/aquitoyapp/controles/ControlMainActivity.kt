@@ -12,7 +12,7 @@ import com.android.volley.toolbox.Volley
 import com.soportec.aquitoyapp.modelos.VariablesConf
 import com.soportec.aquitoyapp.modelos.apiInterfaz
 import com.soportec.aquitoyapp.vistas.LogginActivity
-import com.soportec.aquitoyapp.vistas.menuPrincipal
+import com.soportec.aquitoyapp.vistas.NavegacionAppActivity
 import org.json.JSONObject
 
 class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
@@ -53,7 +53,7 @@ class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
     }
 
     override fun acionPots(datos_usuario: JSONObject) {
-        val vista = Intent(context, menuPrincipal::class.java)
+        val vista = Intent(context, NavegacionAppActivity::class.java)
         vista.putExtra("datos_usuario", datos_usuario.toString())
         showMsj("Bienvenido " + datos_usuario.getString("usu_nombre"))
         activity.startActivity(vista)

@@ -11,7 +11,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ico_app_foreground"
@@ -19,7 +18,11 @@
         android:roundIcon="@mipmap/ico_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".vistas.LogginActivity"></activity>
+        <activity
+            android:name=".vistas.NavegacionAppActivity"
+            android:label="@string/title_activity_navegacion_app"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".vistas.LogginActivity" />
         <activity android:name=".vistas.NuevaNotaDom" />
         <activity android:name=".vistas.GetClienteActivity" />
         <activity android:name=".vistas.NuevoClienteActivity" />

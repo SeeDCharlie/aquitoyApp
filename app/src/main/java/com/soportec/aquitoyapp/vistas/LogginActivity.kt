@@ -38,12 +38,14 @@ class LogginActivity : AppCompatActivity(), apiInterfaz {
             datos.put("password", findViewById<EditText>(R.id.inpTextPassword).text.toString())
             respuestaPost(datos, "log_api.php")
         }
+
+
     }
 
     //funcion que se debe ejecutar si la autenticacion del usuario es correcta
 
     override fun acionPots(datos_usuario: JSONObject) {
-        val intent = Intent(this, menuPrincipal::class.java)
+        val intent = Intent(this, NavegacionAppActivity::class.java)
 
         controldb!!.addSession(
             datos_usuario.getInt("usu_id"),
