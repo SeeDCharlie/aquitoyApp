@@ -17,7 +17,7 @@ import java.io.File
 interface UploadInterfaz {
 
 
-    var activity: Activity
+    var activity: Activity?
     var dialog: ProgressDialog?
     var serverURL: String
     var serverUploadDirectoryPath: String
@@ -93,13 +93,13 @@ interface UploadInterfaz {
     }
 
     fun showToast(message: String) {
-        activity.runOnUiThread {
+        activity?.runOnUiThread {
             Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
         }
     }
 
     fun toggleProgressDialog(show: Boolean) {
-        activity.runOnUiThread {
+        activity?.runOnUiThread {
             if (show) {
                 @Suppress("DEPRECATION")
                 dialog = ProgressDialog.show(activity, "Aquitoy Msj", "Cargando Imagen...", true)

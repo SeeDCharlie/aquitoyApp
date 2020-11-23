@@ -6,9 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlDomiciliosDisponibles
@@ -42,7 +40,7 @@ class DomiciliosDisponiblesFrag : Fragment() {
             ?.setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
                 //llamo a la vista tomar_domicilio
                 NavegacionActivity.domicilioAux = controlFrag!!.domicilios_disponibles!!.getJSONObject(position.toString())
-                findNavController().navigate(R.id.disponibles_tomar_action )
+                findNavController().navigate(R.id.disponibles_tomar_trans )
             }
 
         initView(view)

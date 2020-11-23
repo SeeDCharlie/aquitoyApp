@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?android:attr/windowBackground"
-    tools:context=".vistas.DomicilioActivoActivity">
+    tools:context=".vistas.DomicilioActivoFrag">
 
 
     <ScrollView
@@ -19,54 +18,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/txtMePrUsertype"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_horizontal"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
-                    android:text="Domicilio en Curso"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/btnDoAcCancel"
-                    app:layout_constraintHorizontal_bias="0.205"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/btnDoAcMap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="5dp"
-                    android:layout_weight="0"
-                    android:background="#FFFFFF"
-                    android:padding="3dp"
-                    app:srcCompat="@drawable/img_map_one" />
-
-            </LinearLayout>
-
             <View
                 android:id="@+id/divider7"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/holo_red_dark"
-                app:layout_constraintTop_toBottomOf="@+id/txtDoAcSeis"
                 tools:layout_editor_absoluteX="1dp" />
 
             <TextView
@@ -77,11 +37,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
-                android:text="Origen : "
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDoAcUno" />
+                android:text="Origen : " />
 
             <TextView
                 android:id="@+id/txtDoAcTres"
@@ -92,10 +48,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
                 android:text="Destino : "
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDoAcDos" />
+ />
 
             <TextView
                 android:id="@+id/txtDoAcUno"
@@ -106,10 +59,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
                 android:text="Descripcion : "
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider6" />
+/>
 
             <TextView
                 android:id="@+id/txtDoAcCinco"
@@ -119,11 +69,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
-                android:text="Fecha  : "
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDoAcCuatro" />
+                android:text="Fecha  : " />
 
             <TextView
                 android:id="@+id/txtDoAcSeis"
@@ -134,11 +80,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
-                android:text="Hora : "
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDoAcCinco" />
+                android:text="Hora : " />
 
             <TextView
                 android:id="@+id/txtDoAcCuatro"
@@ -148,11 +90,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
-                android:text="Cliente : "
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDoAcTres" />
+                android:text="Cliente : "/>
 
             <View
                 android:id="@+id/divider11"
@@ -175,28 +113,13 @@
                 android:gravity="center"
                 android:text="Evidencias Origen"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/btnDoAcAdduno"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider7" />
+ />
 
             <ImageButton
                 android:id="@+id/btnDoAcAdduno"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginBottom="5dp"
-                android:background="@color/cardview_shadow_end_color"
-                android:backgroundTint="@android:color/holo_red_dark"
-                android:foregroundTint="#AE4545"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView5"
-                app:layout_constraintTop_toBottomOf="@+id/divider7"
-                app:srcCompat="@drawable/add_img_dos" />
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_img_dos" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -208,23 +131,13 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:text="Evidencias Destino"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/btnDoAcAdddos"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnDoAcAdduno" />
+                android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/btnDoAcAdddos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginBottom="5dp"
-                android:background="@color/cardview_shadow_end_color"
-                android:backgroundTint="@android:color/holo_red_dark"
-                app:srcCompat="@drawable/add_img_dos" />
+                android:src="@drawable/add_img_dos" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -236,26 +149,13 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:text="Añadir Nota"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/btnDoAcAddNote"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnDoAcAdddos" />
+                android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/btnDoAcAddNote"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="50dp"
-                android:layout_marginBottom="5dp"
-                android:background="@color/cardview_shadow_end_color"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textView8"
-                app:layout_constraintTop_toBottomOf="@+id/btnDoAcAdddos"
-                app:srcCompat="@drawable/add_note_img_dos" />
+                android:layout_height="wrap_content"
+                android:src="@drawable/add_note_img_dos" />
 
             <View
                 android:id="@+id/divider13"
@@ -334,38 +234,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/btnDoAcOk"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@color/exit_btn_background"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/img_check" />
+                    android:src="@drawable/ico_ok_uno_foreground" />
 
                 <ImageButton
                     android:id="@+id/btnDoAcCancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginBottom="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="#E8BABA"
-                    app:layout_constraintEnd_toStartOf="@+id/btnDoAcOk"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/img_cerrar" />
+                    android:src="@drawable/ico_cancel_uno_foreground" />
+
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
 
 </LinearLayout>

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.soportec.aquitoyapp.R
@@ -44,11 +45,9 @@ class TomarDomicilioFrag : Fragment(), apiInterfaz {
         //evento del boton 'empezar' para empezar un domicilio
         view.findViewById<Button>(R.id.btnToDoUno).setOnClickListener {
             empezarDomicilio()
+            findNavController().navigate(R.id.tomar_dom_activo_trans )
         }
-        // evento cancelar
-        view.findViewById<Button>(R.id.btnToDoDos).setOnClickListener {
 
-        }
     }
 
     fun empezarDomicilio(){
@@ -82,6 +81,8 @@ class TomarDomicilioFrag : Fragment(), apiInterfaz {
         tvCuatro.text = tvCuatro.text.toString() + datosDomicilio!!.getString("dom_fechaasignacion")
         tvCinco.text = tvCinco.text.toString() + datosDomicilio!!.getString("cli_nombre")
         tvSeis.text = tvSeis.text.toString() + datosDomicilio!!.getString("dom_notas")
+
+
     }
 
     override fun acionPots(obj: JSONObject) {

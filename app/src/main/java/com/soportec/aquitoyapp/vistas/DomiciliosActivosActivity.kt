@@ -38,12 +38,12 @@ class DomiciliosActivosActivity : AppCompatActivity() {
             )
         }
         //creacion evento lista de domicilios
-        findViewById<ListView>(R.id.listViewDos).setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
+        /*findViewById<ListView>(R.id.listViewDos).setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
             val vista = Intent(this, DomicilioActivoActivity::class.java)
             vista.putExtra("datos_domicilio", datosDomicilio!!.getString(position.toString()))
             vista.putExtra("datos_usuario", datosUsuario!!.toString())
             startActivity(vista)
-        }
+        }*/
     }
 
     private fun btnLogOutAction(datos: JSONObject?) {

@@ -15,7 +15,7 @@
             android:name="datos_usuario"
             app:argType="string" />
         <action
-            android:id="@+id/disponibles_tomar_action"
+            android:id="@+id/disponibles_tomar_trans"
             app:destination="@id/tomarDomicilioFrag" />
     </fragment>
     <fragment
@@ -26,6 +26,14 @@
         <argument
             android:name="datos_domicilio"
             app:argType="string" />
+        <action
+            android:id="@+id/tomar_dom_activo_trans"
+            app:destination="@id/domicilioActivoFrag" />
     </fragment>
+    <fragment
+        android:id="@+id/domicilioActivoFrag"
+        android:name="com.soportec.aquitoyapp.vistas.DomicilioActivoFrag"
+        android:label="fragment_domicilio_activo"
+        tools:layout="@layout/fragment_domicilio_activo" />
 
 </navigation>
