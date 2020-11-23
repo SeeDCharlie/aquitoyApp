@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
+import com.google.android.material.snackbar.Snackbar
 import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.modelos.DomDisponible
 import com.soportec.aquitoyapp.modelos.VariablesConf
@@ -54,7 +55,8 @@ class ControlDomiciliosDisponibles(var context: Context?, var fragment: Fragment
 
     override fun errorOk(obj: JSONObject) {
         super.errorOk(obj)
-        Toast.makeText(context, obj.getString("msj"), Toast.LENGTH_SHORT).show()
+        Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
     }
 
     override fun errorRequest(msj: String) {

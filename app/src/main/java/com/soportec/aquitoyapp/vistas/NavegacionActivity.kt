@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavArgument
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -27,6 +28,7 @@ import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlSql
 import com.soportec.aquitoyapp.modelos.VariablesConf
 import com.soportec.aquitoyapp.modelos.apiInterfaz
+import kotlinx.android.synthetic.main.activity_navegacion.view.*
 import org.json.JSONObject
 
 class NavegacionActivity : AppCompatActivity(), apiInterfaz{
@@ -56,7 +58,7 @@ class NavegacionActivity : AppCompatActivity(), apiInterfaz{
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Snackbar.make(view, "Boton agregar Domicilio en proceso", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -70,7 +72,7 @@ class NavegacionActivity : AppCompatActivity(), apiInterfaz{
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.domiciliosDisponiblesFrag
+                R.id.domiciliosDisponiblesFrag,R.id.domiciliosAvtivosFrag
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -107,33 +109,24 @@ class NavegacionActivity : AppCompatActivity(), apiInterfaz{
                     Toast.makeText(this, "item action", Toast.LENGTH_SHORT).show()
                     true
                 }
+                R.id.domiciliosAvtivosFrag -> {
+                    nc.navigate(R.id.domiciliosAvtivosFrag)
+                    Toast.makeText(this, "dom activos", Toast.LENGTH_SHORT).show()
+
+                    true
+                }
                 R.id.item_logout -> {
                     logOut()
                     true
                 }
+
                 else ->{
                    true
                 }
             }
         }
 
-        nc.addOnDestinationChangedListener(
-            NavController.OnDestinationChangedListener { controller, destination, arguments ->
-                if (destination.id == R.id.domiciliosDisponiblesFrag) {
-                    destination.addArgument(
-                        "Mata", NavArgument.Builder().setDefaultValue(
-                            arrayOf(
-                                1,
-                                2,
-                                3,
-                                4
-                            )
-                        ).build()
-                    )
-                }
 
-            }
-        )
 
     }
 

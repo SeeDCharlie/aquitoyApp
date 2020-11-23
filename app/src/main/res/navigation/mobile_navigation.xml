@@ -33,7 +33,16 @@
     <fragment
         android:id="@+id/domicilioActivoFrag"
         android:name="com.soportec.aquitoyapp.vistas.DomicilioActivoFrag"
-        android:label="fragment_domicilio_activo"
+        android:label="Domicilio Activo"
         tools:layout="@layout/fragment_domicilio_activo" />
+    <fragment
+        android:id="@+id/domiciliosAvtivosFrag"
+        android:name="com.soportec.aquitoyapp.vistas.DomiciliosAvtivosFrag"
+        android:label="Domicilios En Curso"
+        tools:layout="@layout/fragment_domicilios_avtivos" >
+        <action
+            android:id="@+id/dom_acts_activo_trans"
+            app:destination="@id/domicilioActivoFrag" />
+    </fragment>
 
 </navigation>

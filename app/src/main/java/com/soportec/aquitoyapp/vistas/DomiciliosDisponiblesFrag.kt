@@ -16,9 +16,6 @@ class DomiciliosDisponiblesFrag : Fragment() {
 
     var controlFrag: ControlDomiciliosDisponibles? = null
 
-    companion object {
-        fun newInstance() = DomiciliosDisponiblesFrag()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
