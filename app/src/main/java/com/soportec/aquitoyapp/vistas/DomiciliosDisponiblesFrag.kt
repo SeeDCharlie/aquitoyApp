@@ -9,6 +9,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlDomiciliosDisponibles
 
@@ -40,11 +41,11 @@ class DomiciliosDisponiblesFrag : Fragment() {
         view.findViewById<ListView>(R.id.listViewUno)
             ?.setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
                 //llamo a la vista tomar_domicilio
+                NavegacionActivity.domicilioAux = controlFrag!!.domicilios_disponibles!!.getJSONObject(position.toString())
+                findNavController().navigate(R.id.disponibles_tomar_action )
             }
 
         initView(view)
-        Toast.makeText(view.context, "Domicilios disponibles : ${controlFrag!!.datosUsuario!!.getString("usu_nombre")}", Toast.LENGTH_SHORT).show()
-
     }
 
     fun initView(view:View) {

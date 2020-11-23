@@ -20,7 +20,7 @@ class ControlDomiciliosDisponibles(var context: Context?, var fragment: Fragment
     override var baseUrl: String = VariablesConf.BASE_URL_API
     override var requestExecute: RequestQueue? = Volley.newRequestQueue(context)
     var datosUsuario: JSONObject? = NavegacionActivity.datosUsuario
-
+    var domicilios_disponibles: JSONObject? = null
 
     fun cargarDomicilios() {
         val datos = JSONObject()
@@ -35,7 +35,7 @@ class ControlDomiciliosDisponibles(var context: Context?, var fragment: Fragment
     override fun acionPots(obj: JSONObject) {
         var listViewDomicilios = fragment.view?.findViewById<ListView>(R.id.listViewUno)
         var listaDatosDom = mutableListOf<DomDisponible>()
-
+        domicilios_disponibles = obj
         obj.keys().forEach {
             var dom: JSONObject = obj.getJSONObject(it)
             listaDatosDom.add(

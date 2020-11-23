@@ -70,7 +70,7 @@ class NuevoDomicilioActivity : AppCompatActivity() {
 
         //boton registrar domicilio
 
-        findViewById<Button>(R.id.btnNuDoTres).setOnClickListener {
+       /* findViewById<Button>(R.id.btnNuDoTres).setOnClickListener {
             controlapi!!.registrarDomicilio(
                 datosUsuario!!.getString("usu_documento"),
                 datosUsuario!!.getInt("usu_id"),
@@ -78,7 +78,7 @@ class NuevoDomicilioActivity : AppCompatActivity() {
                 getDatosDomicilio(),
                 ::registrarDomicilioAction
             )
-        }
+        }*/
 
         //boton cancelar
         findViewById<Button>(R.id.btnNuDoCuatro).setOnClickListener {
@@ -124,13 +124,13 @@ class NuevoDomicilioActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.edtNudoCuatro).text = datosDomicilios!!.getString("notas")
     }
 
-    fun registrarDomicilioAction(obj: JSONObject) {
+    /*fun registrarDomicilioAction(obj: JSONObject) {
         var vista = Intent(this, TomarDomicilioActivity::class.java)
         vista.putExtra("datosDomi", obj.getJSONObject("datos_domicilio").toString())
         vista.putExtra("datos_usuario", datosUsuario!!.toString())
         startActivity(vista)
         finish()
-    }
+    }*/
 
 
 }

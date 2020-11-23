@@ -14,6 +14,18 @@
         <argument
             android:name="datos_usuario"
             app:argType="string" />
+        <action
+            android:id="@+id/disponibles_tomar_action"
+            app:destination="@id/tomarDomicilioFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/tomarDomicilioFrag"
+        android:name="com.soportec.aquitoyapp.vistas.TomarDomicilioFrag"
+        android:label="Tomar Domicilio"
+        tools:layout="@layout/fragment_tomar_domicilio">
+        <argument
+            android:name="datos_domicilio"
+            app:argType="string" />
     </fragment>
 
 </navigation>
