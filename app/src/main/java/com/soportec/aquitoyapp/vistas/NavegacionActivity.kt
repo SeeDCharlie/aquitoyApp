@@ -1,29 +1,58 @@
 package com.soportec.aquitoyapp.vistas
 
+
+import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavArgument
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.Volley
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.soportec.aquitoyapp.R
+import com.soportec.aquitoyapp.controles.ControlSql
+import com.soportec.aquitoyapp.modelos.VariablesConf
+import com.soportec.aquitoyapp.modelos.apiInterfaz
+import org.json.JSONObject
 
-class NavegacionActivity : AppCompatActivity() {
+class NavegacionActivity : AppCompatActivity(), apiInterfaz{
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    override var baseUrl: String = VariablesConf.BASE_URL_API
+    override var requestExecute: RequestQueue? = null
+
+    var controldblite: ControlSql? = null
+
+    companion object{
+        var datosUsuario : JSONObject? = null
+        var domicilioAux : JSONObject? = null
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navegacion)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        val bundle = Bundle()
+        bundle.putString("edttext", "From Activity")
+        val fragobj = DomiciliosDisponiblesFrag()
+        fragobj.setArguments(bundle)
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
@@ -32,13 +61,80 @@ class NavegacionActivity : AppCompatActivity() {
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
+
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
+
+
+
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.domiciliosDisponiblesFrag
+            ), drawerLayout
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+
+
+        initView(navView.getHeaderView(0) as View, navView, navController)
+    }
+
+
+
+
+    fun initView(view: View, nv: NavigationView, nc: NavController){
+
+        //inicio de variables
+        requestExecute = Volley.newRequestQueue(this)
+        datosUsuario = JSONObject(intent.getStringExtra("datos_usuario"))
+        controldblite = ControlSql(this)
+
+        //asignacion de los datos del usuario al menu
+        view.findViewById<TextView>(R.id.txtMePrUsername).setText(
+            datosUsuario!!.getString("usu_nombre")
+                    + datosUsuario!!.getString("usu_apellidos")
+        )
+        view.findViewById<TextView>(R.id.txtMePrTypeuser).setText(datosUsuario!!.getString("tipousu_nombre"))
+        view.findViewById<TextView>(R.id.txtMePrEmail).setText(datosUsuario!!.getString("usu_correo"))
+
+        //inicio de eventos del menu
+        nv.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.domiciliosDisponiblesFrag -> {
+                    //finish()
+                    Toast.makeText(this, "item action", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.item_logout -> {
+                    logOut()
+                    true
+                }
+                else ->{
+                   true
+                }
+            }
+        }
+
+        nc.addOnDestinationChangedListener(
+            NavController.OnDestinationChangedListener { controller, destination, arguments ->
+                if (destination.id == R.id.domiciliosDisponiblesFrag) {
+                    destination.addArgument(
+                        "Mata", NavArgument.Builder().setDefaultValue(
+                            arrayOf(
+                                1,
+                                2,
+                                3,
+                                4
+                            )
+                        ).build()
+                    )
+                }
+
+            }
+        )
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -51,4 +147,37 @@ class NavegacionActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
+
+
+
+    fun logOut(){
+        var datos = JSONObject()
+        datos.put("logout", true)
+        datos.put("documento", datosUsuario!!.getString("usu_documento"))
+        datos.put("contrasena", datosUsuario!!.getString("usu_pass"))
+        respuestaPost(datos, "logOut.php")
+    }
+
+
+    override fun acionPots(obj: JSONObject) {
+        var vista =  Intent(this, LogginActivity::class.java)
+        val valores = ContentValues().apply { put("activo", 0) }
+        controldblite!!.actualizarDato(
+            "sesiones", valores, "documento = ?", arrayOf(datosUsuario!!.getString("usu_documento"))
+        )
+        Toast.makeText(this, obj.getString("msj"), Toast.LENGTH_SHORT).show()
+        startActivity(vista)
+        super.onBackPressed()
+    }
+
+    override fun errorOk(obj: JSONObject) {
+        Toast.makeText(this, obj.getString("msj"), Toast.LENGTH_SHORT).show()
+    }
+
+    override fun errorRequest(msj: String) {
+        Toast.makeText(this, msj, Toast.LENGTH_SHORT).show()
+    }
 }
+
+

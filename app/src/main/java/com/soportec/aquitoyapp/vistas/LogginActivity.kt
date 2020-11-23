@@ -64,6 +64,7 @@ class LogginActivity : AppCompatActivity(), apiInterfaz {
         ).show()
         finish()
         startActivity(intent)
+
     }
 
     override fun errorOk(obj: JSONObject) {

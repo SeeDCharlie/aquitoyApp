@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.soportec.aquitoyapp" >
+    package="com.soportec.aquitoyapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -16,9 +16,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ico_app"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
-
-
+        android:theme="@style/AppTheme">
+        <activity android:name=".vistas.Ej"></activity>
         <activity android:name=".vistas.LogginActivity" />
         <activity android:name=".vistas.NuevaNotaDom" />
         <activity android:name=".vistas.GetClienteActivity" />
@@ -27,10 +26,10 @@
         <activity android:name=".vistas.DomicilioActivoActivity" />
         <activity android:name=".vistas.TomarDomicilioActivity" />
         <activity android:name=".vistas.DomiciliosActivosActivity" />
-        <activity android:name=".vistas.NavegacionActivity"/>
+        <activity android:name=".vistas.NavegacionActivity" />
         <activity
             android:name=".MainActivity"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,7 +41,7 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.soportec.aquitoyapp"
             android:exported="false"
-            android:grantUriPermissions="true" >
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
