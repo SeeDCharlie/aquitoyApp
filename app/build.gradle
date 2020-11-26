@@ -10,8 +10,8 @@ android {
         applicationId "com.soportec.aquitoyapp"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 1
-        versionName '0.9'
+        versionCode 25112020
+        versionName '1'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
