@@ -44,5 +44,19 @@
             android:id="@+id/dom_acts_activo_trans"
             app:destination="@id/domicilioActivoFrag" />
     </fragment>
+    <fragment
+        android:id="@+id/nuevoDomicilioFrag"
+        android:name="com.soportec.aquitoyapp.vistas.NuevoDomicilioFrag"
+        android:label="fragment_nuevo_domicilio"
+        tools:layout="@layout/fragment_nuevo_domicilio" />
+    <activity
+        android:id="@+id/logginActivity"
+
+        android:name="com.soportec.aquitoyapp.vistas.LogginActivity"
+        android:label="activity_loggin"
+        tools:layout="@layout/activity_loggin" />
+    <action
+        android:id="@+id/action_mobile_navigation_self"
+        app:popUpTo="@id/mobile_navigation" />
 
 </navigation>

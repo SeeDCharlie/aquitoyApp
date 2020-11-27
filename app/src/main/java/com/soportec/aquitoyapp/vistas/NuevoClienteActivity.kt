@@ -54,13 +54,13 @@ class NuevoClienteActivity : AppCompatActivity() {
         datosDomicilio!!.put("id_cliente", obj.getInt("id_cliente"))
         datosDomicilio!!.put("nombre_cliente", obj.getString("nombre_cliente"))
 
-        var v = Intent(this, NuevoDomicilioActivity::class.java)
+        /*var v = Intent(this, NuevoDomicilioActivity::class.java)
         v.putExtra("datos_usuario", datosUsuario!!.toString())
         v.putExtra("datos_domicilio", datosDomicilio!!.toString())
 
         startActivity(v)
 
-        finish()
+        finish()*/
     }
 
     fun getDatosCliente(): JSONObject {

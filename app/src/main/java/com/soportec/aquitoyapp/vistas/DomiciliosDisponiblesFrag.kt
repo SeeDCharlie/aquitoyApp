@@ -45,7 +45,7 @@ class DomiciliosDisponiblesFrag : Fragment() {
                 NavegacionActivity.domicilioAux =
                     controlFrag!!.domicilios_disponibles!!.getJSONObject(position.toString())
                 findNavController().navigate(R.id.disponibles_tomar_trans)
-            }j
+            }
     }
 
     fun initView(view:View) {

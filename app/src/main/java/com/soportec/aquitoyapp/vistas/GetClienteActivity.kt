@@ -105,7 +105,7 @@ class GetClienteActivity : AppCompatActivity(), eventRecyclerView {
     }
 
     override fun onCLick(posicion: Int) {
-
+/*
         var vista = Intent(this, NuevoDomicilioActivity::class.java)
         if (opcionVista == 1) {
             datosDomicilio!!.put("id_cliente", clientesAux!!.get(posicion).id_cliente)
@@ -121,7 +121,7 @@ class GetClienteActivity : AppCompatActivity(), eventRecyclerView {
         vista.putExtra("datos_usuario", datosUsuario!!.toString())
         vista.putExtra("datos_domicilio", datosDomicilio!!.toString())
         startActivity(vista)
-        finish()
+        finish()*/
 
     }
 

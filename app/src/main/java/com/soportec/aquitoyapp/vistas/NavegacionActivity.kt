@@ -5,14 +5,17 @@ import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavArgument
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -28,10 +31,11 @@ import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlSql
 import com.soportec.aquitoyapp.modelos.VariablesConf
 import com.soportec.aquitoyapp.modelos.apiInterfaz
+import kotlinx.android.synthetic.main.activity_navegacion.*
 import kotlinx.android.synthetic.main.activity_navegacion.view.*
 import org.json.JSONObject
 
-class NavegacionActivity : AppCompatActivity(), apiInterfaz{
+class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     override var baseUrl: String = VariablesConf.BASE_URL_API
@@ -72,7 +76,8 @@ class NavegacionActivity : AppCompatActivity(), apiInterfaz{
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.domiciliosDisponiblesFrag,R.id.domiciliosAvtivosFrag
+                R.id.domiciliosDisponiblesFrag,R.id.domiciliosAvtivosFrag,
+                R.id.nuevoDomicilioFrag, R.id.logginActivity
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -103,20 +108,24 @@ class NavegacionActivity : AppCompatActivity(), apiInterfaz{
 
         //inicio de eventos del menu
         nv.setNavigationItemSelectedListener {
+            if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                drawer_layout.closeDrawer(GravityCompat.START)
+            } else {
+                drawer_layout.openDrawer(GravityCompat.START)
+            }
             when(it.itemId){
                 R.id.domiciliosDisponiblesFrag -> {
-                    //finish()
+                    nc.navigate(R.id.domiciliosDisponiblesFrag)
                     Toast.makeText(this, "item action", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.domiciliosAvtivosFrag -> {
                     nc.navigate(R.id.domiciliosAvtivosFrag)
-                    Toast.makeText(this, "dom activos", Toast.LENGTH_SHORT).show()
-
                     true
                 }
-                R.id.item_logout -> {
+                R.id.logginActivity -> {
                     logOut()
+
                     true
                 }
 
@@ -130,12 +139,12 @@ class NavegacionActivity : AppCompatActivity(), apiInterfaz{
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+   /* override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.navegacion, menu)
         return true
     }
-
+*/
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -161,6 +170,7 @@ class NavegacionActivity : AppCompatActivity(), apiInterfaz{
         )
         Toast.makeText(this, obj.getString("msj"), Toast.LENGTH_SHORT).show()
         startActivity(vista)
+        finish()
         super.onBackPressed()
     }
 
@@ -171,6 +181,8 @@ class NavegacionActivity : AppCompatActivity(), apiInterfaz{
     override fun errorRequest(msj: String) {
         Toast.makeText(this, msj, Toast.LENGTH_SHORT).show()
     }
+
+
 }
 
 
