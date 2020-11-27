@@ -33,14 +33,19 @@ class DomiciliosDisponiblesFrag : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initView(view)
+
+
+        //eventos del fragment
+
         view.findViewById<ListView>(R.id.listViewUno)
             ?.setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
                 //llamo a la vista tomar_domicilio
-                NavegacionActivity.domicilioAux = controlFrag!!.domicilios_disponibles!!.getJSONObject(position.toString())
-                findNavController().navigate(R.id.disponibles_tomar_trans )
-            }
-
-        initView(view)
+                NavegacionActivity.domicilioAux =
+                    controlFrag!!.domicilios_disponibles!!.getJSONObject(position.toString())
+                findNavController().navigate(R.id.disponibles_tomar_trans)
+            }j
     }
 
     fun initView(view:View) {
