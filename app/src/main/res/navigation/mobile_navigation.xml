@@ -43,7 +43,11 @@
         android:id="@+id/domicilioActivoFrag"
         android:name="com.soportec.aquitoyapp.vistas.DomicilioActivoFrag"
         android:label="Domicilio Activo"
-        tools:layout="@layout/fragment_domicilio_activo" />
+        tools:layout="@layout/fragment_domicilio_activo" >
+        <action
+            android:id="@+id/action_domicilioActivoFrag_to_domiciliosDisponiblesFrag"
+            app:destination="@id/domiciliosDisponiblesFrag" />
+    </fragment>
     <fragment
         android:id="@+id/domiciliosAvtivosFrag"
         android:name="com.soportec.aquitoyapp.vistas.DomiciliosAvtivosFrag"
@@ -61,7 +65,14 @@
         android:id="@+id/nuevoDomicilioFrag"
         android:name="com.soportec.aquitoyapp.vistas.NuevoDomicilioFrag"
         android:label="fragment_nuevo_domicilio"
-        tools:layout="@layout/fragment_nuevo_domicilio" />
+        tools:layout="@layout/fragment_nuevo_domicilio" >
+        <action
+            android:id="@+id/action_nuevoDomicilioFrag_to_getClienteFrg"
+            app:destination="@id/getClienteFrg" />
+        <action
+            android:id="@+id/action_nuevoDomicilioFrag_to_tomarDomicilioFrag"
+            app:destination="@id/tomarDomicilioFrag" />
+    </fragment>
     <activity
         android:id="@+id/logginActivity"
 
@@ -71,5 +82,14 @@
     <action
         android:id="@+id/action_mobile_navigation_self"
         app:popUpTo="@id/mobile_navigation" />
+    <fragment
+        android:id="@+id/getClienteFrg"
+        android:name="com.soportec.aquitoyapp.vistas.GetClienteFrg"
+        android:label="fragment_get_cliente_frg"
+        tools:layout="@layout/fragment_get_cliente_frg" >
+        <action
+            android:id="@+id/action_getClienteFrg_to_nuevoDomicilioFrag"
+            app:destination="@id/nuevoDomicilioFrag" />
+    </fragment>
 
 </navigation>

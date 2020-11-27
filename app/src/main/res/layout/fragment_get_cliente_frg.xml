@@ -4,19 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".vistas.GetClienteActivity">
-
-
-    <TextView
-        android:id="@+id/txtGetClUno"
-        android:layout_width="match_parent"
-        android:layout_height="29dp"
-        android:layout_weight="0"
-        android:background="#E64343"
-        android:gravity="center"
-        android:text="CLIENTES REGISTRADOS"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+    tools:context=".vistas.GetClienteFrg">
 
     <SearchView
         android:id="@+id/schGetClUno"

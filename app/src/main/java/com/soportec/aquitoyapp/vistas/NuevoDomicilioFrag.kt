@@ -8,14 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.soportec.aquitoyapp.R
 import org.json.JSONObject
 
 
 class NuevoDomicilioFrag : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,23 +37,23 @@ class NuevoDomicilioFrag : Fragment() {
         //creacion de eventos
 
         //boton nuevo cliente
-        view.findViewById<Button>(R.id.btnNuDoUno).setOnClickListener {
-
-        }
+        /*view.findViewById<Button>(R.id.btnNuDoUno).setOnClickListener {
+            findNavController().navigate(R.id.action_nuevoDomicilioFrag_to_getClienteFrg)
+        }*/
         //boton cliente existente
 
         view.findViewById<Button>(R.id.btnNuDoDos).setOnClickListener {
-
+            findNavController().navigate(R.id.action_nuevoDomicilioFrag_to_getClienteFrg)
         }
         // boton direccion origen
         view.findViewById<Button>(R.id.btnNuDoOrigen).setOnClickListener {
-
+            findNavController().navigate(R.id.action_nuevoDomicilioFrag_to_getClienteFrg)
         }
 
         //boton direccion destino
 
         view.findViewById<Button>(R.id.btnNuDoDestino).setOnClickListener {
-
+            findNavController().navigate(R.id.action_nuevoDomicilioFrag_to_getClienteFrg)
         }
         //boton cancelar
         view.findViewById<Button>(R.id.btnNuDoCuatro).setOnClickListener {
