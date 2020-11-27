@@ -55,16 +55,7 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val bundle = Bundle()
-        bundle.putString("edttext", "From Activity")
-        val fragobj = DomiciliosDisponiblesFrag()
-        fragobj.setArguments(bundle)
 
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Boton agregar Domicilio en proceso", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
 
@@ -84,6 +75,10 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
         navView.setupWithNavController(navController)
 
 
+        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+            navController.popBackStack()
+            navController.navigate(R.id.nuevoDomicilioFrag)
+        }
 
         initView(navView.getHeaderView(0) as View, navView, navController)
     }
@@ -116,11 +111,18 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
             when(it.itemId){
                 R.id.domiciliosDisponiblesFrag -> {
                     nc.navigate(R.id.domiciliosDisponiblesFrag)
+                    nc.popBackStack()
                     Toast.makeText(this, "item action", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.domiciliosAvtivosFrag -> {
+                    nc.popBackStack()
                     nc.navigate(R.id.domiciliosAvtivosFrag)
+                    true
+                }
+                R.id.nuevoDomicilioFrag -> {
+                    nc.popBackStack()
+                    nc.navigate(R.id.nuevoDomicilioFrag)
                     true
                 }
                 R.id.logginActivity -> {

@@ -16,7 +16,11 @@
             app:argType="string" />
         <action
             android:id="@+id/disponibles_tomar_trans"
-            app:destination="@id/tomarDomicilioFrag" />
+            app:destination="@id/tomarDomicilioFrag"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/tomarDomicilioFrag"
@@ -28,7 +32,12 @@
             app:argType="string" />
         <action
             android:id="@+id/tomar_dom_activo_trans"
-            app:destination="@id/domicilioActivoFrag" />
+            app:destination="@id/domicilioActivoFrag"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/domiciliosDisponiblesFrag" />
     </fragment>
     <fragment
         android:id="@+id/domicilioActivoFrag"
@@ -42,7 +51,11 @@
         tools:layout="@layout/fragment_domicilios_avtivos" >
         <action
             android:id="@+id/dom_acts_activo_trans"
-            app:destination="@id/domicilioActivoFrag" />
+            app:destination="@id/domicilioActivoFrag"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/nuevoDomicilioFrag"
