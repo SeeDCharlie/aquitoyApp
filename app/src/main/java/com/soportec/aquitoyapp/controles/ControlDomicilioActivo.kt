@@ -136,6 +136,7 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         btnok.setOnClickListener{
             val notaText = dialog.findViewById<EditText>(R.id.txtAddNoDomNota).text
             val datos = JSONObject()
+            println("datos domi : " + NavegacionActivity.domicilioAux!!.toString())
             datos.put("agregar_nota", true)
             datos.put("documento", NavegacionActivity.datosUsuario!!.getString("usu_documento"))
             datos.put("id_dom", NavegacionActivity.domicilioAux!!.getInt("dom_id"))
@@ -158,8 +159,7 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         if(obj.getString("tag") == "nota_agregada"){
             Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-            controldb!!.addEviden(NavegacionActivity.domicilioAux!!.getInt("id_dom"),
-                image_uri!!.toString(), switchCamara)
+
         }
     }
 
@@ -179,6 +179,8 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         super.despuesDeCargar(obj)
         Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
+        controldb!!.addEviden(NavegacionActivity.domicilioAux!!.getInt("id_dom"),
+            image_uri!!.toString(), switchCamara)
     }
 
     override fun errorOkCarga(obj: JSONObject) {

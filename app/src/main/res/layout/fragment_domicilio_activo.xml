@@ -37,7 +37,8 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
-                android:text="Origen : " />
+                android:text="Origen : "
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/txtDoAcTres"
@@ -48,7 +49,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
                 android:text="Destino : "
- />
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/txtDoAcUno"
@@ -59,7 +60,7 @@
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
                 android:text="Descripcion : "
-/>
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/txtDoAcCinco"
@@ -69,7 +70,8 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
-                android:text="Fecha  : " />
+                android:text="Fecha  : "
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/txtDoAcSeis"
@@ -80,7 +82,8 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
-                android:text="Hora : " />
+                android:text="Hora : "
+                android:textColor="#000000" />
 
             <TextView
                 android:id="@+id/txtDoAcCuatro"
@@ -90,7 +93,8 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
-                android:text="Cliente : "/>
+                android:text="Cliente : "
+                android:textColor="#000000" />
 
             <View
                 android:id="@+id/divider11"
@@ -110,10 +114,9 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
-                android:gravity="center"
                 android:text="Evidencias Origen"
-                android:textStyle="bold"
- />
+                android:textColor="#000000"
+                android:textStyle="bold" />
 
             <ImageButton
                 android:id="@+id/btnDoAcAdduno"
@@ -123,7 +126,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/add_img_dos" />
+                android:background="@drawable/btnbg_white"
+                android:src="@drawable/ico_add_img_red_foreground" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -133,8 +137,8 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
-                android:gravity="center"
                 android:text="Evidencias Destino"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <ImageButton
@@ -145,7 +149,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
-                android:src="@drawable/add_img_dos" />
+                android:background="@drawable/btnbg_white"
+                android:src="@drawable/ico_add_img_red_foreground" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -155,8 +160,8 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
-                android:gravity="center"
                 android:text="Añadir Nota"
+                android:textColor="#000000"
                 android:textStyle="bold" />
 
             <ImageButton
