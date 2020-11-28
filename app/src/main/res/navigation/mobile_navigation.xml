@@ -64,7 +64,7 @@
     <fragment
         android:id="@+id/nuevoDomicilioFrag"
         android:name="com.soportec.aquitoyapp.vistas.NuevoDomicilioFrag"
-        android:label="fragment_nuevo_domicilio"
+        android:label="Registrar Domicilio"
         tools:layout="@layout/fragment_nuevo_domicilio" >
         <action
             android:id="@+id/action_nuevoDomicilioFrag_to_getClienteFrg"
@@ -85,7 +85,7 @@
     <fragment
         android:id="@+id/getClienteFrg"
         android:name="com.soportec.aquitoyapp.vistas.GetClienteFrg"
-        android:label="fragment_get_cliente_frg"
+        android:label="Escoge Un Cliente"
         tools:layout="@layout/fragment_get_cliente_frg" >
         <action
             android:id="@+id/action_getClienteFrg_to_nuevoDomicilioFrag"
