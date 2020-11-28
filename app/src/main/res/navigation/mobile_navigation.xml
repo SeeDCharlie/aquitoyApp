@@ -16,7 +16,11 @@
             app:argType="string" />
         <action
             android:id="@+id/disponibles_tomar_trans"
-            app:destination="@id/tomarDomicilioFrag" />
+            app:destination="@id/tomarDomicilioFrag"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/tomarDomicilioFrag"
@@ -28,13 +32,22 @@
             app:argType="string" />
         <action
             android:id="@+id/tomar_dom_activo_trans"
-            app:destination="@id/domicilioActivoFrag" />
+            app:destination="@id/domicilioActivoFrag"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/domiciliosDisponiblesFrag" />
     </fragment>
     <fragment
         android:id="@+id/domicilioActivoFrag"
         android:name="com.soportec.aquitoyapp.vistas.DomicilioActivoFrag"
         android:label="Domicilio Activo"
-        tools:layout="@layout/fragment_domicilio_activo" />
+        tools:layout="@layout/fragment_domicilio_activo" >
+        <action
+            android:id="@+id/action_domicilioActivoFrag_to_domiciliosDisponiblesFrag"
+            app:destination="@id/domiciliosDisponiblesFrag" />
+    </fragment>
     <fragment
         android:id="@+id/domiciliosAvtivosFrag"
         android:name="com.soportec.aquitoyapp.vistas.DomiciliosAvtivosFrag"
@@ -42,7 +55,41 @@
         tools:layout="@layout/fragment_domicilios_avtivos" >
         <action
             android:id="@+id/dom_acts_activo_trans"
-            app:destination="@id/domicilioActivoFrag" />
+            app:destination="@id/domicilioActivoFrag"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/nuevoDomicilioFrag"
+        android:name="com.soportec.aquitoyapp.vistas.NuevoDomicilioFrag"
+        android:label="fragment_nuevo_domicilio"
+        tools:layout="@layout/fragment_nuevo_domicilio" >
+        <action
+            android:id="@+id/action_nuevoDomicilioFrag_to_getClienteFrg"
+            app:destination="@id/getClienteFrg" />
+        <action
+            android:id="@+id/action_nuevoDomicilioFrag_to_tomarDomicilioFrag"
+            app:destination="@id/tomarDomicilioFrag" />
+    </fragment>
+    <activity
+        android:id="@+id/logginActivity"
+
+        android:name="com.soportec.aquitoyapp.vistas.LogginActivity"
+        android:label="activity_loggin"
+        tools:layout="@layout/activity_loggin" />
+    <action
+        android:id="@+id/action_mobile_navigation_self"
+        app:popUpTo="@id/mobile_navigation" />
+    <fragment
+        android:id="@+id/getClienteFrg"
+        android:name="com.soportec.aquitoyapp.vistas.GetClienteFrg"
+        android:label="fragment_get_cliente_frg"
+        tools:layout="@layout/fragment_get_cliente_frg" >
+        <action
+            android:id="@+id/action_getClienteFrg_to_nuevoDomicilioFrag"
+            app:destination="@id/nuevoDomicilioFrag" />
     </fragment>
 
 </navigation>

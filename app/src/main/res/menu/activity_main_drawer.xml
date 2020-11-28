@@ -15,7 +15,12 @@
             android:icon="@drawable/ico_dom_activo_dos_foreground"
             />
         <item
-            android:id="@+id/item_logout"
+            android:id="@+id/nuevoDomicilioFrag"
+            android:title="Nuevo Domicilio"
+            android:icon="@mipmap/ico_add_domi_foreground"
+            />
+        <item
+            android:id="@+id/logginActivity"
             android:icon="@drawable/ico_me_pr_salir_foreground"
             android:title="Salir"
             />

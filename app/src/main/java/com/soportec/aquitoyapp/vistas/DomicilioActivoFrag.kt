@@ -3,6 +3,7 @@ package com.soportec.aquitoyapp.vistas
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -18,6 +19,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.media.MediaBrowserServiceCompat.RESULT_OK
 import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlDomicilioActivo
 import com.soportec.aquitoyapp.modelos.VariablesConf
@@ -29,7 +31,7 @@ class DomicilioActivoFrag : Fragment() {
 
     var datosDomicilio = NavegacionActivity.domicilioAux
     var controlFrag : ControlDomicilioActivo? = null
-
+    lateinit var dialog: Dialog;
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,11 +61,11 @@ class DomicilioActivoFrag : Fragment() {
         }
         //evento para agregar evidecias de destino
         view.findViewById<ImageButton>(R.id.btnDoAcAdddos ).setOnClickListener {
-            getFoto(0,view)
+            getFoto(2,view)
         }
         //evento para añadir notas al domicilio
         view.findViewById<ImageButton>(R.id.btnDoAcAddNote ).setOnClickListener {
-
+            controlFrag!!.agregarNota(dialog)
         }
 
         //Evento confirmacion domicilio
@@ -79,7 +81,9 @@ class DomicilioActivoFrag : Fragment() {
     fun initView(v:View){
 
         controlFrag = ControlDomicilioActivo(v.context ,this)
+        dialog = Dialog(v.context)
 
+        controlFrag!!.cargarFotos(NavegacionActivity.domicilioAux!!.getInt("dom_id"))
         var txtDesc = v.findViewById<TextView>(R.id.txtDoAcUno)
         var txtOrigen = v.findViewById<TextView>(R.id.txtDoAcDos)
         var txtDestino = v.findViewById<TextView>(R.id.txtDoAcTres)
@@ -100,20 +104,6 @@ class DomicilioActivoFrag : Fragment() {
     //y abrir la camara para luegorecuperar la imagen tomada
     fun getFoto(code:Int, v:View) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            /*if (ContextCompat.checkSelfPermission(v.context,Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_DENIED ||
-                ContextCompat.checkSelfPermission( v.context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_DENIED
-            ) {
-                //permission was not enabled
-                val permission =
-                    arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                //show popup to request permission
-                ActivityCompat.requestPermissions(requireActivity(), permission)
-            } else {
-                //permission already granted
-                controlFrag!!.abrirCamara(code)
-            }*/
             when {
                 ContextCompat.checkSelfPermission(v.context,
                     Manifest.permission.CAMERA
@@ -121,7 +111,8 @@ class DomicilioActivoFrag : Fragment() {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_GRANTED-> {
                     // You can use the API that requires the permission.
-                    controlFrag!!.abrirCamara(code)
+                    abrirCamara(code)
+
                 }
 
                 else -> {
@@ -132,8 +123,22 @@ class DomicilioActivoFrag : Fragment() {
             }
         } else {
             //system os is < marshmallow
-            controlFrag!!.abrirCamara(code)
+            abrirCamara(code)
         }
+    }
+    //funcion que inicia la camara para tomar una evidencia
+    fun abrirCamara(code:Int) {
+
+        controlFrag!!.switchCamara = code
+        val values = ContentValues()
+        values.put(MediaStore.Images.Media.TITLE, "New Picture")
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+        controlFrag!!.image_uri = activity?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        //camera intent
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, controlFrag!!.image_uri)
+        startActivityForResult(cameraIntent, 1)
+
     }
 
 
@@ -143,16 +148,14 @@ class DomicilioActivoFrag : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-
         when (requestCode) {
             VariablesConf.PERMISSION_CAM_CODE-> {
                 if (grantResults.size > 0 && grantResults[0] ==
                     PackageManager.PERMISSION_GRANTED
                 ) {
-                    //permission from popup was granted
+                    //sí los permisos son concedidos
                     controlFrag!!.captureImg()
                 } else {
-                    //permission from popup was denied
                     Toast.makeText(this.context, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -162,11 +165,11 @@ class DomicilioActivoFrag : Fragment() {
 
 
     //oyente que captura la imagen seleccionada de la camara
-    @SuppressLint("MissingSuperCall")
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK /*&& requestCode == IMAGE_PICK_CODE*/) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK || requestCode == 1) {
             controlFrag?.captureImg()
         }
     }
-
 }

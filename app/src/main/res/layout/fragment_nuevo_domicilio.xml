@@ -3,25 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F44336"
-    android:backgroundTint="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".vistas.NuevoDomicilioActivity">
-
-    <TextView
-        android:id="@+id/txtNuDo"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="16"
-        android:background="#E64343"
-        android:foregroundGravity="center"
-        android:gravity="center"
-        android:text="Nuevo Domicilio"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+    tools:context=".vistas.NuevoDomicilioFrag">
 
     <ScrollView
-        android:id="@+id/txtNuClNombreCli"
+        android:id="@+id/scroll_nu_do_frag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -239,5 +225,4 @@
 
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

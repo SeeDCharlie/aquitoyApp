@@ -2,18 +2,19 @@ package com.soportec.aquitoyapp.controles
 
 import android.Manifest
 import android.app.Activity
+import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.app.ActivityCompat.startActivityForResult
@@ -22,12 +23,14 @@ import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
+import com.google.android.material.snackbar.Snackbar
 import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.modelos.UploadInterfaz
 import com.soportec.aquitoyapp.modelos.VariablesConf
 import com.soportec.aquitoyapp.modelos.apiInterfaz
 import com.soportec.aquitoyapp.vistas.NavegacionActivity
 import okhttp3.OkHttpClient
+import org.json.JSONObject
 import java.text.SimpleDateFormat
 import java.time.temporal.ValueRange
 import java.util.*
@@ -40,14 +43,18 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
     override var serverUploadDirectoryPath: String = VariablesConf.SERVE_UPLOAD_DIRECTION_PATH
     override val client: OkHttpClient = OkHttpClient()
 
-    var image_uri: Uri? = null
-    var switchCamara = -1
-    var controldb: ControlSql = ControlSql(context)
     override var baseUrl: String = VariablesConf.BASE_URL_API
     override var requestExecute: RequestQueue? = Volley.newRequestQueue(context)
 
+    var image_uri: Uri? = null
+    var switchCamara = -1
+    var controldb: ControlSql = ControlSql(context)
+
+
+
+
     //funcion que carga las fotos localmente de un domicilio que esta activo
-    private fun cargarFotos(id_dom: Int) {
+    fun cargarFotos(id_dom: Int) {
         var query = "select uri from urievidencias where id_dom = $id_dom and origen_destino = 0;"
         var queryDos =
             "select uri from urievidencias where id_dom = $id_dom and origen_destino = 1;"
@@ -90,18 +97,7 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
     }
 
 
-    //funcion que inicia la camara para tomar una evidencia
-    fun abrirCamara(code:Int) {
-        switchCamara = code
-        val values = ContentValues()
-        values.put(MediaStore.Images.Media.TITLE, "New Picture")
-        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
-        image_uri = fragment.activity?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        //camera intent
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
-        fragment.activity?.startActivityForResult(cameraIntent, VariablesConf.IMAGE_CAPTURE_CODE)
-    }
+
 
     fun captureImg(){
         val img = ImageView(context)
@@ -109,15 +105,16 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         if (switchCamara == 1) {
             fragment.view?.findViewById<LinearLayout>(R.id.lilDoAcUno)?.addView(img)
             //secargan las evidencias al servidor
-            cargarEvidencia(1 )
-        } else if (switchCamara == 0) {
+            cargarEvidencia(switchCamara )
+        } else if (switchCamara == 2) {
             fragment.view?.findViewById<LinearLayout>(R.id.lilDoAcDos)?.addView(img)
 //               //secconargan las evidencias al servidor
-            cargarEvidencia(2)
+            cargarEvidencia(switchCamara)
         }
     }
 
     fun cargarEvidencia(code_evidencia:Int) {
+        Toast.makeText(this.context, "cargando evidencia!!!", Toast.LENGTH_SHORT).show()
         var documento: String = NavegacionActivity.datosUsuario!!.getString("usu_documento")
         var contraseña: String = NavegacionActivity.datosUsuario!!.getString("usu_pass")
         var id_dom: Int = NavegacionActivity.domicilioAux!!.getInt("dom_id")
@@ -125,7 +122,75 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         val uploadName: String = "img_${id_dom}_${dateFormat}.jpeg"
         uploadFile(documento, contraseña, id_dom, code_evidencia, getRealPathFromURI(image_uri!!)!!, uploadName)
         //se guardan las rutas de las evidenciasen el una base de datos local
-        controldb!!.addEviden(id_dom, image_uri.toString(), 1)
+
+    }
+
+    fun agregarNota(dialog:Dialog){
+
+        dialog.setContentView(R.layout.dialog_add_note_dom)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val btnok = dialog.findViewById<Button>(R.id.btnAddNoDomOk)
+        val btncancel = dialog.findViewById<Button>(R.id.btnAddNoDomCancel)
+        //eventos dialog
+        btnok.setOnClickListener{
+            val notaText = dialog.findViewById<EditText>(R.id.txtAddNoDomNota).text
+            val datos = JSONObject()
+            datos.put("agregar_nota", true)
+            datos.put("documento", NavegacionActivity.datosUsuario!!.getString("usu_documento"))
+            datos.put("id_dom", NavegacionActivity.domicilioAux!!.getInt("dom_id"))
+            datos.put("contraseña", NavegacionActivity.datosUsuario!!.getString("usu_pass"))
+            datos.put("nota", notaText)
+            respuestaPost(datos, "agregarNota.php")
+            dialog.dismiss()
+        }
+        btncancel.setOnClickListener{
+            dialog.dismiss()
+        }
+
+        dialog.show()
+
+    }
+
+    override fun acionPots(obj: JSONObject) {
+        super.acionPots(obj)
+
+        if(obj.getString("tag") == "nota_agregada"){
+            Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+            controldb!!.addEviden(NavegacionActivity.domicilioAux!!.getInt("id_dom"),
+                image_uri!!.toString(), switchCamara)
+        }
+    }
+
+    override fun errorOk(obj: JSONObject) {
+        super.errorOk(obj)
+        Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+    }
+
+    override fun errorRequest(msj: String) {
+        super.errorRequest(msj)
+        Snackbar.make(fragment.requireView(), msj, Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+    }
+
+    override fun despuesDeCargar(obj: JSONObject) {
+        super.despuesDeCargar(obj)
+        Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+    }
+
+    override fun errorOkCarga(obj: JSONObject) {
+        super.errorOkCarga(obj)//getString("msj")
+        Snackbar.make(fragment.requireView(), obj.toString(), Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+    }
+
+    override fun errorRequestCarga(msj: String) {
+        super.errorRequestCarga(msj)
+        Snackbar.make(fragment.requireView(), msj, Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
     }
 
 }
