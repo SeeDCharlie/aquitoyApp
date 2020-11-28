@@ -19,6 +19,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.media.MediaBrowserServiceCompat.RESULT_OK
 import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlDomicilioActivo
 import com.soportec.aquitoyapp.modelos.VariablesConf
@@ -82,6 +83,7 @@ class DomicilioActivoFrag : Fragment() {
         controlFrag = ControlDomicilioActivo(v.context ,this)
         dialog = Dialog(v.context)
 
+        controlFrag!!.cargarFotos(NavegacionActivity.domicilioAux!!.getInt("dom_id"))
         var txtDesc = v.findViewById<TextView>(R.id.txtDoAcUno)
         var txtOrigen = v.findViewById<TextView>(R.id.txtDoAcDos)
         var txtDestino = v.findViewById<TextView>(R.id.txtDoAcTres)
@@ -123,7 +125,8 @@ class DomicilioActivoFrag : Fragment() {
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ) == PackageManager.PERMISSION_GRANTED-> {
                     // You can use the API that requires the permission.
-                    controlFrag!!.abrirCamara(code)
+                    abrirCamara(code)
+
                 }
 
                 else -> {
@@ -134,8 +137,22 @@ class DomicilioActivoFrag : Fragment() {
             }
         } else {
             //system os is < marshmallow
-            controlFrag!!.abrirCamara(code)
+            abrirCamara(code)
         }
+    }
+    //funcion que inicia la camara para tomar una evidencia
+    fun abrirCamara(code:Int) {
+
+        controlFrag!!.switchCamara = code
+        val values = ContentValues()
+        values.put(MediaStore.Images.Media.TITLE, "New Picture")
+        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+        controlFrag!!.image_uri = activity?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        //camera intent
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, controlFrag!!.image_uri)
+        activity?.startActivityForResult(cameraIntent, 1)
+
     }
 
 
@@ -164,9 +181,11 @@ class DomicilioActivoFrag : Fragment() {
 
 
     //oyente que captura la imagen seleccionada de la camara
-    @SuppressLint("MissingSuperCall")
+    @SuppressLint("MissingSuperCall", "RestrictedApi")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK /*&& requestCode == IMAGE_PICK_CODE*/) {
+        Toast.makeText(this.context, "recibiendo imgen de la camara", Toast.LENGTH_SHORT).show()
+        if (resultCode == RESULT_OK || requestCode == 1) {
+            Toast.makeText(this.context, "preparando para guardar imagen", Toast.LENGTH_SHORT).show()
             controlFrag?.captureImg()
         }
     }

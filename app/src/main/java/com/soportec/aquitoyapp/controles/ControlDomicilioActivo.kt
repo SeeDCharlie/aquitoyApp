@@ -53,7 +53,7 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
 
 
     //funcion que carga las fotos localmente de un domicilio que esta activo
-    private fun cargarFotos(id_dom: Int) {
+    fun cargarFotos(id_dom: Int) {
         var query = "select uri from urievidencias where id_dom = $id_dom and origen_destino = 0;"
         var queryDos =
             "select uri from urievidencias where id_dom = $id_dom and origen_destino = 1;"
@@ -96,18 +96,7 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
     }
 
 
-    //funcion que inicia la camara para tomar una evidencia
-    fun abrirCamara(code:Int) {
-        switchCamara = code
-        val values = ContentValues()
-        values.put(MediaStore.Images.Media.TITLE, "New Picture")
-        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
-        image_uri = fragment.activity?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        //camera intent
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
-        fragment.activity?.startActivityForResult(cameraIntent, VariablesConf.IMAGE_CAPTURE_CODE)
-    }
+
 
     fun captureImg(){
         val img = ImageView(context)
@@ -124,6 +113,7 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
     }
 
     fun cargarEvidencia(code_evidencia:Int) {
+        Toast.makeText(this.context, "cargando evidencia!!!", Toast.LENGTH_SHORT).show()
         var documento: String = NavegacionActivity.datosUsuario!!.getString("usu_documento")
         var contraseña: String = NavegacionActivity.datosUsuario!!.getString("usu_pass")
         var id_dom: Int = NavegacionActivity.domicilioAux!!.getInt("dom_id")
@@ -131,7 +121,7 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         val uploadName: String = "img_${id_dom}_${dateFormat}.jpeg"
         uploadFile(documento, contraseña, id_dom, code_evidencia, getRealPathFromURI(image_uri!!)!!, uploadName)
         //se guardan las rutas de las evidenciasen el una base de datos local
-        controldb!!.addEviden(id_dom, image_uri.toString(), 1)
+        controldb!!.addEviden(id_dom, image_uri!!.toString(), 1)
     }
 
     fun agregarNota(dialog:Dialog){
