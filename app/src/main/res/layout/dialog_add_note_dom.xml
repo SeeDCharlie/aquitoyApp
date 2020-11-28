@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#16FFEB3B"
+    android:background="@drawable/btnbg_white"
     android:orientation="vertical">
 
 
@@ -40,7 +40,7 @@
     <EditText
         android:id="@+id/txtAddNoDomNota"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
