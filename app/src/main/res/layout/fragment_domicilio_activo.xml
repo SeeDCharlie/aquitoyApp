@@ -119,6 +119,10 @@
                 android:id="@+id/btnDoAcAdduno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
                 android:src="@drawable/add_img_dos" />
 
             <TextView
@@ -137,6 +141,10 @@
                 android:id="@+id/btnDoAcAdddos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
                 android:src="@drawable/add_img_dos" />
 
             <TextView
@@ -155,7 +163,12 @@
                 android:id="@+id/btnDoAcAddNote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/add_note_img_dos" />
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/btnbg_white"
+                android:src="@drawable/ico_add_note_dos_foreground" />
 
             <View
                 android:id="@+id/divider13"
