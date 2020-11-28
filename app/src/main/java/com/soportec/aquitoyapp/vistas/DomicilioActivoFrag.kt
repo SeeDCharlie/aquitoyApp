@@ -3,6 +3,7 @@ package com.soportec.aquitoyapp.vistas
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -29,7 +30,7 @@ class DomicilioActivoFrag : Fragment() {
 
     var datosDomicilio = NavegacionActivity.domicilioAux
     var controlFrag : ControlDomicilioActivo? = null
-
+    lateinit var dialog: Dialog;
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +64,7 @@ class DomicilioActivoFrag : Fragment() {
         }
         //evento para añadir notas al domicilio
         view.findViewById<ImageButton>(R.id.btnDoAcAddNote ).setOnClickListener {
-
+            controlFrag!!.agregarNota(dialog)
         }
 
         //Evento confirmacion domicilio
@@ -79,6 +80,7 @@ class DomicilioActivoFrag : Fragment() {
     fun initView(v:View){
 
         controlFrag = ControlDomicilioActivo(v.context ,this)
+        dialog = Dialog(v.context)
 
         var txtDesc = v.findViewById<TextView>(R.id.txtDoAcUno)
         var txtOrigen = v.findViewById<TextView>(R.id.txtDoAcDos)
