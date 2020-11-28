@@ -35,6 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Fecha Asignacion "
+                    android:textColor="#000000"
                     android:textStyle="bold" />
 
                 <TextView
@@ -62,6 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Cliente "
+                    android:textColor="#000000"
                     android:textStyle="bold" />
 
                 <TextView
@@ -89,6 +91,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Notas "
+                    android:textColor="#000000"
                     android:textStyle="bold" />
 
                 <TextView
@@ -116,6 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Descripcion "
+                    android:textColor="#000000"
                     android:textStyle="bold" />
 
                 <TextView
@@ -151,6 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Origen "
+                    android:textColor="#000000"
                     android:textStyle="bold" />
 
                 <TextView
@@ -179,6 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:text="Destino "
+                    android:textColor="#000000"
                     android:textStyle="bold" />
 
                 <TextView
@@ -212,7 +218,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:backgroundTint="#8BC34A"
+                android:background="@drawable/btnbg_green"
                 android:text="Tomar Domicilio" />
 
         </LinearLayout>

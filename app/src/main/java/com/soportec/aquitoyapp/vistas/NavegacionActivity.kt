@@ -45,7 +45,8 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
 
     companion object{
         var datosUsuario : JSONObject? = null
-        var domicilioAux : JSONObject? = null
+        var domicilioAux : JSONObject = JSONObject("{'id_cliente':-1}")
+        var switchGetCliente: Int = -1
     }
 
 

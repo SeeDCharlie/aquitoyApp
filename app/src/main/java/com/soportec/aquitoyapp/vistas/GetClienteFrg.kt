@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,7 @@ import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlApi
 import com.soportec.aquitoyapp.modelos.*
 import org.json.JSONObject
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -32,6 +34,7 @@ class GetClienteFrg : Fragment(), apiInterfaz, eventRecyclerView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -101,8 +104,27 @@ class GetClienteFrg : Fragment(), apiInterfaz, eventRecyclerView {
 
     override fun onCLick(pocicion: Int) {
 
-        //findNavController().popBackStack()
-        findNavController().navigate(R.id.action_getClienteFrg_to_nuevoDomicilioFrag)
+        try {
+            Toast.makeText(context,"datos domi :: ${NavegacionActivity.domicilioAux?.toString()} " , Toast.LENGTH_SHORT).show()
+
+            if(NavegacionActivity.switchGetCliente == 1){
+                NavegacionActivity.domicilioAux!!.put("cli_nombre", clientes!!.get(pocicion).nombre )
+                NavegacionActivity.domicilioAux!!.put("clientes_cli_id", clientes!!.get(pocicion).id_cliente )
+            }
+            if(NavegacionActivity.switchGetCliente == 2){
+                NavegacionActivity.domicilioAux!!.put("dom_origen", clientes!!.get(pocicion).direccion )
+            }
+            if(NavegacionActivity.switchGetCliente == 3){
+                NavegacionActivity.domicilioAux!!.put("dom_destino", clientes!!.get(pocicion).direccion )
+
+            }
+            //findNavController().popBackStack()
+            findNavController().navigate(R.id.action_getClienteFrg_to_nuevoDomicilioFrag)
+
+        }catch (ex: Exception){
+
+            Toast.makeText(context,"Error : ${ex} + ${ex.cause}" , Toast.LENGTH_SHORT).show()
+        }
 
     }
 

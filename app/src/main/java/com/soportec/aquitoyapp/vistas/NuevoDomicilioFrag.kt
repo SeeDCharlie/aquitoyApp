@@ -43,25 +43,45 @@ class NuevoDomicilioFrag : Fragment() {
         //boton cliente existente
 
         view.findViewById<Button>(R.id.btnNuDoDos).setOnClickListener {
+            NavegacionActivity.switchGetCliente = 1
+            NavegacionActivity.domicilioAux = getDatosDomicilio()
+            //findNavController().popBackStack()
             findNavController().navigate(R.id.action_nuevoDomicilioFrag_to_getClienteFrg)
+
         }
         // boton direccion origen
         view.findViewById<Button>(R.id.btnNuDoOrigen).setOnClickListener {
+            NavegacionActivity.switchGetCliente = 2
+            NavegacionActivity.domicilioAux = getDatosDomicilio()
+            //findNavController().popBackStack()
             findNavController().navigate(R.id.action_nuevoDomicilioFrag_to_getClienteFrg)
+
         }
 
         //boton direccion destino
 
         view.findViewById<Button>(R.id.btnNuDoDestino).setOnClickListener {
+            NavegacionActivity.switchGetCliente = 3
+            NavegacionActivity.domicilioAux = getDatosDomicilio()
+            //findNavController().popBackStack()
             findNavController().navigate(R.id.action_nuevoDomicilioFrag_to_getClienteFrg)
+
+        }
+        //boton registrar domicilio
+        view.findViewById<Button>(R.id.btnNuDoTres).setOnClickListener{
+            NavegacionActivity.switchGetCliente = -1
         }
         //boton cancelar
         view.findViewById<Button>(R.id.btnNuDoCuatro).setOnClickListener {
-
+            NavegacionActivity.switchGetCliente = -1
         }
     }
 
     fun initView(){
+        var sw = NavegacionActivity.switchGetCliente
+        if(sw > 0 && sw < 4){
+            setDatosDomicilio()
+        }
 
     }
 
@@ -80,12 +100,12 @@ class NuevoDomicilioFrag : Fragment() {
     //intriduce todos los datos o compos al formulario
     //los datos viejedel objeto json datosDomicilio que se tranmite entre vistas
     fun setDatosDomicilio() {
-        /*view?.findViewById<TextView>(R.id.txtNuDoTres).text =
-            datosDomicilios!!.getString("nombre_cliente")
-        view?.findViewById<TextView>(R.id.txtNuDoOrigen).text = datosDomicilios!!.getString("origen")
-        view?.findViewById<TextView>(R.id.txtNuDoDestino).text = datosDomicilios!!.getString("destino")
-        view?.findViewById<TextView>(R.id.edtNuDoTres).text = datosDomicilios!!.getString("descripcion")
-        view?.findViewById<TextView>(R.id.edtNudoCuatro).text = datosDomicilios!!.getString("notas")*/
+        view?.findViewById<TextView>(R.id.txtNuDoTres)!!.text =
+            NavegacionActivity.domicilioAux!!.getString("nombre_cliente")
+        view?.findViewById<TextView>(R.id.txtNuDoOrigen)!!.text = NavegacionActivity.domicilioAux!!.getString("origen")
+        view?.findViewById<TextView>(R.id.txtNuDoDestino)!!.text = NavegacionActivity.domicilioAux!!.getString("destino")
+        view?.findViewById<TextView>(R.id.edtNuDoTres)!!.text = NavegacionActivity.domicilioAux!!.getString("descripcion")
+        view?.findViewById<TextView>(R.id.edtNudoCuatro)!!.text = NavegacionActivity.domicilioAux!!.getString("notas")
     }
 
 }
