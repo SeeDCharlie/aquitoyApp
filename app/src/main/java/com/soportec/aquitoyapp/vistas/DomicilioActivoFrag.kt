@@ -151,7 +151,7 @@ class DomicilioActivoFrag : Fragment() {
         //camera intent
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, controlFrag!!.image_uri)
-        activity?.startActivityForResult(cameraIntent, 1)
+        startActivityForResult(cameraIntent, 1)
 
     }
 
@@ -162,7 +162,6 @@ class DomicilioActivoFrag : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-
         when (requestCode) {
             VariablesConf.PERMISSION_CAM_CODE-> {
                 if (grantResults.size > 0 && grantResults[0] ==
@@ -181,13 +180,11 @@ class DomicilioActivoFrag : Fragment() {
 
 
     //oyente que captura la imagen seleccionada de la camara
-    @SuppressLint("MissingSuperCall", "RestrictedApi")
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Toast.makeText(this.context, "recibiendo imgen de la camara", Toast.LENGTH_SHORT).show()
-        if (resultCode == RESULT_OK || requestCode == 1) {
-            Toast.makeText(this.context, "preparando para guardar imagen", Toast.LENGTH_SHORT).show()
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK || requestCode == 1) {
             controlFrag?.captureImg()
         }
     }
-
 }
