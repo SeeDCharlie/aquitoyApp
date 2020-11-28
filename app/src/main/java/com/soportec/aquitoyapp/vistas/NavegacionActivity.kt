@@ -111,23 +111,18 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
             when(it.itemId){
                 R.id.domiciliosDisponiblesFrag -> {
                     nc.navigate(R.id.domiciliosDisponiblesFrag)
-
-                    Toast.makeText(this, "item action", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.domiciliosAvtivosFrag -> {
-
                     nc.navigate(R.id.domiciliosAvtivosFrag)
                     true
                 }
                 R.id.nuevoDomicilioFrag -> {
-
                     nc.navigate(R.id.nuevoDomicilioFrag)
                     true
                 }
                 R.id.logginActivity -> {
                     logOut()
-
                     true
                 }
 

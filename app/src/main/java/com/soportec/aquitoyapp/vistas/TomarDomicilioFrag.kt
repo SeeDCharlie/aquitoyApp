@@ -45,7 +45,7 @@ class TomarDomicilioFrag : Fragment(), apiInterfaz {
         //evento del boton 'empezar' para empezar un domicilio
         view.findViewById<Button>(R.id.btnToDoUno).setOnClickListener {
             empezarDomicilio()
-            findNavController().navigate(R.id.tomar_dom_activo_trans )
+
         }
 
     }
@@ -87,7 +87,8 @@ class TomarDomicilioFrag : Fragment(), apiInterfaz {
 
     override fun acionPots(obj: JSONObject) {
         super.acionPots(obj)
-        Toast.makeText(view?.context, obj.getString("msj"), Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, obj.getString("msj"), Toast.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.tomar_dom_activo_trans )
     }
 
     override fun errorOk(obj: JSONObject) {

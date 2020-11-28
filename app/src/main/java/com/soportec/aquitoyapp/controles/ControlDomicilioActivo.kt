@@ -43,11 +43,12 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
     override var serverUploadDirectoryPath: String = VariablesConf.SERVE_UPLOAD_DIRECTION_PATH
     override val client: OkHttpClient = OkHttpClient()
 
+    override var baseUrl: String = VariablesConf.BASE_URL_API
+    override var requestExecute: RequestQueue? = Volley.newRequestQueue(context)
+
     var image_uri: Uri? = null
     var switchCamara = -1
     var controldb: ControlSql = ControlSql(context)
-    override var baseUrl: String = VariablesConf.BASE_URL_API
-    override var requestExecute: RequestQueue? = Volley.newRequestQueue(context)
 
 
 
@@ -104,11 +105,11 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         if (switchCamara == 1) {
             fragment.view?.findViewById<LinearLayout>(R.id.lilDoAcUno)?.addView(img)
             //secargan las evidencias al servidor
-            cargarEvidencia(1 )
-        } else if (switchCamara == 0) {
+            cargarEvidencia(switchCamara )
+        } else if (switchCamara == 2) {
             fragment.view?.findViewById<LinearLayout>(R.id.lilDoAcDos)?.addView(img)
 //               //secconargan las evidencias al servidor
-            cargarEvidencia(2)
+            cargarEvidencia(switchCamara)
         }
     }
 
@@ -121,7 +122,7 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         val uploadName: String = "img_${id_dom}_${dateFormat}.jpeg"
         uploadFile(documento, contraseña, id_dom, code_evidencia, getRealPathFromURI(image_uri!!)!!, uploadName)
         //se guardan las rutas de las evidenciasen el una base de datos local
-        controldb!!.addEviden(id_dom, image_uri!!.toString(), 1)
+
     }
 
     fun agregarNota(dialog:Dialog){
@@ -157,6 +158,8 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         if(obj.getString("tag") == "nota_agregada"){
             Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+            controldb!!.addEviden(NavegacionActivity.domicilioAux!!.getInt("id_dom"),
+                image_uri!!.toString(), switchCamara)
         }
     }
 
@@ -168,6 +171,24 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
 
     override fun errorRequest(msj: String) {
         super.errorRequest(msj)
+        Snackbar.make(fragment.requireView(), msj, Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+    }
+
+    override fun despuesDeCargar(obj: JSONObject) {
+        super.despuesDeCargar(obj)
+        Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+    }
+
+    override fun errorOkCarga(obj: JSONObject) {
+        super.errorOkCarga(obj)//getString("msj")
+        Snackbar.make(fragment.requireView(), obj.toString(), Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+    }
+
+    override fun errorRequestCarga(msj: String) {
+        super.errorRequestCarga(msj)
         Snackbar.make(fragment.requireView(), msj, Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
     }

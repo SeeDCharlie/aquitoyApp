@@ -67,16 +67,20 @@ interface UploadInterfaz {
 
                 if (response.isSuccessful) {
                     Log.d("File upload", "success, path: $serverUploadDirectoryPath$fileName")
-                    val jResponse = JSONObject(response.body!!.string()).getJSONObject("dats")
-                    showToast(jResponse.getString("msj"))
+                    val jResponse = JSONObject(response.body!!.string())
+                    if(jResponse.getBoolean("ok")){
+                        despuesDeCargar(jResponse.getJSONObject("dats") )
+                    }else{
+                        errorOkCarga(jResponse.getJSONObject("dats") )
+                    }
                 } else {
                     Log.e("File upload", "fallo al cargar la imagen")
-                    showToast("Fallo al cargar la imagen!")
+                    errorRequestCarga("Fallo al cargar la imagen!")
                 }
             } catch (ex: Exception) {
                 ex.printStackTrace()
                 Log.e("File upload", ex.toString())
-                showToast("File uploading failed : " + ex)
+                showToast("Error al cargar la imagen : " + ex)
             }
             toggleProgressDialog(false)
         }.start()
@@ -107,6 +111,17 @@ interface UploadInterfaz {
                 dialog?.dismiss()
             }
         }
+    }
+
+    fun despuesDeCargar(obj:JSONObject){
+
+    }
+
+    fun errorOkCarga(obj: JSONObject){
+
+    }
+    fun errorRequestCarga(msj:String){
+
     }
 
 

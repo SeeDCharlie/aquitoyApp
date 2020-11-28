@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="clip_horizontal|clip_vertical|start|fill"
-        android:layout_weight="1"
+        android:layout_weight="0"
         android:adjustViewBounds="true"
         android:drawingCacheQuality="auto"
         android:foregroundGravity="fill"

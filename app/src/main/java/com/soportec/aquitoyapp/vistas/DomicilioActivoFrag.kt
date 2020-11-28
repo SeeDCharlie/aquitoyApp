@@ -61,7 +61,7 @@ class DomicilioActivoFrag : Fragment() {
         }
         //evento para agregar evidecias de destino
         view.findViewById<ImageButton>(R.id.btnDoAcAdddos ).setOnClickListener {
-            getFoto(0,view)
+            getFoto(2,view)
         }
         //evento para añadir notas al domicilio
         view.findViewById<ImageButton>(R.id.btnDoAcAddNote ).setOnClickListener {
@@ -104,20 +104,6 @@ class DomicilioActivoFrag : Fragment() {
     //y abrir la camara para luegorecuperar la imagen tomada
     fun getFoto(code:Int, v:View) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            /*if (ContextCompat.checkSelfPermission(v.context,Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_DENIED ||
-                ContextCompat.checkSelfPermission( v.context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_DENIED
-            ) {
-                //permission was not enabled
-                val permission =
-                    arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                //show popup to request permission
-                ActivityCompat.requestPermissions(requireActivity(), permission)
-            } else {
-                //permission already granted
-                controlFrag!!.abrirCamara(code)
-            }*/
             when {
                 ContextCompat.checkSelfPermission(v.context,
                     Manifest.permission.CAMERA
@@ -167,10 +153,9 @@ class DomicilioActivoFrag : Fragment() {
                 if (grantResults.size > 0 && grantResults[0] ==
                     PackageManager.PERMISSION_GRANTED
                 ) {
-                    //permission from popup was granted
+                    //sí los permisos son concedidos
                     controlFrag!!.captureImg()
                 } else {
-                    //permission from popup was denied
                     Toast.makeText(this.context, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
