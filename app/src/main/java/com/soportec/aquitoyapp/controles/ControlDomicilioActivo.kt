@@ -1,25 +1,17 @@
 package com.soportec.aquitoyapp.controles
 
-import android.Manifest
 import android.app.Activity
 import android.app.Dialog
 import android.app.ProgressDialog
-import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
-import android.os.Build
 import android.provider.MediaStore
 import android.widget.*
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.requestPermissions
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.android.volley.RequestQueue
@@ -32,8 +24,8 @@ import com.soportec.aquitoyapp.modelos.apiInterfaz
 import com.soportec.aquitoyapp.vistas.NavegacionActivity
 import okhttp3.OkHttpClient
 import org.json.JSONObject
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
-import java.time.temporal.ValueRange
 import java.util.*
 
 class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiInterfaz, UploadInterfaz {
@@ -51,12 +43,17 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
     var switchCamara = -1
     var controldb: ControlSql = ControlSql(context)
 
-
+    private fun compressBitmap(bitmap:Bitmap, quality:Int):Bitmap{
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream)
+        val byteArray = stream.toByteArray()
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+    }
 
 
     //funcion que carga las fotos localmente de un domicilio que esta activo
     fun cargarFotos(id_dom: Int) {
-        var query = "select uri from urievidencias where id_dom = $id_dom and origen_destino = 0;"
+        var query = "select uri from urievidencias where id_dom = $id_dom and origen_destino = 2;"
         var queryDos =
             "select uri from urievidencias where id_dom = $id_dom and origen_destino = 1;"
         var resultado = controldb?.getUriPhotosDomi(query)
@@ -65,7 +62,9 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
             resultado.forEach {
                 val img = ImageView(context)
                 var uriFile = Uri.parse(it)
-                img.setImageURI(uriFile)
+                var imgBitmap = MediaStore.Images.Media.getBitmap(fragment.requireActivity().getContentResolver(), uriFile)
+                img.setImageBitmap(compressBitmap(imgBitmap,50))
+                img.adjustViewBounds = true
                 fragment.view?.findViewById<LinearLayout>(R.id.lilDoAcDos)?.addView(img)
             }
 
@@ -75,7 +74,9 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
             resultado.forEach {
                 val img = ImageView(context)
                 var uriFile = Uri.parse(it)
-                img.setImageURI(uriFile)
+                var imgBitmap = MediaStore.Images.Media.getBitmap(fragment.requireActivity().getContentResolver(), uriFile)
+                img.setImageBitmap(compressBitmap(imgBitmap,50))
+                img.adjustViewBounds = true
                 fragment.view?.findViewById<LinearLayout>(R.id.lilDoAcUno)?.addView(img)
             }
 
@@ -85,7 +86,13 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
     //funcion que devuelve la ruta url de una uri
     private fun getRealPathFromURI(contentURI: Uri): String? {
         val filePath: String
-        val cursor: Cursor? = fragment.activity?.contentResolver?.query(contentURI, null, null, null, null)
+        val cursor: Cursor? = fragment.activity?.contentResolver?.query(
+            contentURI,
+            null,
+            null,
+            null,
+            null
+        )
         if (cursor == null) {
             filePath = contentURI.path!!.toString()
         } else {
@@ -98,35 +105,42 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
     }
 
 
-
-
     fun captureImg(){
         val img = ImageView(context)
-        img.setImageURI(image_uri)
+        var imgBitmap = MediaStore.Images.Media.getBitmap(fragment.requireActivity().getContentResolver(), image_uri)
+        img.setImageBitmap(compressBitmap(imgBitmap,5))
+        img.adjustViewBounds = true
         if (switchCamara == 1) {
             fragment.view?.findViewById<LinearLayout>(R.id.lilDoAcUno)?.addView(img)
             //secargan las evidencias al servidor
-            cargarEvidencia(switchCamara )
+            cargarEvidencia(switchCamara)
         } else if (switchCamara == 2) {
             fragment.view?.findViewById<LinearLayout>(R.id.lilDoAcDos)?.addView(img)
 //               //secconargan las evidencias al servidor
             cargarEvidencia(switchCamara)
         }
     }
-
-    fun cargarEvidencia(code_evidencia:Int) {
+    //funciones de peticiones de a la api
+    fun cargarEvidencia(code_evidencia: Int) {
         Toast.makeText(this.context, "cargando evidencia!!!", Toast.LENGTH_SHORT).show()
         var documento: String = NavegacionActivity.datosUsuario!!.getString("usu_documento")
         var contraseña: String = NavegacionActivity.datosUsuario!!.getString("usu_pass")
         var id_dom: Int = NavegacionActivity.domicilioAux!!.getInt("dom_id")
         val dateFormat = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val uploadName: String = "img_${id_dom}_${dateFormat}.jpeg"
-        uploadFile(documento, contraseña, id_dom, code_evidencia, getRealPathFromURI(image_uri!!)!!, uploadName)
+        uploadFile(
+            documento,
+            contraseña,
+            id_dom,
+            code_evidencia,
+            getRealPathFromURI(image_uri!!)!!,
+            uploadName
+        )
         //se guardan las rutas de las evidenciasen el una base de datos local
 
     }
 
-    fun agregarNota(dialog:Dialog){
+    fun agregarNota(dialog: Dialog){
 
         dialog.setContentView(R.layout.dialog_add_note_dom)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -172,6 +186,7 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         respuestaPost(datos, "terminarDomicilio.php")
     }
 
+    //manejo de respuestas a la api
     override fun acionPots(obj: JSONObject) {
         super.acionPots(obj)
         if(obj.getString("tag") == "nota_agregada"){
@@ -191,6 +206,9 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         }
     }
 
+
+    ///manejo de errores de las peticiones a la api
+
     override fun errorOk(obj: JSONObject) {
         super.errorOk(obj)
         Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
@@ -207,8 +225,10 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         super.despuesDeCargar(obj)
         Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
-        controldb!!.addEviden(NavegacionActivity.domicilioAux!!.getInt("dom_id"),
-            image_uri!!.toString(), switchCamara)
+        controldb!!.addEviden(
+            NavegacionActivity.domicilioAux!!.getInt("dom_id"),
+            image_uri!!.toString(), switchCamara
+        )
     }
 
     override fun errorOkCarga(obj: JSONObject) {

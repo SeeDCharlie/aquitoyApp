@@ -297,10 +297,12 @@
                 android:id="@+id/scrDoAcUno"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
+                android:layout_gravity="left"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="5dp"
+                android:fillViewport="false">
 
                 <LinearLayout
                     android:id="@+id/lilDoAcUno"
@@ -325,6 +327,7 @@
                 android:id="@+id/scrDoAcDos"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
+                android:layout_gravity="left"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"

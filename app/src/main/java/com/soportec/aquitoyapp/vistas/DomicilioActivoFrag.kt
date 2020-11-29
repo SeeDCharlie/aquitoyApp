@@ -84,6 +84,7 @@ class DomicilioActivoFrag : Fragment() {
         dialog = Dialog(v.context)
 
         controlFrag!!.cargarFotos(NavegacionActivity.domicilioAux!!.getInt("dom_id"))
+
         var txtDesc = v.findViewById<TextView>(R.id.txtDoAcUno)
         var txtOrigen = v.findViewById<TextView>(R.id.txtDoAcDos)
         var txtDestino = v.findViewById<TextView>(R.id.txtDoAcTres)

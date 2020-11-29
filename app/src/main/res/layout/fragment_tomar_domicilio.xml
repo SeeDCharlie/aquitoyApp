@@ -30,7 +30,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/btnbg_white"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="13dp">
 
                 <TextView
                     android:id="@+id/textView15"
@@ -60,7 +60,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/btnbg_white"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="13dp">
 
                 <TextView
                     android:id="@+id/textView14"
@@ -90,7 +90,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/btnbg_white"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="13dp">
 
                 <TextView
                     android:id="@+id/textView13"
@@ -120,7 +120,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/btnbg_white"
                 android:orientation="horizontal"
-                android:padding="10dp">
+                android:padding="13dp">
 
                 <TextView
                     android:id="@+id/textView12"
@@ -229,7 +229,7 @@
                 android:layout_marginBottom="40dp"
                 android:layout_weight="1"
                 android:background="@drawable/btnbg_green"
-                android:padding="10dp"
+                android:padding="13dp"
                 android:text="Tomar Domicilio"
                 android:textColor="#FFFFFF" />
 
