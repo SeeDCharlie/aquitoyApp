@@ -70,11 +70,11 @@ class DomicilioActivoFrag : Fragment() {
 
         //Evento confirmacion domicilio
         view.findViewById<ImageButton>(R.id.btnDoAcOk).setOnClickListener {
-            controlFrag!!.terminarDomicilio()
+            controlFrag!!.terminarDomicilio(dialog)
         }
         //evento cancelar domicilio
         view.findViewById<ImageButton>(R.id.btnDoAcCancel).setOnClickListener {
-            controlFrag!!.cancelarDomicilio()
+            controlFrag!!.cancelarDomicilio(dialog)
         }
     }
 

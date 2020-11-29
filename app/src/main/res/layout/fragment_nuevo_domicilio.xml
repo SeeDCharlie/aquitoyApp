@@ -74,10 +74,12 @@
                     android:id="@+id/btnNuDoDos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:background="#009688"
-                    android:text="Existente" />
+                    android:text="Existente"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <View
@@ -140,7 +142,8 @@
                     android:layout_weight="1"
                     android:backgroundTint="#FF9800"
                     android:minWidth="100dip"
-                    android:text="Origen" />
+                    android:text="Origen"
+                    android:textColor="#FFFFFF" />
 
             </LinearLayout>
 
@@ -170,7 +173,8 @@
                     android:layout_weight="1"
                     android:backgroundTint="#FF5722"
                     android:minWidth="100dip"
-                    android:text="Destino" />
+                    android:text="Destino"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <EditText
@@ -214,7 +218,9 @@
                 android:layout_weight="1"
                 android:background="@drawable/btnbg_green"
                 android:gravity="center"
-                android:text="Registrar" />
+                android:padding="15dp"
+                android:text="Registrar"
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
     </ScrollView>

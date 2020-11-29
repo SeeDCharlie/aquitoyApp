@@ -15,7 +15,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -25,7 +26,7 @@
             android:layout_marginRight="5dp"
             android:contentDescription="@string/nav_header_desc"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
-            app:srcCompat="@mipmap/ico_me_pr_user" />
+            app:srcCompat="@mipmap/ico_me_pr_user_round" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,6 +64,6 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_marginTop="5dp"
-        android:background="#BD3D3D" />
+        android:background="#CD7979" />
 
 </LinearLayout>

@@ -4,6 +4,7 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/domiciliosDisponiblesFrag"
             android:icon="@drawable/ico_dom_disponibles_foreground"
@@ -23,6 +24,7 @@
             android:id="@+id/logginActivity"
             android:icon="@drawable/ico_me_pr_salir_foreground"
             android:title="Salir"
+
             />
 
     </group>

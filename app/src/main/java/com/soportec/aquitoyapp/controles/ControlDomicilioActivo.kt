@@ -168,22 +168,53 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
 
     }
 
-    fun cancelarDomicilio(){
-        val datos = JSONObject()
-        datos.put("cancelar_domicilio", true)
-        datos.put("documento", NavegacionActivity.datosUsuario?.getString("usu_documento"))
-        datos.put("id_dom", NavegacionActivity.domicilioAux?.getInt("dom_id"))
-        datos.put("contraseña", NavegacionActivity.datosUsuario?.getString("usu_pass"))
-        respuestaPost(datos, "cancelarDomicilio.php")
+    fun cancelarDomicilio(dialog:Dialog){
+
+        dialog.setContentView(R.layout.dialog_confirm)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val btnok = dialog.findViewById<Button>(R.id.btnDiCoOk)
+        val btncancel = dialog.findViewById<Button>(R.id.btnDiCoCancel)
+
+        btnok.setOnClickListener {
+            val datos = JSONObject()
+            datos.put("cancelar_domicilio", true)
+            datos.put("documento", NavegacionActivity.datosUsuario?.getString("usu_documento"))
+            datos.put("id_dom", NavegacionActivity.domicilioAux?.getInt("dom_id"))
+            datos.put("contraseña", NavegacionActivity.datosUsuario?.getString("usu_pass"))
+            respuestaPost(datos, "cancelarDomicilio.php")
+            dialog.dismiss()
+        }
+
+        btncancel?.setOnClickListener{
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
-    fun terminarDomicilio(){
-        val datos = JSONObject()
-        datos.put("terminar_domicilio", true)
-        datos.put("documento", NavegacionActivity.datosUsuario?.getString("usu_documento"))
-        datos.put("id_dom", NavegacionActivity.domicilioAux?.getInt("dom_id"))
-        datos.put("contraseña", NavegacionActivity.datosUsuario?.getString("usu_pass"))
-        respuestaPost(datos, "terminarDomicilio.php")
+    fun terminarDomicilio(dialog : Dialog){
+
+        dialog.setContentView(R.layout.dialog_confirm)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val btnok = dialog.findViewById<Button>(R.id.btnDiCoOk)
+        val btncancel = dialog.findViewById<Button>(R.id.btnDiCoCancel)
+
+        btnok.setOnClickListener{
+            val datos = JSONObject()
+            datos.put("terminar_domicilio", true)
+            datos.put("documento", NavegacionActivity.datosUsuario?.getString("usu_documento"))
+            datos.put("id_dom", NavegacionActivity.domicilioAux?.getInt("dom_id"))
+            datos.put("contraseña", NavegacionActivity.datosUsuario?.getString("usu_pass"))
+            respuestaPost(datos, "terminarDomicilio.php")
+            dialog.dismiss()
+        }
+
+        btncancel.setOnClickListener{
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     //manejo de respuestas a la api
