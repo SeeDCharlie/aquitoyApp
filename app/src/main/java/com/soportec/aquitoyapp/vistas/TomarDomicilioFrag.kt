@@ -1,6 +1,9 @@
 package com.soportec.aquitoyapp.vistas
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,6 +27,7 @@ class TomarDomicilioFrag : Fragment(), apiInterfaz {
     override var baseUrl: String =  VariablesConf.BASE_URL_API
     override var requestExecute: RequestQueue? = null
     var datosDomicilio: JSONObject? = null
+    lateinit var dialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,22 +55,36 @@ class TomarDomicilioFrag : Fragment(), apiInterfaz {
     }
 
     fun empezarDomicilio(){
-        var usu = NavegacionActivity.datosUsuario
-        var datos = JSONObject()
-        datos.put("tomar_domicilio", true)
-        datos.put("id_user",usu!!.getString("usu_id"))
-        datos.put("documento", usu!!.getString("usu_documento")  )
-        datos.put("contraseña", usu.getString("usu_pass"))
-        datos.put("id_domicilio", datosDomicilio!!.getInt("dom_id"))
 
-        respuestaPost(datos, "empezarDomicilio.php")
+        dialog.setContentView(R.layout.dialog_confirm)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
+        val btnok = dialog.findViewById<Button>(R.id.btnDiCoOk)
+        val btncancel = dialog.findViewById<Button>(R.id.btnDiCoCancel)
+        //eventos dialog
+        btnok.setOnClickListener {
+            var usu = NavegacionActivity.datosUsuario
+            var datos = JSONObject()
+            datos.put("tomar_domicilio", true)
+            datos.put("id_user", usu!!.getString("usu_id"))
+            datos.put("documento", usu!!.getString("usu_documento"))
+            datos.put("contraseña", usu.getString("usu_pass"))
+            datos.put("id_domicilio", datosDomicilio!!.getInt("dom_id"))
+
+            respuestaPost(datos, "empezarDomicilio.php")
+            dialog.dismiss()
+        }
+        btncancel.setOnClickListener{
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
 
     fun initView(v: View) {
         datosDomicilio = NavegacionActivity.domicilioAux
         requestExecute = Volley.newRequestQueue(context)
+        dialog = Dialog(v.context)
 
         val tvUno = v.findViewById<TextView>(R.id.tvToDoOrigen)
         val tvDos = v.findViewById<TextView>(R.id.tvToDoDestino)

@@ -1,5 +1,6 @@
 package com.soportec.aquitoyapp.vistas
 
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,6 +19,7 @@ import org.json.JSONObject
 class NuevoDomicilioFrag : Fragment() {
 
     var controlFrag : ControlNuevoDomicilio? = null
+    lateinit var dialog: Dialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +38,7 @@ class NuevoDomicilioFrag : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
+        initView(view)
 
         //creacion de eventos
 
@@ -68,14 +70,15 @@ class NuevoDomicilioFrag : Fragment() {
         //boton registrar domicilio
         view.findViewById<Button>(R.id.btnNuDoTres).setOnClickListener{
             catchDatosDomicilio()
-            controlFrag!!.registrarDomicilio()
+            controlFrag!!.registrarDomicilio(dialog)
         }
 
     }
 
-    fun initView(){
+    fun initView(v: View){
         var sw = NavegacionActivity.switchGetCliente
-        controlFrag = ControlNuevoDomicilio(context, this)
+        controlFrag = ControlNuevoDomicilio(v.context, this)
+        dialog = Dialog(v.context)
 
         if(sw > 0 && sw < 4){
             setDatosDomicilio()
