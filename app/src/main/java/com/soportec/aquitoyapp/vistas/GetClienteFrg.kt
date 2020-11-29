@@ -78,7 +78,6 @@ class GetClienteFrg : Fragment(), apiInterfaz, eventRecyclerView {
                 listaClientes!!.adapter!!.notifyDataSetChanged()
                 return true
             }
-
         })
     }
 
@@ -104,26 +103,22 @@ class GetClienteFrg : Fragment(), apiInterfaz, eventRecyclerView {
     override fun onCLick(pocicion: Int) {
 
         try {
-            Toast.makeText(context,"datos domi :: ${NavegacionActivity.modNuevoDom.toString()} " , Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context,"datos domi :: ${NavegacionActivity.modNuevoDom.toString()} " , Toast.LENGTH_SHORT).show()
 
             if(NavegacionActivity.switchGetCliente == 1){
-                NavegacionActivity.modNuevoDom.setNombre_cliente("")//clientes?.get(pocicion)?.nombre)
-                NavegacionActivity.modNuevoDom.setId_cliente(-1)//clientes?.get(pocicion)?.id_cliente))
+                NavegacionActivity.modNuevoDom.nombre_cliente = clientes?.get(pocicion)?.nombre
+                NavegacionActivity.modNuevoDom.id_cliente = clientes?.get(pocicion)?.id_cliente
             }
             if(NavegacionActivity.switchGetCliente == 2){
-                NavegacionActivity.modNuevoDom.setOrigen("")//clientes?.get(pocicion)?.direccion)
+                NavegacionActivity.modNuevoDom.origen = clientes?.get(pocicion)?.direccion
             }
             if(NavegacionActivity.switchGetCliente == 3){
-                NavegacionActivity.modNuevoDom.setDestino("")//clientes?.get(pocicion)?.direccion)
-
+                NavegacionActivity.modNuevoDom.destino = clientes?.get(pocicion)?.direccion
             }
-
             findNavController().navigate(R.id.action_getClienteFrg_to_nuevoDomicilioFrag)
-
         }catch (ex: Exception){
             Toast.makeText(context,"Error : ${ex} + ${ex.cause}" , Toast.LENGTH_SHORT).show()
         }
-
     }
 
     // funcion que se activa cuando se envia la peticion de los clientes al servidor

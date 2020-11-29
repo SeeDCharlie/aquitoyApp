@@ -66,6 +66,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="15"
                     android:duplicateParentState="true"
+                    android:padding="10dp"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -203,37 +204,17 @@
                 android:inputType="textMultiLine"
                 android:padding="15dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnNuDoTres"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_marginBottom="30dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btnbg_green"
-                    android:text="Registrar" />
-
-                <Button
-                    android:id="@+id/btnNuDoCuatro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginRight="40dp"
-                    android:layout_marginBottom="30dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btnbg_red"
-                    android:text="cancelar" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/btnNuDoTres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/btnbg_green"
+                android:gravity="center"
+                android:text="Registrar" />
 
         </LinearLayout>
     </ScrollView>

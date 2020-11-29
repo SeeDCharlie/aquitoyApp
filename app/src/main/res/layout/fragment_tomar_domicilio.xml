@@ -28,7 +28,9 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:background="@drawable/btnbg_white"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/textView15"
@@ -56,7 +58,9 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:background="@drawable/btnbg_white"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/textView14"
@@ -84,7 +88,9 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:background="@drawable/btnbg_white"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/textView13"
@@ -112,7 +118,9 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:background="@drawable/btnbg_white"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
                 <TextView
                     android:id="@+id/textView12"

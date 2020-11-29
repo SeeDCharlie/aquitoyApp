@@ -77,7 +77,8 @@
             app:destination="@id/getClienteFrg" />
         <action
             android:id="@+id/action_nuevoDomicilioFrag_to_tomarDomicilioFrag"
-            app:destination="@id/tomarDomicilioFrag" />
+            app:destination="@id/tomarDomicilioFrag"
+            app:popUpTo="@id/domiciliosDisponiblesFrag" />
     </fragment>
     <activity
         android:id="@+id/logginActivity"

@@ -10,11 +10,14 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.soportec.aquitoyapp.R
+import com.soportec.aquitoyapp.controles.ControlNuevoDomicilio
 import com.soportec.aquitoyapp.modelos.NuevoDomicilio
 import org.json.JSONObject
 
 
 class NuevoDomicilioFrag : Fragment() {
+
+    var controlFrag : ControlNuevoDomicilio? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,16 +67,16 @@ class NuevoDomicilioFrag : Fragment() {
         }
         //boton registrar domicilio
         view.findViewById<Button>(R.id.btnNuDoTres).setOnClickListener{
-            NavegacionActivity.switchGetCliente = -1
+            catchDatosDomicilio()
+            controlFrag!!.registrarDomicilio()
         }
-        //boton cancelar
-        view.findViewById<Button>(R.id.btnNuDoCuatro).setOnClickListener {
-            NavegacionActivity.switchGetCliente = -1
-        }
+
     }
 
     fun initView(){
         var sw = NavegacionActivity.switchGetCliente
+        controlFrag = ControlNuevoDomicilio(context, this)
+
         if(sw > 0 && sw < 4){
             setDatosDomicilio()
         }
@@ -82,7 +85,7 @@ class NuevoDomicilioFrag : Fragment() {
     //recoge todos los datos del formulario y los retorna
     fun catchDatosDomicilio() {
         NavegacionActivity.modNuevoDom = NuevoDomicilio(
-            NavegacionActivity.modNuevoDom.getId_cliente(),
+            NavegacionActivity.modNuevoDom.id_cliente,
             view?.findViewById<TextView>(R.id.txtNuDoTres)?.text!!.toString(),
             view?.findViewById<TextView>(R.id.txtNuDoOrigen)?.text!!.toString(),
             view?.findViewById<TextView>(R.id.txtNuDoOrigen)?.text!!.toString(),
@@ -94,11 +97,11 @@ class NuevoDomicilioFrag : Fragment() {
     //los datos viejedel objeto json datosDomicilio que se tranmite entre vistas
     fun setDatosDomicilio() {
         view?.findViewById<TextView>(R.id.txtNuDoTres)!!.text =
-            NavegacionActivity.modNuevoDom.getNombre_cliente()
-        view?.findViewById<TextView>(R.id.txtNuDoOrigen)!!.text = NavegacionActivity.modNuevoDom.getOrigen()
-        view?.findViewById<TextView>(R.id.txtNuDoDestino)!!.text = NavegacionActivity.modNuevoDom.getDestino()
-        view?.findViewById<TextView>(R.id.edtNuDoTres)!!.text = NavegacionActivity.modNuevoDom.getDestino()
-        view?.findViewById<TextView>(R.id.edtNudoCuatro)!!.text = NavegacionActivity.modNuevoDom.getNotas()
+            NavegacionActivity.modNuevoDom.nombre_cliente
+        view?.findViewById<TextView>(R.id.txtNuDoOrigen)!!.text = NavegacionActivity.modNuevoDom.origen
+        view?.findViewById<TextView>(R.id.txtNuDoDestino)!!.text = NavegacionActivity.modNuevoDom.destino
+        view?.findViewById<TextView>(R.id.edtNuDoTres)!!.text = NavegacionActivity.modNuevoDom.descripcion
+        view?.findViewById<TextView>(R.id.edtNudoCuatro)!!.text = NavegacionActivity.modNuevoDom.notas
     }
 
 }
