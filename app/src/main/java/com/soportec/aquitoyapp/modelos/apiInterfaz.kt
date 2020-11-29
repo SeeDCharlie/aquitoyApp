@@ -25,8 +25,8 @@ interface apiInterfaz {
                     errorOk(response.getJSONObject("dats"))
                 }
             }, { error: VolleyError ->
-                errorRequest(error.toString())
-                println(">>>>>>>>>>>> \n Error!! ${error} \n Causa : ${error.cause}")
+                errorRequest("No esta conectado a internet")
+                //println(">>>>>>>>>>>> \n Error!! ${error} \n Causa : ${error.cause}")
             })
 
         request.retryPolicy = DefaultRetryPolicy(

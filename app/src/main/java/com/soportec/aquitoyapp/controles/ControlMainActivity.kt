@@ -14,6 +14,7 @@ import com.soportec.aquitoyapp.modelos.apiInterfaz
 import com.soportec.aquitoyapp.vistas.NavegacionActivity
 import com.soportec.aquitoyapp.vistas.LogginActivity
 import org.json.JSONObject
+import kotlin.system.exitProcess
 
 class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
 
@@ -60,5 +61,13 @@ class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
         activity.finish()
     }
 
+    override fun errorOk(obj: JSONObject) {
+        super.errorOk(obj)
+    }
 
+    override fun errorRequest(msj: String) {
+        super.errorRequest(msj)
+        showMsj(msj)
+        activity.finish()
+    }
 }
