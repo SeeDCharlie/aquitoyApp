@@ -29,6 +29,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
 import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlSql
+import com.soportec.aquitoyapp.modelos.NuevoDomicilio
 import com.soportec.aquitoyapp.modelos.VariablesConf
 import com.soportec.aquitoyapp.modelos.apiInterfaz
 import kotlinx.android.synthetic.main.activity_navegacion.*
@@ -45,7 +46,8 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
 
     companion object{
         var datosUsuario : JSONObject? = null
-        var domicilioAux : JSONObject = JSONObject("{'id_cliente':-1}")
+        var domicilioAux : JSONObject? = null
+        var modNuevoDom: NuevoDomicilio = NuevoDomicilio()
         var switchGetCliente: Int = -1
     }
 
@@ -56,16 +58,13 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-
-
-
+        
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.domiciliosDisponiblesFrag,R.id.domiciliosAvtivosFrag,

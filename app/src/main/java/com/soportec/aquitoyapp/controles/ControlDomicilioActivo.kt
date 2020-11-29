@@ -21,6 +21,7 @@ import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.google.android.material.snackbar.Snackbar
@@ -153,13 +154,40 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
 
     }
 
+    fun cancelarDomicilio(){
+        val datos = JSONObject()
+        datos.put("cancelar_domicilio", true)
+        datos.put("documento", NavegacionActivity.datosUsuario?.getString("usu_documento"))
+        datos.put("id_dom", NavegacionActivity.domicilioAux?.getInt("dom_id"))
+        datos.put("contraseña", NavegacionActivity.datosUsuario?.getString("usu_pass"))
+        respuestaPost(datos, "cancelarDomicilio.php")
+    }
+
+    fun terminarDomicilio(){
+        val datos = JSONObject()
+        datos.put("terminar_domicilio", true)
+        datos.put("documento", NavegacionActivity.datosUsuario?.getString("usu_documento"))
+        datos.put("id_dom", NavegacionActivity.domicilioAux?.getInt("dom_id"))
+        datos.put("contraseña", NavegacionActivity.datosUsuario?.getString("usu_pass"))
+        respuestaPost(datos, "terminarDomicilio.php")
+    }
+
     override fun acionPots(obj: JSONObject) {
         super.acionPots(obj)
-
         if(obj.getString("tag") == "nota_agregada"){
             Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+        }
+        if (obj.getString("tag") == "terminar_dom"){
+            Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+            fragment.findNavController().navigate(R.id.action_domicilioActivoFrag_to_domiciliosDisponiblesFrag)
 
+        }
+        if(obj.getString("tag") == "cancelar_dom"){
+            Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+            fragment.findNavController().navigate(R.id.action_domicilioActivoFrag_to_domiciliosAvtivosFrag)
         }
     }
 
@@ -179,7 +207,7 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         super.despuesDeCargar(obj)
         Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
-        controldb!!.addEviden(NavegacionActivity.domicilioAux!!.getInt("id_dom"),
+        controldb!!.addEviden(NavegacionActivity.domicilioAux!!.getInt("dom_id"),
             image_uri!!.toString(), switchCamara)
     }
 

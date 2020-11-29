@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="20dp"
     android:orientation="vertical"
     tools:context=".vistas.TomarDomicilioFrag">
 
@@ -16,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="40dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -202,7 +203,7 @@
             <View
                 android:id="@+id/divider2"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
@@ -215,11 +216,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="40dp"
                 android:layout_weight="1"
                 android:background="@drawable/btnbg_green"
-                android:text="Tomar Domicilio" />
+                android:padding="10dp"
+                android:text="Tomar Domicilio"
+                android:textColor="#FFFFFF" />
 
         </LinearLayout>
     </ScrollView>

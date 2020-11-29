@@ -70,11 +70,11 @@ class DomicilioActivoFrag : Fragment() {
 
         //Evento confirmacion domicilio
         view.findViewById<ImageButton>(R.id.btnDoAcOk).setOnClickListener {
-
+            controlFrag!!.terminarDomicilio()
         }
         //evento cancelar domicilio
         view.findViewById<ImageButton>(R.id.btnDoAcCancel).setOnClickListener {
-
+            controlFrag!!.cancelarDomicilio()
         }
     }
 
@@ -112,12 +112,8 @@ class DomicilioActivoFrag : Fragment() {
                 ) == PackageManager.PERMISSION_GRANTED-> {
                     // You can use the API that requires the permission.
                     abrirCamara(code)
-
                 }
-
                 else -> {
-                    // You can directly ask for the permission.
-                    // The registered ActivityResultCallback gets the result of this request.
                     requestPermissions(arrayOf(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE), targetRequestCode)
                 }
             }
@@ -128,17 +124,14 @@ class DomicilioActivoFrag : Fragment() {
     }
     //funcion que inicia la camara para tomar una evidencia
     fun abrirCamara(code:Int) {
-
         controlFrag!!.switchCamara = code
         val values = ContentValues()
         values.put(MediaStore.Images.Media.TITLE, "New Picture")
         values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
         controlFrag!!.image_uri = activity?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        //camera intent
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, controlFrag!!.image_uri)
         startActivityForResult(cameraIntent, 1)
-
     }
 
 

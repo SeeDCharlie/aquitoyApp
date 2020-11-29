@@ -51,7 +51,6 @@ class GetClienteFrg : Fragment(), apiInterfaz, eventRecyclerView {
 
         initView(view)
 
-        //eventos
 
         searchv!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -105,24 +104,23 @@ class GetClienteFrg : Fragment(), apiInterfaz, eventRecyclerView {
     override fun onCLick(pocicion: Int) {
 
         try {
-            Toast.makeText(context,"datos domi :: ${NavegacionActivity.domicilioAux?.toString()} " , Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"datos domi :: ${NavegacionActivity.modNuevoDom.toString()} " , Toast.LENGTH_SHORT).show()
 
             if(NavegacionActivity.switchGetCliente == 1){
-                NavegacionActivity.domicilioAux!!.put("cli_nombre", clientes!!.get(pocicion).nombre )
-                NavegacionActivity.domicilioAux!!.put("clientes_cli_id", clientes!!.get(pocicion).id_cliente )
+                NavegacionActivity.modNuevoDom.setNombre_cliente("")//clientes?.get(pocicion)?.nombre)
+                NavegacionActivity.modNuevoDom.setId_cliente(-1)//clientes?.get(pocicion)?.id_cliente))
             }
             if(NavegacionActivity.switchGetCliente == 2){
-                NavegacionActivity.domicilioAux!!.put("dom_origen", clientes!!.get(pocicion).direccion )
+                NavegacionActivity.modNuevoDom.setOrigen("")//clientes?.get(pocicion)?.direccion)
             }
             if(NavegacionActivity.switchGetCliente == 3){
-                NavegacionActivity.domicilioAux!!.put("dom_destino", clientes!!.get(pocicion).direccion )
+                NavegacionActivity.modNuevoDom.setDestino("")//clientes?.get(pocicion)?.direccion)
 
             }
-            //findNavController().popBackStack()
+
             findNavController().navigate(R.id.action_getClienteFrg_to_nuevoDomicilioFrag)
 
         }catch (ex: Exception){
-
             Toast.makeText(context,"Error : ${ex} + ${ex.cause}" , Toast.LENGTH_SHORT).show()
         }
 
