@@ -91,7 +91,7 @@ class NuevoDomicilioFrag : Fragment() {
             NavegacionActivity.modNuevoDom.id_cliente,
             view?.findViewById<TextView>(R.id.txtNuDoTres)?.text!!.toString(),
             view?.findViewById<TextView>(R.id.txtNuDoOrigen)?.text!!.toString(),
-            view?.findViewById<TextView>(R.id.txtNuDoOrigen)?.text!!.toString(),
+            view?.findViewById<TextView>(R.id.txtNuDoDestino)?.text!!.toString(),
             view?.findViewById<TextView>(R.id.edtNuDoTres)?.text!!.toString(),
             view?.findViewById<TextView>(R.id.edtNudoCuatro)?.text!!.toString()
         )
