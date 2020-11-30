@@ -49,7 +49,7 @@ class ReporteUbicacion(
     }
 
     //esta funcion recibe latitud y longitud para ser registradas junto con un usuario si
-    //este ha iniciado sesion
+    //este tiene la sesion activa
     fun sendLocation(lat: Double, long: Double) {
         var datos = JSONObject()
         datos.put("lat", lat)

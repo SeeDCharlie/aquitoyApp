@@ -38,17 +38,20 @@ class DomiciliosDisponiblesFrag : Fragment() {
 
 
         //eventos del fragment
-
+        //evento de la lista. Se ejecuta cuando se da click en un item de la lista
         view.findViewById<ListView>(R.id.listViewUno)
             ?.setOnItemClickListener { parent: AdapterView<*>, view: View, position: Int, id: Long ->
-                //llamo a la vista tomar_domicilio
+                //tomamos los datos del domicilio en la pocicion en la que el usuario dio click
                 NavegacionActivity.domicilioAux =
                     controlFrag!!.domicilios_disponibles!!.getJSONObject(position.toString())
+                //se llama a la vista tomar_domicilio
                 findNavController().navigate(R.id.disponibles_tomar_trans)
             }
     }
 
     fun initView(view:View) {
+
+        //al iniciar el fragment se cargan los domicilios en la listView del fragment
         controlFrag = ControlDomiciliosDisponibles(view.context,this)
         controlFrag!!.cargarDomicilios()
     }

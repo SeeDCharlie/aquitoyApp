@@ -102,7 +102,7 @@ class DomicilioActivoFrag : Fragment() {
     }
 
     //funcion que pide permisos a los usuarios para utilizar la camara
-    //y abrir la camara para luegorecuperar la imagen tomada
+    //y abrir la camara para luego recuperar la imagen tomada
     fun getFoto(code:Int, v:View) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             when {
@@ -136,7 +136,7 @@ class DomicilioActivoFrag : Fragment() {
     }
 
 
-    //funcion que pide permisos para acceder a la galeria de imagenes
+    //funcion que se ejecuta cuando el usuario a otorgado los permisos
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,

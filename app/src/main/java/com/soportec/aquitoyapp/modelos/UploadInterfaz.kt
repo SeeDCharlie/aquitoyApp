@@ -75,12 +75,12 @@ interface UploadInterfaz {
                     }
                 } else {
                     Log.e("File upload", "fallo al cargar la imagen")
-                    errorRequestCarga("Fallo al cargar la imagen!")
+                    errorRequestCarga("Fallo al cargar la imagen!\n Vuelva a intentarlo o reporte su problema")
                 }
             } catch (ex: Exception) {
                 ex.printStackTrace()
                 Log.e("File upload", ex.toString())
-                showToast("Error al cargar la imagen : " + ex)
+                showToast("Error al cargar la imagen :\n compruebe su conexion a internet\n" + ex)
             }
             toggleProgressDialog(false)
         }.start()
@@ -106,7 +106,7 @@ interface UploadInterfaz {
         activity?.runOnUiThread {
             if (show) {
                 @Suppress("DEPRECATION")
-                dialog = ProgressDialog.show(activity, "Aquitoy Msj", "Cargando Imagen...", true)
+                dialog = ProgressDialog.show(activity, "Aquitoy Msj", "Cargando Evidencia...", true)
             } else {
                 dialog?.dismiss()
             }

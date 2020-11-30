@@ -20,8 +20,10 @@ class ControlDomiciliosDisponibles(var context: Context?, var fragment: Fragment
 
     override var baseUrl: String = VariablesConf.BASE_URL_API
     override var requestExecute: RequestQueue? = Volley.newRequestQueue(context)
+
     var datosUsuario: JSONObject? = NavegacionActivity.datosUsuario
     var domicilios_disponibles: JSONObject? = null
+
 
     fun cargarDomicilios() {
         val datos = JSONObject()
@@ -33,7 +35,10 @@ class ControlDomiciliosDisponibles(var context: Context?, var fragment: Fragment
     }
 
 
+    //manejo de respuestas correctas del servidor
     override fun acionPots(obj: JSONObject) {
+        //tomamoslos domicilios disponibles que vienen en 'obj' (objeto json)
+        //y los guaedamos en una listView
         var listViewDomicilios = fragment.view?.findViewById<ListView>(R.id.listViewUno)
         var listaDatosDom = mutableListOf<DomDisponible>()
         domicilios_disponibles = obj
@@ -47,12 +52,10 @@ class ControlDomiciliosDisponibles(var context: Context?, var fragment: Fragment
                     dom.getString("estadodom_nombre")
                 )
             )
-
         }
         listViewDomicilios?.adapter = rowAdapterDomDisp(context!!, R.layout.row_uno, listaDatosDom)
     }
-
-
+    //manejo de errores de las peticiones al servidor
     override fun errorOk(obj: JSONObject) {
         super.errorOk(obj)
         Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)

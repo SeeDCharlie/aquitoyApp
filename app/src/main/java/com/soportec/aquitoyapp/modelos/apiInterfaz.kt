@@ -25,15 +25,14 @@ interface apiInterfaz {
                     errorOk(response.getJSONObject("dats"))
                 }
             }, { error: VolleyError ->
-                errorRequest("No esta conectado a internet")
-                //println(">>>>>>>>>>>> \n Error!! ${error} \n Causa : ${error.cause}")
+                errorRequest("Compruebe su conexion a internet")
+                println(">>>>>>>>>>>> \n Error!! ${error} \n Causa : ${error.cause}")
             })
 
         request.retryPolicy = DefaultRetryPolicy(
             DefaultRetryPolicy.DEFAULT_TIMEOUT_MS, 0, 1f
         )
         this.requestExecute!!.add(request)
-
     }
 
     fun acionPots(obj: JSONObject) {

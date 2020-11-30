@@ -30,19 +30,24 @@ import java.util.*
 
 class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiInterfaz, UploadInterfaz {
 
+    //variables de la interfaz para cargar inamgenes al servidor(UploadInterfaz)
     override var activity: Activity? = fragment.activity
     override var dialog: ProgressDialog? = null
     override var serverURL: String = VariablesConf.URL_UPLOAD_IMG
     override var serverUploadDirectoryPath: String = VariablesConf.SERVE_UPLOAD_DIRECTION_PATH
     override val client: OkHttpClient = OkHttpClient()
 
+    //variables dela interfaz 'apiInterfaz'
     override var baseUrl: String = VariablesConf.BASE_URL_API
     override var requestExecute: RequestQueue? = Volley.newRequestQueue(context)
 
+    //variables de la clase
     var image_uri: Uri? = null
     var switchCamara = -1
     var controldb: ControlSql = ControlSql(context)
 
+
+    //funcion para comprimir una imagen bitmap
     private fun compressBitmap(bitmap:Bitmap, quality:Int):Bitmap{
         val stream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream)
@@ -120,7 +125,8 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
             cargarEvidencia(switchCamara)
         }
     }
-    //funciones de peticiones de a la api
+
+    //funciones de peticiones a la api
     fun cargarEvidencia(code_evidencia: Int) {
         Toast.makeText(this.context, "cargando evidencia!!!", Toast.LENGTH_SHORT).show()
         var documento: String = NavegacionActivity.datosUsuario!!.getString("usu_documento")
@@ -136,8 +142,6 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
             getRealPathFromURI(image_uri!!)!!,
             uploadName
         )
-        //se guardan las rutas de las evidenciasen el una base de datos local
-
     }
 
     fun agregarNota(dialog: Dialog){
@@ -165,7 +169,6 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         }
 
         dialog.show()
-
     }
 
     fun cancelarDomicilio(dialog:Dialog){
@@ -218,6 +221,9 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
     }
 
     //manejo de respuestas a la api
+
+    //funcion que se ejecuta cuando el servidor ha dado una respuesta correcta
+    //devolviendo un objeto json con informacion
     override fun acionPots(obj: JSONObject) {
         super.acionPots(obj)
         if(obj.getString("tag") == "nota_agregada"){
@@ -228,7 +234,6 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
             Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
             fragment.findNavController().navigate(R.id.action_domicilioActivoFrag_to_domiciliosDisponiblesFrag)
-
         }
         if(obj.getString("tag") == "cancelar_dom"){
             Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
@@ -236,7 +241,18 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
             fragment.findNavController().navigate(R.id.action_domicilioActivoFrag_to_domiciliosAvtivosFrag)
         }
     }
-
+    //esta funcion se ejecuta cuando la carga de una imagen ha sido correcta
+    // y el servidor a dado una respuesta. la informacion devueta por el servidor
+    //viene en un objeto json
+    override fun despuesDeCargar(obj: JSONObject) {
+        super.despuesDeCargar(obj)
+        Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+        controldb!!.addEviden(
+            NavegacionActivity.domicilioAux!!.getInt("dom_id"),
+            image_uri!!.toString(), switchCamara
+        )
+    }
 
     ///manejo de errores de las peticiones a la api
 
@@ -250,16 +266,6 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         super.errorRequest(msj)
         Snackbar.make(fragment.requireView(), msj, Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
-    }
-
-    override fun despuesDeCargar(obj: JSONObject) {
-        super.despuesDeCargar(obj)
-        Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
-            .setAction("Action", null).show()
-        controldb!!.addEviden(
-            NavegacionActivity.domicilioAux!!.getInt("dom_id"),
-            image_uri!!.toString(), switchCamara
-        )
     }
 
     override fun errorOkCarga(obj: JSONObject) {

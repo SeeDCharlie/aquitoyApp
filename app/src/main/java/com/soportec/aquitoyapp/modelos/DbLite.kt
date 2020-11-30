@@ -32,6 +32,7 @@ class DbLite(context: Context) : Serializable, SQLiteOpenHelper(context, "userSe
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("drop table if exists sesiones;")
+        db.execSQL("drop table if exists urievidencias;")
         onCreate(db)
     }
 

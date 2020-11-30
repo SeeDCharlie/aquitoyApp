@@ -1,20 +1,23 @@
 package com.soportec.aquitoyapp.vistas
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.Volley
 import com.soportec.aquitoyapp.R
-import com.soportec.aquitoyapp.controles.ControlApi
+import com.soportec.aquitoyapp.modelos.VariablesConf
+import com.soportec.aquitoyapp.modelos.apiInterfaz
 import org.json.JSONObject
 
-class NuevoClienteActivity : AppCompatActivity() {
+class NuevoClienteActivity : AppCompatActivity(), apiInterfaz {
 
     var datosUsuario: JSONObject? = null
-    var controlapi: ControlApi? = null
     var datosDomicilio: JSONObject? = null
+    override var baseUrl: String = VariablesConf.BASE_URL_API
+    override var requestExecute: RequestQueue? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +27,7 @@ class NuevoClienteActivity : AppCompatActivity() {
 
         //eventos
         //boton registrar
-        findViewById<Button>(R.id.btnNuClUno).setOnClickListener {
+        /*findViewById<Button>(R.id.btnNuClUno).setOnClickListener {
             controlapi!!.registrarCliente(
                 datosUsuario!!.getString("usu_documento"),
                 datosUsuario!!.getString("usu_pass"),
@@ -32,7 +35,7 @@ class NuevoClienteActivity : AppCompatActivity() {
                 ::btnRegistrarClienteAction
             )
 
-        }
+        }*/
         // boton cancelar
         findViewById<Button>(R.id.btnNuClDos).setOnClickListener {
             finish()
@@ -41,9 +44,9 @@ class NuevoClienteActivity : AppCompatActivity() {
     }
 
     fun initView() {
+        requestExecute = Volley.newRequestQueue(this)
         datosUsuario = JSONObject(intent.getStringExtra("datos_usuario"))
         datosDomicilio = JSONObject(intent.getStringExtra("datos_domicilio"))
-        controlapi = ControlApi(this)
 
     }
 
@@ -78,4 +81,15 @@ class NuevoClienteActivity : AppCompatActivity() {
     }
 
 
+    override fun acionPots(obj: JSONObject) {
+        super.acionPots(obj)
+    }
+
+    override fun errorOk(obj: JSONObject) {
+        super.errorOk(obj)
+    }
+
+    override fun errorRequest(msj: String) {
+        super.errorRequest(msj)
+    }
 }

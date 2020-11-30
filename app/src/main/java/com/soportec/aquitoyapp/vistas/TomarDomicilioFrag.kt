@@ -1,7 +1,6 @@
 package com.soportec.aquitoyapp.vistas
 
 import android.app.Dialog
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -16,11 +15,9 @@ import androidx.navigation.fragment.findNavController
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.soportec.aquitoyapp.R
-import com.soportec.aquitoyapp.controles.ControlApi
 import com.soportec.aquitoyapp.modelos.VariablesConf
 import com.soportec.aquitoyapp.modelos.apiInterfaz
 import org.json.JSONObject
-import kotlin.jvm.internal.MagicApiIntrinsics
 
 class TomarDomicilioFrag : Fragment(), apiInterfaz {
 
@@ -53,15 +50,16 @@ class TomarDomicilioFrag : Fragment(), apiInterfaz {
         }
 
     }
-
+    //funcion que inicia un dialogo en la pantalla para pedir la confirmacion
+    //paraempezar un domicilio
     fun empezarDomicilio(){
-
+        //se el layout correspondiente al dialog
         dialog.setContentView(R.layout.dialog_confirm)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
+        //referenciamos los botones del dialog
         val btnok = dialog.findViewById<Button>(R.id.btnDiCoOk)
         val btncancel = dialog.findViewById<Button>(R.id.btnDiCoCancel)
-        //eventos dialog
+        //eventos de los botonesde dialog
         btnok.setOnClickListener {
             var usu = NavegacionActivity.datosUsuario
             var datos = JSONObject()
@@ -77,6 +75,7 @@ class TomarDomicilioFrag : Fragment(), apiInterfaz {
         btncancel.setOnClickListener{
             dialog.dismiss()
         }
+        //mostramos el dialog
         dialog.show()
     }
 
@@ -100,9 +99,10 @@ class TomarDomicilioFrag : Fragment(), apiInterfaz {
         tvCinco.text = tvCinco.text.toString() + datosDomicilio!!.getString("cli_nombre")
         tvSeis.text = tvSeis.text.toString() + datosDomicilio!!.getString("dom_notas")
 
-
     }
 
+
+    //funciones heredadas de la interfaz apiInterfaz
     override fun acionPots(obj: JSONObject) {
         super.acionPots(obj)
         Toast.makeText(context, obj.getString("msj"), Toast.LENGTH_SHORT).show()

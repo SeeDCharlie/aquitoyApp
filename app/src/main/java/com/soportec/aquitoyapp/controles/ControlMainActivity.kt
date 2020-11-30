@@ -19,13 +19,12 @@ import kotlin.system.exitProcess
 class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
 
     var context: Context = ctx
-
-    override var baseUrl: String = VariablesConf.BASE_URL_API
-
-    override var requestExecute: RequestQueue? = Volley.newRequestQueue(context)
-
     var controldb: ControlSql = ControlSql(context)
 
+    override var baseUrl: String = VariablesConf.BASE_URL_API
+    override var requestExecute: RequestQueue? = Volley.newRequestQueue(context)
+
+    //empezamos el proceso en segundo plano que notificara la ubicacion
     init {
         val workRequest: WorkRequest = OneTimeWorkRequest.Builder(ReporteUbicacion::class.java)
             .build()
