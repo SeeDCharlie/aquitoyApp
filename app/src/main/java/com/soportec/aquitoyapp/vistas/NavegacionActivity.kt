@@ -110,14 +110,17 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
             }
             when(it.itemId){
                 R.id.domiciliosDisponiblesFrag -> {
+                    nc.popBackStack()
                     nc.navigate(R.id.domiciliosDisponiblesFrag)
                     true
                 }
                 R.id.domiciliosAvtivosFrag -> {
+                    nc.popBackStack()
                     nc.navigate(R.id.domiciliosAvtivosFrag)
                     true
                 }
                 R.id.nuevoDomicilioFrag -> {
+                    nc.popBackStack()
                     nc.navigate(R.id.nuevoDomicilioFrag)
                     true
                 }
@@ -125,7 +128,6 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
                     logOut()
                     true
                 }
-
                 else ->{
                    true
                 }

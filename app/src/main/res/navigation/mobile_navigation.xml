@@ -38,7 +38,7 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/domiciliosDisponiblesFrag"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/domicilioActivoFrag"

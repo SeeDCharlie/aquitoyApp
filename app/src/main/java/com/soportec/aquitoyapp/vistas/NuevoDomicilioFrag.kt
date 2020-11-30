@@ -85,7 +85,7 @@ class NuevoDomicilioFrag : Fragment() {
         }
     }
 
-    //recoge todos los datos del formulario y los retorna
+    //
     fun catchDatosDomicilio() {
         NavegacionActivity.modNuevoDom = NuevoDomicilio(
             NavegacionActivity.modNuevoDom.id_cliente,
@@ -96,6 +96,7 @@ class NuevoDomicilioFrag : Fragment() {
             view?.findViewById<TextView>(R.id.edtNudoCuatro)?.text!!.toString()
         )
     }
+
     //intriduce todos los datos o compos al formulario
     //los datos viejedel objeto json datosDomicilio que se tranmite entre vistas
     fun setDatosDomicilio() {
