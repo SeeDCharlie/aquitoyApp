@@ -8,11 +8,11 @@
         <item
             android:id="@+id/domiciliosDisponiblesFrag"
             android:icon="@drawable/ico_dom_disponibles_foreground"
-            android:title="domilios disponibles" />
+            android:title="Domicilios disponibles" />
 
         <item
             android:id="@+id/domiciliosAvtivosFrag"
-            android:title="domicilios en curso"
+            android:title="Domicilios en curso"
             android:icon="@drawable/ico_dom_activo_dos_foreground"
             />
         <item

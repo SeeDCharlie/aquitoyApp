@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+<<<<<<< HEAD
 
+=======
+>>>>>>> github/main
     <item>
         <shape>
             <solid
                 android:color="@color/white"/>
+<<<<<<< HEAD
             <corners android:radius="30dp"/>
             <stroke
                 android:width="2dp"
@@ -13,4 +17,9 @@
 
     </item>
 
+=======
+            <corners android:radius="45dp"/>
+        </shape>
+    </item>
+>>>>>>> github/main
 </selector>
