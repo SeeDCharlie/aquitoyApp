@@ -72,7 +72,8 @@ class MainActivity : AppCompatActivity() {
                         control.checkSesion()
                     }
                 } else {
-                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Debes aceptar los permisos para usar la aplicacion", Toast.LENGTH_SHORT).show()
+                    finish()
                 }
                 return
             }

@@ -10,7 +10,7 @@ import java.io.Serializable
 
 class ControlSql(var context: Context) : Serializable {
 
-    val motor_db: DbLite = DbLite(context)
+    var motor_db: DbLite = DbLite(context)
 
 
     //metodo para agregar una sesion activa

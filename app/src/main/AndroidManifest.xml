@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -18,12 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".vistas.LogginActivity" />
-        <activity android:name=".vistas.NuevaNotaDom" />
-        <activity android:name=".vistas.GetClienteActivity" />
         <activity android:name=".vistas.NuevoClienteActivity" />
-        <activity android:name=".vistas.NuevoDomicilioActivity" />
-        <activity android:name=".vistas.DomicilioActivoActivity" />
-        <activity android:name=".vistas.DomiciliosActivosActivity" />
         <activity android:name=".vistas.NavegacionActivity" />
         <activity
             android:name=".MainActivity"
