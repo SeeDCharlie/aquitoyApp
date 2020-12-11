@@ -256,7 +256,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="5dp"
-                android:text="Añadir Nota"
+                android:text="Anadir Nota"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 

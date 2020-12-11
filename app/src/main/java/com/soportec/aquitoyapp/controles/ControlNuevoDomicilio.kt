@@ -54,12 +54,12 @@ class ControlNuevoDomicilio(var context: Context?, var fragment: Fragment): apiI
         datos.put("nuevo_domicilio", true)
         datos.put("documento", NavegacionActivity.datosUsuario!!.getString("usu_documento"))
         datos.put("id_user", NavegacionActivity.datosUsuario!!.getInt("usu_id"))
-        datos.put("contraseña", NavegacionActivity.datosUsuario!!.getString("usu_pass"))
+        datos.put("contrasena", NavegacionActivity.datosUsuario!!.getString("usu_pass"))
         datos.put("datos_domicilio", datos_domicilio)
         //peticion al servidor
         if(datos_domicilio.getString("origen") != "" && datos_domicilio.getString("destino") != ""
             && datos_domicilio.getInt("id_cliente") != -1){
-            respuestaPost(datos, "nuevoDomicilio.php")
+            peticionPost(datos, "nuevoDomicilio.php")
         }else{
             Snackbar.make(fragment.requireView(), "Hay Campos Vacios", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()

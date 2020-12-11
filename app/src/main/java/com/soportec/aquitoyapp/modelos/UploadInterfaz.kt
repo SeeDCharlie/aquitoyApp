@@ -51,7 +51,7 @@ interface UploadInterfaz {
                         ).addFormDataPart(
                             "documento", documento
                         ).addFormDataPart(
-                            "contraseña", contraseña
+                            "contrasena", contraseña
                         ).addFormDataPart(
                             "guardar_evidencia", true.toString()
                         ).addFormDataPart(

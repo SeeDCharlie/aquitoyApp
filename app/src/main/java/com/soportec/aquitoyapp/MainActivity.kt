@@ -66,8 +66,7 @@ class MainActivity : AppCompatActivity() {
                     if ((ContextCompat.checkSelfPermission(
                             this@MainActivity,
                             Manifest.permission.ACCESS_FINE_LOCATION
-                        ) ===
-                                PackageManager.PERMISSION_GRANTED)
+                        ) === PackageManager.PERMISSION_GRANTED)
                     ) {
                         control.checkSesion()
                     }

@@ -159,9 +159,9 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
             datos.put("agregar_nota", true)
             datos.put("documento", NavegacionActivity.datosUsuario!!.getString("usu_documento"))
             datos.put("id_dom", NavegacionActivity.domicilioAux!!.getInt("dom_id"))
-            datos.put("contraseña", NavegacionActivity.datosUsuario!!.getString("usu_pass"))
+            datos.put("contrasena", NavegacionActivity.datosUsuario!!.getString("usu_pass"))
             datos.put("nota", notaText)
-            respuestaPost(datos, "agregarNota.php")
+            peticionPost(datos, "agregarNota.php")
             dialog.dismiss()
         }
         btncancel.setOnClickListener{
@@ -184,8 +184,8 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
             datos.put("cancelar_domicilio", true)
             datos.put("documento", NavegacionActivity.datosUsuario?.getString("usu_documento"))
             datos.put("id_dom", NavegacionActivity.domicilioAux?.getInt("dom_id"))
-            datos.put("contraseña", NavegacionActivity.datosUsuario?.getString("usu_pass"))
-            respuestaPost(datos, "cancelarDomicilio.php")
+            datos.put("contrasena", NavegacionActivity.datosUsuario?.getString("usu_pass"))
+            peticionPost(datos, "cancelarDomicilio.php")
             dialog.dismiss()
         }
 
@@ -208,8 +208,8 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
             datos.put("terminar_domicilio", true)
             datos.put("documento", NavegacionActivity.datosUsuario?.getString("usu_documento"))
             datos.put("id_dom", NavegacionActivity.domicilioAux?.getInt("dom_id"))
-            datos.put("contraseña", NavegacionActivity.datosUsuario?.getString("usu_pass"))
-            respuestaPost(datos, "terminarDomicilio.php")
+            datos.put("contrasena", NavegacionActivity.datosUsuario?.getString("usu_pass"))
+            peticionPost(datos, "terminarDomicilio.php")
             dialog.dismiss()
         }
 

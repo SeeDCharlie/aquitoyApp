@@ -61,7 +61,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginBottom="2dp"
         android:layout_weight="0"
-        android:text="Contraseña"
+        android:text="Contrasena"
         android:textColor="#256DC5"
         android:textSize="18sp"
         android:textStyle="bold" />

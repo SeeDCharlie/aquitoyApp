@@ -15,41 +15,37 @@ import java.io.Serializable
 
 class DbLite(context: Context) :  SQLiteOpenHelper(context, "aqitoyDb", null, 1) {
 
-    var sqlTables: String = ""
+
 
     override fun onCreate(db: SQLiteDatabase?) {
 
-        val request = Request.Builder()
-            .url(VariablesConf.BASE_URL_API + "FilesConfig/db_sqlite_app.sql")
-            .build()
-        val client: OkHttpClient = OkHttpClient()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                e.printStackTrace()
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                response.use {
-                    if (!response.isSuccessful) throw IOException("Unexpected code $response")
-                    sqlTables = response.body!!.string()
-
-                }
-            }
-        })
-
-        println("antes del tread !!")
-        Thread.sleep(5000)
-
-        sqlTables.split(";").forEach {
+        /*VariablesConf.sqlTables.split(";").forEach {
             try {
                 db?.execSQL(it + ";")
                 println(it)
             }catch (e : Exception){
                 println("erro al crear la db ${e.toString()} + ${e.message} + ${e.cause}")
             }
+        }*/
 
-        }
+        db?.execSQL("create table if not exists  sesiones(\n" +
+                "id                integer primary key AUTOINCREMENT,\n" +
+                "id_user           integer,\n" +
+                "email             text,\n" +
+                "nombres           text,\n" +
+                "apellidos         text,\n" +
+                "documento         text,\n" +
+                "contrasena        text,\n" +
+                "fecha_creacion    text,\n" +
+                "activo            integer default 0);")
+        db?.execSQL("create table if not exists urievidencias(\n" +
+                "id      integer primary key AUTOINCREMENT,\n" +
+                "id_dom  integer,\n" +
+                "uri     text,\n" +
+                "origen_destino integer);")
+        db?.execSQL("create table if not exists var_config(\n" +
+                "id              integer primary key AUTOINCREMENT,\n" +
+                "valor           text);")
 
     }
 
@@ -58,5 +54,6 @@ class DbLite(context: Context) :  SQLiteOpenHelper(context, "aqitoyDb", null, 1)
         db.execSQL("drop table if exists urievidencias;")
         onCreate(db)
     }
+
 
 }

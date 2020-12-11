@@ -14,7 +14,6 @@ import com.soportec.aquitoyapp.modelos.apiInterfaz
 import com.soportec.aquitoyapp.vistas.NavegacionActivity
 import com.soportec.aquitoyapp.vistas.LogginActivity
 import org.json.JSONObject
-import kotlin.system.exitProcess
 
 class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
 
@@ -39,8 +38,8 @@ class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
             val datos = JSONObject()
             datos.put("check_session", true)
             datos.put("documento", resultado.get(0).documento)
-            datos.put("contraseña", resultado.get(0).contraseña)
-            respuestaPost(datos, "checkSession.php")
+            datos.put("contrasena", resultado.get(0).contraseña)
+            peticionPost(datos, "checkSession.php")
         } else {
             var vista = Intent(context, LogginActivity::class.java)
             activity.startActivity(vista)

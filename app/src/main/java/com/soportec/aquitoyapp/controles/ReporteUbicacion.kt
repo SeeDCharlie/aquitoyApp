@@ -65,7 +65,7 @@ class ReporteUbicacion(
             datos.put("usu_id", null)
         }
 
-        respuestaPost(datos, "actualizarUbicacion.php")
+        peticionPost(datos, "actualizarUbicacion.php")
     }
 
     override fun acionPots(obj: JSONObject) {

@@ -29,9 +29,9 @@ class ControlDomiciliosDisponibles(var context: Context?, var fragment: Fragment
         val datos = JSONObject()
         datos.put("domicilios_disponibles", true)
         datos.put("documento", datosUsuario?.getString("usu_documento"))
-        datos.put("contraseña", datosUsuario?.getString("usu_pass"))
+        datos.put("contrasena", datosUsuario?.getString("usu_pass"))
         datos.put("id_user", datosUsuario?.getString("usu_id"))
-        respuestaPost(datos, "domiciliosDisponibles.php")
+        peticionPost(datos, "domiciliosDisponibles.php")
     }
 
 

@@ -94,8 +94,8 @@ class GetClienteFrg : Fragment(), apiInterfaz, eventRecyclerView {
         val datos = JSONObject()
         datos.put("get_clientes", true)
         datos.put("documento", NavegacionActivity.datosUsuario!!.getString("usu_documento"))
-        datos.put("contraseña", NavegacionActivity.datosUsuario!!.getString("usu_pass"))
-        respuestaPost(datos, "getClientes.php")
+        datos.put("contrasena", NavegacionActivity.datosUsuario!!.getString("usu_pass"))
+        peticionPost(datos, "getClientes.php")
 
     }
 

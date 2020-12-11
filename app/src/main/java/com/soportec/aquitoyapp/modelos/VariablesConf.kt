@@ -1,5 +1,8 @@
 package com.soportec.aquitoyapp.modelos
 
+import okhttp3.*
+import java.io.IOException
+
 class VariablesConf {
 
     companion object {
@@ -10,6 +13,9 @@ class VariablesConf {
         val URL_UPLOAD_IMG = "https://soportec.co/mensajeria/webservices/guardarEvidencia.php"
         val SERVE_UPLOAD_DIRECTION_PATH = "http://soportec.co/mensajeria/webservices/uploads/"
         var sqlTables = ""
+
     }
+
+
 
 }

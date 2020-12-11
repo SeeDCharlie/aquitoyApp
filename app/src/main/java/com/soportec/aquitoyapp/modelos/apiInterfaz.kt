@@ -6,7 +6,12 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Response
 import org.json.JSONObject
+import java.io.IOException
 
 interface apiInterfaz {
 
@@ -14,7 +19,7 @@ interface apiInterfaz {
     var requestExecute: RequestQueue?
 
     // funcion para el envio de una peticion POST
-    fun respuestaPost(datos: JSONObject, direccion: String) {
+    fun peticionPost(datos: JSONObject, direccion: String) {
         val url = this.baseUrl + direccion
         val request = JsonObjectRequest(
             Request.Method.POST, url, datos,
@@ -34,6 +39,41 @@ interface apiInterfaz {
         )
         this.requestExecute!!.add(request)
     }
+
+    // poticion GET
+    fun peticionGet(direccion :String){
+
+        val request = okhttp3.Request.Builder()
+            .url(VariablesConf.BASE_URL_API + direccion)
+            .build()
+        val client: OkHttpClient = OkHttpClient()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                e.printStackTrace()
+                errorRequest(e.message!!.toString())
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                response.use {
+                    var dats = JSONObject()
+                    if (response.isSuccessful) {
+                        dats.put("dats", response.body!!)
+                        acionPots(dats)
+                    }else{
+                        dats.put("msj", response.headers.get("msj"))
+                        errorOk(dats)
+                    }
+                }
+            }
+        })
+
+    }
+
+
+
+    //------------------------------------------------------------------------------------------
+    // metodos para las respuestas de las peticiones POST Y GET
 
     fun acionPots(obj: JSONObject) {
 

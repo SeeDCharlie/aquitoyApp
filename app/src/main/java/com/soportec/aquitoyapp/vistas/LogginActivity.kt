@@ -36,7 +36,7 @@ class LogginActivity : AppCompatActivity(), apiInterfaz {
             datos.put("loggin", true)
             datos.put("username", findViewById<EditText>(R.id.inpTextUser).text.toString())
             datos.put("password", findViewById<EditText>(R.id.inpTextPassword).text.toString())
-            respuestaPost(datos, "log_api.php")
+            peticionPost(datos, "log_api.php")
         }
 
 

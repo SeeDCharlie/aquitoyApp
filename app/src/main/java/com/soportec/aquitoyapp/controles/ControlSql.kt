@@ -29,7 +29,7 @@ class ControlSql(var context: Context) : Serializable {
             put("nombres", nombres)
             put("apellidos", apellidos)
             put("documento", documento)
-            put("contraseña", password)
+            put("contrasena", password)
             put("fecha_creacion", fecha)
             put("activo", 1)
         }
@@ -55,7 +55,7 @@ class ControlSql(var context: Context) : Serializable {
                 sesion_aux.nombres = cursor.getString(cursor.getColumnIndex("nombres"))
                 sesion_aux.apellidos = cursor.getString(cursor.getColumnIndex("apellidos"))
                 sesion_aux.documento = cursor.getString(cursor.getColumnIndex("documento"))
-                sesion_aux.contraseña = cursor.getString(cursor.getColumnIndex("contraseña"))
+                sesion_aux.contraseña = cursor.getString(cursor.getColumnIndex("contrasena"))
                 sesion_aux.fecha_creacion =
                     cursor.getString(cursor.getColumnIndex("fecha_creacion"))
                 sesion_aux.activo = cursor.getInt(cursor.getColumnIndex("activo"))

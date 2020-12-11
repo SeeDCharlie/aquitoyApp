@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.soportec.aquitoyapp.R
-import com.soportec.aquitoyapp.controles.ControlDomiciliosDisponibles
 import com.soportec.aquitoyapp.modelos.DomDisponible
 import com.soportec.aquitoyapp.modelos.VariablesConf
 import com.soportec.aquitoyapp.modelos.apiInterfaz
@@ -60,9 +59,9 @@ class DomiciliosAvtivosFrag : Fragment(), apiInterfaz {
         val datos = JSONObject()
         datos.put("domicilios_activos", true)
         datos.put("documento", NavegacionActivity.datosUsuario?.getString("usu_documento"))
-        datos.put("contraseña", NavegacionActivity.datosUsuario?.getString("usu_pass"))
+        datos.put("contrasena", NavegacionActivity.datosUsuario?.getString("usu_pass"))
         datos.put("id_user", NavegacionActivity?.datosUsuario?.getString("usu_id"))
-        respuestaPost(datos, "domiciliosActivos.php")
+        peticionPost(datos, "domiciliosActivos.php")
     }
 
     override fun acionPots(obj: JSONObject) {
@@ -80,7 +79,6 @@ class DomiciliosAvtivosFrag : Fragment(), apiInterfaz {
                     dom.getString("estadodom_nombre")
                 )
             )
-
         }
         listViewDomicilios!!.adapter  = rowAdapterDomDisp(view?.context!!, R.layout.row_uno, listaDatosDom)
     }

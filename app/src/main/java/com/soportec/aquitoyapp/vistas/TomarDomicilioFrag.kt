@@ -66,10 +66,10 @@ class TomarDomicilioFrag : Fragment(), apiInterfaz {
             datos.put("tomar_domicilio", true)
             datos.put("id_user", usu!!.getString("usu_id"))
             datos.put("documento", usu!!.getString("usu_documento"))
-            datos.put("contraseña", usu.getString("usu_pass"))
+            datos.put("contrasena", usu.getString("usu_pass"))
             datos.put("id_domicilio", datosDomicilio!!.getInt("dom_id"))
 
-            respuestaPost(datos, "empezarDomicilio.php")
+            peticionPost(datos, "empezarDomicilio.php")
             dialog.dismiss()
         }
         btncancel.setOnClickListener{
