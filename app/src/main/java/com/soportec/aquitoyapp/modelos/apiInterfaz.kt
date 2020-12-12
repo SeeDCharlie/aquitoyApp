@@ -76,7 +76,6 @@ interface apiInterfaz {
     // metodos para las respuestas de las peticiones POST Y GET
 
     fun acionPots(obj: JSONObject) {
-
     }
 
     fun errorOk(obj: JSONObject) {

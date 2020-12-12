@@ -19,6 +19,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         control = ControlMainActivity(this, this)
+        println("yendo por la db")
+        control.getDbTables()
+        Thread.sleep(5000)
         pedirPermisoGeolocalizacion()
 
     }

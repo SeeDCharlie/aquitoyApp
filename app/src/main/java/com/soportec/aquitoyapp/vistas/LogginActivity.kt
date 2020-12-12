@@ -39,15 +39,15 @@ class LogginActivity : AppCompatActivity(), apiInterfaz {
             peticionPost(datos, "log_api.php")
         }
 
-
     }
 
     //funcion que se debe ejecutar si la autenticacion del usuario es correcta
 
-    override fun acionPots(datos_usuario: JSONObject) {
+    override fun acionPots(datos: JSONObject) {
         val intent = Intent(this, NavegacionActivity::class.java)
-
+        var datos_usuario = datos.getJSONObject("userDats")
         controldb!!.addSession(
+
             datos_usuario.getInt("usu_id"),
             datos_usuario.getString("usu_correo"),
             datos_usuario.getString("usu_nombre"),
