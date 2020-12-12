@@ -73,9 +73,9 @@ class DomicilioActivoFrag : Fragment() {
             controlFrag!!.terminarDomicilio(dialog)
         }
         //evento cancelar domicilio
-        view.findViewById<ImageButton>(R.id.btnDoAcCancel).setOnClickListener {
+        /*view.findViewById<ImageButton>(R.id.btnDoAcCancel).setOnClickListener {
             controlFrag!!.cancelarDomicilio(dialog)
-        }
+        }*/
     }
 
     fun initView(v:View){

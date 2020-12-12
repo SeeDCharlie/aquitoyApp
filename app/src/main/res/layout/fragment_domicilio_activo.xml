@@ -373,7 +373,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/ico_add_domi_background"
-                    android:src="@drawable/ico_cancel_uno_foreground" />
+                    android:src="@drawable/ico_cancel_uno_foreground"
+                    tools:visibility="visible" />
 
             </LinearLayout>
 
