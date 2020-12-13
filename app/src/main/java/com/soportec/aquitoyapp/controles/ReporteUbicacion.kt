@@ -43,7 +43,7 @@ class ReporteUbicacion(
                     }
                 }
             println("coordenadas de ubicacions: $lat --- $long")
-            Thread.sleep(1000 * 120)
+            Thread.sleep(1000 * 60)
         }
         return Result.success()
     }
@@ -68,7 +68,7 @@ class ReporteUbicacion(
         peticionPost(datos, "actualizarUbicacion.php")
     }
 
-    override fun acionPots(obj: JSONObject) {
+    override fun acionPost(obj: JSONObject) {
         println(obj.getString("msj"))
     }
 

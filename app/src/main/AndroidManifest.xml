@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:requestLegacyExternalStorage="true">
+
         <activity android:name=".vistas.LogginActivity" />
         <activity android:name=".vistas.NuevoClienteActivity" />
         <activity android:name=".vistas.NavegacionActivity" />

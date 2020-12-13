@@ -154,7 +154,7 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
     }
 
 
-    override fun acionPots(obj: JSONObject) {
+    override fun acionPost(obj: JSONObject) {
         var vista =  Intent(this, LogginActivity::class.java)
         val valores = ContentValues().apply { put("activo", 0) }
         controldblite!!.actualizarDato(

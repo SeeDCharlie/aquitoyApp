@@ -25,7 +25,7 @@ interface apiInterfaz {
             Request.Method.POST, url, datos,
             { response ->
                 if (response.get("ok") == true) {
-                    acionPots(response.getJSONObject("dats"))
+                    acionPost(response.getJSONObject("dats"))
                 } else {
                     errorOk(response.getJSONObject("dats"))
                 }
@@ -59,7 +59,7 @@ interface apiInterfaz {
                     var dats = JSONObject()
                     if (response.isSuccessful) {
                         dats.put("dats", response.body!!)
-                        acionPots(dats)
+                        acionPost(dats)
                     }else{
                         dats.put("msj", response.headers.get("msj"))
                         errorOk(dats)
@@ -75,7 +75,7 @@ interface apiInterfaz {
     //------------------------------------------------------------------------------------------
     // metodos para las respuestas de las peticiones POST Y GET
 
-    fun acionPots(obj: JSONObject) {
+    fun acionPost(obj: JSONObject) {
     }
 
     fun errorOk(obj: JSONObject) {

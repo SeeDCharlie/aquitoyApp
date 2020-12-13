@@ -3,6 +3,7 @@ package com.soportec.aquitoyapp.controles
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import android.widget.Toast
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
@@ -16,6 +17,7 @@ import com.soportec.aquitoyapp.vistas.NavegacionActivity
 import org.json.JSONObject
 import java.io.File
 
+
 class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
 
     var context: Context = ctx
@@ -24,24 +26,21 @@ class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
     override var baseUrl: String = VariablesConf.BASE_URL_API
     override var requestExecute: RequestQueue? = Volley.newRequestQueue(context)
 
-    //empezamos el proceso en segundo plano que notificara la ubicacion
-    init {
-        getDbTables()
-        Thread.sleep(3500)
-        val workRequest: WorkRequest = OneTimeWorkRequest.Builder(ReporteUbicacion::class.java)
-            .build()
-        WorkManager.getInstance(context).enqueue(workRequest)
 
-    }
+
     // funcion que recupera la sentencia sql que crea las tablas en la db(sqlite) local del celular, solo si aun no existe la db
     fun getDbTables(){
 
         val dbFile: File = context.getDatabasePath("aqitoyDb")
         if (!dbFile.exists()){
-            showMsj("la base de datos no existe!!!")
-            var datos = JSONObject("{'getDbTables':true }")
+            println("la base de datos no existe!!!")
+            var datos = JSONObject()
+            datos.put("getDbTables", true)
             peticionPost(datos, "getDbTables.php")
+        }else {
+            checkSesion()
         }
+
     }
 
     //aqui se verifica que haya una sesion activa para ejecutar el resto de la aplicacion con los datos de la sesion
@@ -74,7 +73,7 @@ class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
         Toast.makeText(context, msj, Toast.LENGTH_SHORT).show()
     }
 
-    override fun acionPots(datos: JSONObject) {
+    override fun acionPost(datos: JSONObject) {
 
         when (datos.getString("tag")){
 
@@ -83,7 +82,13 @@ class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
             }
 
             "getDbTables" -> {
-                VariablesConf.SQLTABLES = datos.getString("dbTables")
+                // se crea la base datos local
+                controldb = ControlSql(context, datos.getString("dbTables") )
+                checkSesion()
+                //empezamos el proceso en segundo plano que notificara la ubicacion
+                val workRequest: WorkRequest = OneTimeWorkRequest.Builder(ReporteUbicacion::class.java)
+                    .build()
+                WorkManager.getInstance(context).enqueue(workRequest)
             }
 
         }

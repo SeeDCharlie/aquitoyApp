@@ -121,8 +121,8 @@ class GetClienteFrg : Fragment(), apiInterfaz, eventRecyclerView {
     }
 
     // funcion que se activa cuando se envia la peticion de los clientes al servidor
-    override fun acionPots(obj: JSONObject) {
-        super.acionPots(obj)
+    override fun acionPost(obj: JSONObject) {
+        super.acionPost(obj)
         obj.keys().forEach {
             var cliente = obj.getJSONObject(it)
             this.clientes!!.add(

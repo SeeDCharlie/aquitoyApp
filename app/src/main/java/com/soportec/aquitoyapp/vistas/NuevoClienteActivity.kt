@@ -81,8 +81,8 @@ class NuevoClienteActivity : AppCompatActivity(), apiInterfaz {
     }
 
 
-    override fun acionPots(obj: JSONObject) {
-        super.acionPots(obj)
+    override fun acionPost(obj: JSONObject) {
+        super.acionPost(obj)
     }
 
     override fun errorOk(obj: JSONObject) {

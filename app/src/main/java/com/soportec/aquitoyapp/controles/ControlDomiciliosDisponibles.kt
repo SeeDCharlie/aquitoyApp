@@ -36,7 +36,7 @@ class ControlDomiciliosDisponibles(var context: Context?, var fragment: Fragment
 
 
     //manejo de respuestas correctas del servidor
-    override fun acionPots(obj: JSONObject) {
+    override fun acionPost(obj: JSONObject) {
         //tomamoslos domicilios disponibles que vienen en 'obj' (objeto json)
         //y los guaedamos en una listView
         var listViewDomicilios = fragment.view?.findViewById<ListView>(R.id.listViewUno)

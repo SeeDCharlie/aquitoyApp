@@ -12,7 +12,6 @@ class VariablesConf {
         val IMAGE_CAPTURE_CODE = 1001
         val URL_UPLOAD_IMG = "https://soportec.co/mensajeria/webservices/guardarEvidencia.php"
         val SERVE_UPLOAD_DIRECTION_PATH = "http://soportec.co/mensajeria/webservices/uploads/"
-        var SQLTABLES = ""
 
     }
 

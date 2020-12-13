@@ -8,9 +8,9 @@ import com.soportec.aquitoyapp.modelos.Sesiones
 import java.io.Serializable
 
 
-class ControlSql(var context: Context) : Serializable {
+class ControlSql(var context: Context, sqltables :String = "")  {
 
-    var motor_db: DbLite = DbLite(context)
+    var motor_db: DbLite = DbLite(context, sqltables)
 
 
     //metodo para agregar una sesion activa

@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         control = ControlMainActivity(this, this)
         println("yendo por la db")
         control.getDbTables()
-        Thread.sleep(5000)
         pedirPermisoGeolocalizacion()
 
     }
@@ -52,7 +51,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         } else {
-            control.checkSesion()
+            control.getDbTables()
         }
     }
 
@@ -71,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                             Manifest.permission.ACCESS_FINE_LOCATION
                         ) === PackageManager.PERMISSION_GRANTED)
                     ) {
-                        control.checkSesion()
+                        control.getDbTables()
                     }
                 } else {
                     Toast.makeText(this, "Debes aceptar los permisos para usar la aplicacion", Toast.LENGTH_SHORT).show()
