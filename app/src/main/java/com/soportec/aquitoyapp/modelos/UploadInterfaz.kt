@@ -2,6 +2,9 @@ package com.soportec.aquitoyapp.modelos
 
 import android.app.Activity
 import android.app.ProgressDialog
+import android.graphics.Bitmap
+import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
 import android.webkit.MimeTypeMap
 import android.widget.Toast
@@ -12,6 +15,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.Response
 import org.json.JSONObject
+import java.io.ByteArrayOutputStream
 import java.io.File
 
 interface UploadInterfaz {
@@ -24,18 +28,27 @@ interface UploadInterfaz {
     val client: OkHttpClient
     //--------------------------------------------------------------------------------------
 
-
+    private fun File.writeBitmap(bitmap: Bitmap, format: Bitmap.CompressFormat, quality: Int) {
+        outputStream().use { out ->
+            bitmap.compress(format, quality, out)
+            out.flush()
+        }
+    }
     fun uploadFile(
         documento: String,
         contraseña: String,
         dom_id: Int,
         tipo_eviden: Int,
         sourceFilePath: String,
-        uploadedFileName: String
+        uploadedFileName: String,
+        uriImg: Uri
     ) {
         Thread {
+            var bitMapReduce = MediaStore.Images.Media.getBitmap(activity!!.getContentResolver(), uriImg)
             val sourceFile = File(sourceFilePath)
+            sourceFile.writeBitmap(bitMapReduce, Bitmap.CompressFormat.JPEG, 50)
             val mimeType = getMimeType(sourceFile)
+
             if (mimeType == null) {
                 Log.e("file error", " >>>>>>Not able to get mime type")
             }

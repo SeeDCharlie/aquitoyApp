@@ -32,7 +32,7 @@ class DomicilioActivoFrag : Fragment() {
     var datosDomicilio = NavegacionActivity.domicilioAux
     var controlFrag : ControlDomicilioActivo? = null
     lateinit var dialog: Dialog;
-
+    var code:Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,11 +57,13 @@ class DomicilioActivoFrag : Fragment() {
 
         //evento para agregar evidecias de origen
         view.findViewById<ImageButton>(R.id.btnDoAcAdduno).setOnClickListener {
-            getFoto(1,view)
+            code = 1
+            getFoto(view)
         }
         //evento para agregar evidecias de destino
         view.findViewById<ImageButton>(R.id.btnDoAcAdddos ).setOnClickListener {
-            getFoto(2,view)
+            code = 2
+            getFoto(view)
         }
         //evento para añadir notas al domicilio
         view.findViewById<ImageButton>(R.id.btnDoAcAddNote ).setOnClickListener {
@@ -103,7 +105,7 @@ class DomicilioActivoFrag : Fragment() {
 
     //funcion que pide permisos a los usuarios para utilizar la camara
     //y abrir la camara para luego recuperar la imagen tomada
-    fun getFoto(code:Int, v:View) {
+    fun getFoto( v:View) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             when {
                 ContextCompat.checkSelfPermission(v.context,
@@ -148,7 +150,7 @@ class DomicilioActivoFrag : Fragment() {
                     PackageManager.PERMISSION_GRANTED
                 ) {
                     //sí los permisos son concedidos
-                    controlFrag!!.captureImg()
+                    abrirCamara(code)
                 } else {
                     Toast.makeText(this.context, "Permission denied", Toast.LENGTH_SHORT).show()
                 }

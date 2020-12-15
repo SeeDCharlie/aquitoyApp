@@ -140,7 +140,8 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
             id_dom,
             code_evidencia,
             getRealPathFromURI(image_uri!!)!!,
-            uploadName
+            uploadName,
+            image_uri!!
         )
     }
 
