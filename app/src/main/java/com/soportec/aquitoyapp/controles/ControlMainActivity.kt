@@ -1,6 +1,7 @@
 package com.soportec.aquitoyapp.controles
 
 import android.app.Activity
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
@@ -65,6 +66,8 @@ class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
         val vista = Intent(context, NavegacionActivity::class.java)
         vista.putExtra("datos_usuario", datos.toString())
         showMsj("Bienvenido " + datos.getString("usu_nombre"))
+        //empezamos el proceso en segundo plano que notificara la ubicacion
+        //checkStartLocation()
         activity.startActivity(vista)
         activity.finish()
     }
@@ -83,20 +86,22 @@ class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
 
             "getDbTables" -> {
                 // se crea la base datos local
+                var inserts = datos.getJSONObject("inserts")
                 controldb = ControlSql(context, datos.getString("dbTables") )
+                controldb.insertsVals(inserts, "var_config")
                 checkSesion()
-                //empezamos el proceso en segundo plano que notificara la ubicacion
-                val workRequest: WorkRequest = OneTimeWorkRequest.Builder(ReporteUbicacion::class.java)
-                    .build()
-                WorkManager.getInstance(context).enqueue(workRequest)
             }
 
         }
 
     }
 
+
     override fun errorOk(obj: JSONObject) {
         super.errorOk(obj)
+        showMsj(obj.getString("msj"))
+        activity.finish()
+
     }
 
     override fun errorRequest(msj: String) {

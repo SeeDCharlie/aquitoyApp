@@ -15,7 +15,6 @@ class DbLite(context: Context, sql: String = "") :  SQLiteOpenHelper(context, "a
     override fun onCreate(db: SQLiteDatabase?) {
 
         if (sqlTables != ""){
-
             sqlTables.split(";").forEach {
                 try {
                     db?.execSQL("$it;")

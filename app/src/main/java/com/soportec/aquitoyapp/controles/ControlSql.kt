@@ -2,9 +2,11 @@ package com.soportec.aquitoyapp.controles
 
 import android.content.ContentValues
 import android.content.Context
+import android.provider.ContactsContract
 import android.widget.Toast
 import com.soportec.aquitoyapp.modelos.DbLite
 import com.soportec.aquitoyapp.modelos.Sesiones
+import org.json.JSONObject
 import java.io.Serializable
 
 
@@ -12,6 +14,38 @@ class ControlSql(var context: Context, sqltables :String = "")  {
 
     var motor_db: DbLite = DbLite(context, sqltables)
 
+
+    fun insert(contenedorDatos: ContentValues, tableName: String):Long{
+        val db = this.motor_db.writableDatabase
+        val respuesta = db.insert(tableName, null, contenedorDatos)
+        db.close()
+        return respuesta
+    }
+
+    fun selectForId(tableName: String,column:String,  value: String): JSONObject{
+        var query = "select * from $tableName where $column = $value ;"
+        val db = this.motor_db.readableDatabase
+        var datos = db.rawQuery(query, null)
+        datos.moveToNext()
+        var dats: JSONObject = JSONObject()
+        for (i: Int in 0..datos.columnNames.size - 1){
+            dats.put(datos.getColumnName(i), datos.getString(i))
+        }
+        return dats
+    }
+
+
+    fun insertsVals(inserts: JSONObject, tableName: String){
+        for(register :String in inserts.keys()){
+            val row:JSONObject = inserts.getJSONObject(register)
+            println("*************************************\n******************************************"+"variables confg a insertar : ${row.toString()} ")
+            val contentValues = ContentValues()
+            for (col:String in row.keys()) {
+                contentValues.put(col, row.getString(col))
+            }
+            insert( contentValues, tableName)
+        }
+    }
 
     //metodo para agregar una sesion activa
     fun addSession(
@@ -94,7 +128,6 @@ class ControlSql(var context: Context, sqltables :String = "")  {
             } while (cursor.moveToNext())
         }
         db.close()
-
         return list
     }
 

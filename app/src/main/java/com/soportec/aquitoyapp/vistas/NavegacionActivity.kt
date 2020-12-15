@@ -17,12 +17,16 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlSql
+import com.soportec.aquitoyapp.controles.ReporteUbicacion
 import com.soportec.aquitoyapp.modelos.NuevoDomicilio
 import com.soportec.aquitoyapp.modelos.VariablesConf
 import com.soportec.aquitoyapp.modelos.apiInterfaz
@@ -127,7 +131,7 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
             }
         }
 
-
+        startCheckLocation()
 
     }
 
@@ -143,7 +147,17 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
     }
 
 
-
+    fun startCheckLocation(){
+        var r = controldblite!!.selectForId("var_config","id", "1").getString("estate")
+        if (r == "0"){
+            val workRequest: WorkRequest = OneTimeWorkRequest.Builder(ReporteUbicacion::class.java)
+                .build()
+            WorkManager.getInstance(this).enqueue(workRequest)
+            var dats = ContentValues()
+            dats.put("estate", 1)
+            controldblite!!.actualizarDato("var_config", dats, "id = ?", arrayOf("1"))
+        }
+    }
 
     fun logOut(){
         var datos = JSONObject()

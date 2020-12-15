@@ -1,15 +1,20 @@
 package com.soportec.aquitoyapp.vistas
 
+import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.work.OneTimeWorkRequest
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlSql
+import com.soportec.aquitoyapp.controles.ReporteUbicacion
 import com.soportec.aquitoyapp.modelos.VariablesConf
 import com.soportec.aquitoyapp.modelos.apiInterfaz
 import org.json.JSONObject
@@ -41,6 +46,7 @@ class LogginActivity : AppCompatActivity(), apiInterfaz {
 
     }
 
+
     //funcion que se debe ejecutar si la autenticacion del usuario es correcta
 
     override fun acionPost(datos: JSONObject) {
@@ -56,6 +62,7 @@ class LogginActivity : AppCompatActivity(), apiInterfaz {
             datos_usuario.getString("usu_pass"),
             SimpleDateFormat("yyyy-mm-dd").format(Date())
         )
+
         intent.putExtra("datos_usuario", datos_usuario.toString())
         Toast.makeText(
             this,

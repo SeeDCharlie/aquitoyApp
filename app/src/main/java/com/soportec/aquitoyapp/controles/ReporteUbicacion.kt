@@ -11,7 +11,9 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.soportec.aquitoyapp.modelos.VariablesConf
 import com.soportec.aquitoyapp.modelos.apiInterfaz
+import okhttp3.internal.toLongOrDefault
 import org.json.JSONObject
+import java.lang.Exception
 
 
 class ReporteUbicacion(
@@ -32,18 +34,24 @@ class ReporteUbicacion(
     //o cree que es conveniente
     @SuppressLint("MissingPermission")
     override fun doWork(): Result {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-        while (VariablesConf.CHECK_LOCATION) {
-            fusedLocationClient.lastLocation
-                .addOnSuccessListener { location: Location? ->
-                    lat = location?.latitude
-                    long = location?.longitude
-                    if (lat != null && long != null) {
-                        sendLocation(lat!!, long!!)
+        try {
+            fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
+            var min: Long = control_db!!.selectForId("var_config","id", "1").getString("variable_conf").toLongOrDefault(10)
+            while (VariablesConf.CHECK_LOCATION) {
+                fusedLocationClient.lastLocation
+                    .addOnSuccessListener { location: Location? ->
+                        lat = location?.latitude
+                        long = location?.longitude
+                        if (lat != null && long != null) {
+                            sendLocation(lat!!, long!!)
+                        }
                     }
-                }
-            println("coordenadas de ubicacions: $lat --- $long")
-            Thread.sleep(1000 * 60)
+                println("coordenadas de ubicacions: $lat --- $long")
+                Thread.sleep(1000 * 60 * min)
+            }
+        }catch (error : Exception){
+            println(error.message)
+            return Result.retry()
         }
         return Result.success()
     }
