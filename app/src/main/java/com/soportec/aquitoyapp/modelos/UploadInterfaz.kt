@@ -28,12 +28,7 @@ interface UploadInterfaz {
     val client: OkHttpClient
     //--------------------------------------------------------------------------------------
 
-    private fun File.writeBitmap(bitmap: Bitmap, format: Bitmap.CompressFormat, quality: Int) {
-        outputStream().use { out ->
-            bitmap.compress(format, quality, out)
-            out.flush()
-        }
-    }
+
     fun uploadFile(
         documento: String,
         contraseña: String,
@@ -99,7 +94,12 @@ interface UploadInterfaz {
         }.start()
     }
 
-    // url = file path or whatever suitable URL you want.
+    private fun File.writeBitmap(bitmap: Bitmap, format: Bitmap.CompressFormat, quality: Int) {
+        outputStream().use { out ->
+            bitmap.compress(format, quality, out)
+            out.flush()
+        }
+    }
     fun getMimeType(file: File): String? {
         var type: String? = null
         val extension = MimeTypeMap.getFileExtensionFromUrl(file.path)
