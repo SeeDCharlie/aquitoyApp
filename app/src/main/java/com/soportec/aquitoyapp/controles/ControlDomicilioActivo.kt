@@ -14,21 +14,22 @@ import android.provider.MediaStore
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 import com.google.android.material.snackbar.Snackbar
 import com.soportec.aquitoyapp.R
-import com.soportec.aquitoyapp.modelos.UploadInterfaz
-import com.soportec.aquitoyapp.modelos.VariablesConf
-import com.soportec.aquitoyapp.modelos.apiInterfaz
+import com.soportec.aquitoyapp.modelos.*
 import com.soportec.aquitoyapp.vistas.NavegacionActivity
 import okhttp3.OkHttpClient
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
-class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiInterfaz, UploadInterfaz {
+class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt:evtListEvid): apiInterfaz, UploadInterfaz {
 
     //variables de la interfaz para cargar inamgenes al servidor(UploadInterfaz)
     override var activity: Activity? = fragment.activity
@@ -46,45 +47,84 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
     var switchCamara = -1
     var controldb: ControlSql = ControlSql(context)
 
+    var listAdapterOrigen: itemAdapterImageList? = null
+    var listAdapterDestino:itemAdapterImageList? = null
+    var listImgOrig: RecyclerView? = null
+    var listImgDest: RecyclerView? = null
+    var listImgOrigObj: ArrayList<modelImgEviden>? = null
+    var listImgDestObj: ArrayList<modelImgEviden>? = null
 
-    //funcion para comprimir una imagen bitmap
-    private fun compressBitmap(bitmap:Bitmap, quality:Int):Bitmap{
-        val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream)
-        val byteArray = stream.toByteArray()
-        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+    var evt:evtListEvid = evt
+
+    init {
+        listImgOrig = fragment.view?.findViewById(R.id.listImgOri)
+        listImgDest = fragment.view?.findViewById(R.id.listImgDest)
+        listImgOrig!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        listImgDest!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        listImgOrigObj = ArrayList<modelImgEviden>()
+        listImgDestObj = ArrayList<modelImgEviden>()
+        listAdapterOrigen = itemAdapterImageList(listImgOrigObj!!, evt)
+        listImgOrig?.adapter = listAdapterOrigen
+        listAdapterDestino= itemAdapterImageList(listImgDestObj!!, evt)
+        listImgDest?.adapter = listAdapterDestino
+
     }
+
+    //funcion que muestra la opcion de eiliminar a una evidencia
+
+    fun popupMenuEvid(pocicion:Int){
+        var img = fragment.view?.findViewById<ImageView>(R.id.imgItem)
+        val popMenu = PopupMenu(context, img)
+        popMenu.inflate(R.menu.menu_img_evid)
+        popMenu.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.deleteEviden -> {
+                    showToast("imagen a eliminar")
+                    true
+                }
+                else -> true
+            }
+        }
+
+        try {
+            val pop = PopupMenu::class.java.getDeclaredField("mPopup")
+            pop.isAccessible = true
+            val menu = pop.get(popMenu)
+            menu.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java).invoke(menu, true)
+        }catch (e: Exception){
+            e.printStackTrace()
+        }finally {
+            popMenu.show()
+        }
+
+
+    }
+
+
 
 
     //funcion que carga las fotos localmente de un domicilio que esta activo
     fun cargarFotos(id_dom: Int) {
-        var query = "select uri from urievidencias where id_dom = $id_dom and origen_destino = 2;"
-        var queryDos =
-            "select uri from urievidencias where id_dom = $id_dom and origen_destino = 1;"
-        var resultado = controldb?.getUriPhotosDomi(query)
-
-        if (!resultado!!.isEmpty()) {
+        listImgOrigObj!!.clear()
+        listImgDestObj!!.clear()
+        var query = "select * from urievidencias where id_dom = $id_dom ;"
+        var resultado = controldb?.select(query)
+        if (resultado != null) {
+            println("alv cargando uno")
             resultado.forEach {
-                val img = ImageView(context)
-                var uriFile = Uri.parse(it)
-                var imgBitmap = MediaStore.Images.Media.getBitmap(fragment.requireActivity().getContentResolver(), uriFile)
-                img.setImageBitmap(compressBitmap(imgBitmap,50))
-                img.adjustViewBounds = true
-                fragment.view?.findViewById<LinearLayout>(R.id.lilDoAcDos)?.addView(img)
+                println(it)
+                cargarFoto(it.getInt("origen_destino"), it.getString("uri"), it.getInt("id"))
             }
-
         }
-        resultado = controldb?.getUriPhotosDomi(queryDos)
-        if (!resultado!!.isEmpty()) {
-            resultado.forEach {
-                val img = ImageView(context)
-                var uriFile = Uri.parse(it)
-                var imgBitmap = MediaStore.Images.Media.getBitmap(fragment.requireActivity().getContentResolver(), uriFile)
-                img.setImageBitmap(compressBitmap(imgBitmap,50))
-                img.adjustViewBounds = true
-                fragment.view?.findViewById<LinearLayout>(R.id.lilDoAcUno)?.addView(img)
-            }
-
+    }
+    fun cargarFoto(origDest:Int, uri:String, idImg:Int){
+        var modelImg: modelImgEviden = modelImgEviden(Uri.parse(uri),idImg )
+        if(origDest == 1){
+            listImgOrigObj!!.add(modelImg)
+            listAdapterOrigen!!.notifyDataSetChanged()
+        }else{
+            listImgDestObj!!.add(modelImg)
+            listAdapterDestino!!.notifyDataSetChanged()
         }
     }
 
@@ -110,30 +150,15 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
     }
 
 
-    fun captureImg(){
-        val img = ImageView(context)
-        var imgBitmap = MediaStore.Images.Media.getBitmap(fragment.requireActivity().getContentResolver(), image_uri)
-        img.setImageBitmap(compressBitmap(imgBitmap,5))
-        img.adjustViewBounds = true
-        if (switchCamara == 1) {
-            fragment.view?.findViewById<LinearLayout>(R.id.lilDoAcUno)?.addView(img)
-            //secargan las evidencias al servidor
-            cargarEvidencia(switchCamara)
-        } else if (switchCamara == 2) {
-            fragment.view?.findViewById<LinearLayout>(R.id.lilDoAcDos)?.addView(img)
-//               //secconargan las evidencias al servidor
-            cargarEvidencia(switchCamara)
-        }
-    }
-
     //funciones de peticiones a la api
-    fun cargarEvidencia(code_evidencia: Int) {
+    fun captureImg(code_evidencia: Int) {
         Toast.makeText(this.context, "cargando evidencia!!!", Toast.LENGTH_SHORT).show()
         var documento: String = NavegacionActivity.datosUsuario!!.getString("usu_documento")
         var contraseña: String = NavegacionActivity.datosUsuario!!.getString("usu_pass")
         var id_dom: Int = NavegacionActivity.domicilioAux!!.getInt("dom_id")
         val dateFormat = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val uploadName: String = "img_${id_dom}_${dateFormat}.jpeg"
+        cargarFoto(switchCamara, image_uri.toString(), -1)
         uploadFile(
             documento,
             contraseña,
@@ -172,29 +197,7 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
         dialog.show()
     }
 
-    fun cancelarDomicilio(dialog:Dialog){
 
-        dialog.setContentView(R.layout.dialog_confirm)
-        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        val btnok = dialog.findViewById<Button>(R.id.btnDiCoOk)
-        val btncancel = dialog.findViewById<Button>(R.id.btnDiCoCancel)
-
-        btnok.setOnClickListener {
-            val datos = JSONObject()
-            datos.put("cancelar_domicilio", true)
-            datos.put("documento", NavegacionActivity.datosUsuario?.getString("usu_documento"))
-            datos.put("id_dom", NavegacionActivity.domicilioAux?.getInt("dom_id"))
-            datos.put("contrasena", NavegacionActivity.datosUsuario?.getString("usu_pass"))
-            peticionPost(datos, "cancelarDomicilio.php")
-            dialog.dismiss()
-        }
-
-        btncancel?.setOnClickListener{
-            dialog.dismiss()
-        }
-        dialog.show()
-    }
 
     fun terminarDomicilio(dialog : Dialog){
 
@@ -225,8 +228,8 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
 
     //funcion que se ejecuta cuando el servidor ha dado una respuesta correcta
     //devolviendo un objeto json con informacion
-    override fun acionPost(obj: JSONObject) {
-        super.acionPost(obj)
+    override fun actionPost(obj: JSONObject) {
+        super.actionPost(obj)
         if(obj.getString("tag") == "nota_agregada"){
             Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
@@ -282,3 +285,55 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment): apiI
     }
 
 }
+
+
+
+
+
+
+/*
+
+    fun cancelarDomicilio(dialog:Dialog){
+
+        dialog.setContentView(R.layout.dialog_confirm)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val btnok = dialog.findViewById<Button>(R.id.btnDiCoOk)
+        val btncancel = dialog.findViewById<Button>(R.id.btnDiCoCancel)
+
+        btnok.setOnClickListener {
+            val datos = JSONObject()
+            datos.put("cancelar_domicilio", true)
+            datos.put("documento", NavegacionActivity.datosUsuario?.getString("usu_documento"))
+            datos.put("id_dom", NavegacionActivity.domicilioAux?.getInt("dom_id"))
+            datos.put("contrasena", NavegacionActivity.datosUsuario?.getString("usu_pass"))
+            peticionPost(datos, "cancelarDomicilio.php")
+            dialog.dismiss()
+        }
+
+        btncancel?.setOnClickListener{
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+
+
+ */
+/*
+    fun captureImg(){
+        val img = ImageView(context)
+        var imgBitmap = MediaStore.Images.Media.getBitmap(fragment.requireActivity().getContentResolver(), image_uri)
+        img.setImageBitmap(compressBitmap(imgBitmap,5))
+        img.adjustViewBounds = true
+        if (switchCamara == 1) {
+            fragment.view?.findViewById<LinearLayout>(R.id.lilDoAcUno)?.addView(img)
+            //secargan las evidencias al servidor
+            cargarEvidencia(switchCamara)
+        } else if (switchCamara == 2) {
+            fragment.view?.findViewById<LinearLayout>(R.id.lilDoAcDos)?.addView(img)
+//               //secconargan las evidencias al servidor
+            cargarEvidencia(switchCamara)
+        }
+    }
+*/

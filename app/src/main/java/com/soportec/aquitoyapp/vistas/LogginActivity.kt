@@ -49,7 +49,7 @@ class LogginActivity : AppCompatActivity(), apiInterfaz {
 
     //funcion que se debe ejecutar si la autenticacion del usuario es correcta
 
-    override fun acionPost(datos: JSONObject) {
+    override fun actionPost(datos: JSONObject) {
         val intent = Intent(this, NavegacionActivity::class.java)
         var datos_usuario = datos.getJSONObject("userDats")
         controldb!!.addSession(

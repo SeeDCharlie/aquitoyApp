@@ -308,7 +308,13 @@
                     android:id="@+id/lilDoAcUno"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal" />
+                    android:orientation="horizontal">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/listImgOri"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
             </HorizontalScrollView>
 
             <TextView
@@ -337,7 +343,13 @@
                     android:id="@+id/lilDoAcDos"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal" />
+                    android:orientation="horizontal" >
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/listImgDest"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </LinearLayout>
             </HorizontalScrollView>
 
             <View
@@ -359,23 +371,15 @@
                 android:layout_marginBottom="20dp"
                 android:orientation="horizontal">
 
-                <ImageButton
+                <Button
                     android:id="@+id/btnDoAcOk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/ico_add_domi_background"
-                    android:src="@drawable/ico_ok_uno_foreground" />
-
-                <ImageButton
-                    android:id="@+id/btnDoAcCancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/ico_add_domi_background"
-                    android:src="@drawable/ico_cancel_uno_foreground"
-                    tools:visibility="visible" />
-
+                    android:background="@drawable/btnbg_green"
+                    android:elevation="5dp"
+                    android:text="Terminar Domicilio"
+                    android:textColor="#FDFDFD" />
             </LinearLayout>
 
         </LinearLayout>

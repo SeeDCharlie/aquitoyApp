@@ -11,6 +11,7 @@ import org.json.JSONObject
 class DbLite(context: Context, sql: String = "") :  SQLiteOpenHelper(context, "aqitoyDb", null, 1){
 
     var sqlTables :String = sql
+    var sqlTableNames : ArrayList<String>? = null
 
     override fun onCreate(db: SQLiteDatabase?) {
 
@@ -28,8 +29,9 @@ class DbLite(context: Context, sql: String = "") :  SQLiteOpenHelper(context, "a
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        db.execSQL("drop table if exists sesiones;")
-        db.execSQL("drop table if exists urievidencias;")
+        sqlTableNames!!.forEach {
+            db.execSQL("drop table if exists $it;")
+        }
         onCreate(db)
     }
 

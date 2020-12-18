@@ -6,6 +6,7 @@ import android.provider.ContactsContract
 import android.widget.Toast
 import com.soportec.aquitoyapp.modelos.DbLite
 import com.soportec.aquitoyapp.modelos.Sesiones
+import com.soportec.aquitoyapp.modelos.apiInterfaz
 import org.json.JSONObject
 import java.io.Serializable
 
@@ -22,23 +23,45 @@ class ControlSql(var context: Context, sqltables :String = "")  {
         return respuesta
     }
 
-    fun selectForId(tableName: String,column:String,  value: String): JSONObject{
+    fun select(query:String):ArrayList<JSONObject>?{
+        val db = this.motor_db.readableDatabase
+        var datos = db.rawQuery(query, null)
+        var dats: ArrayList<JSONObject> = ArrayList<JSONObject>()
+        if (datos.moveToFirst()){
+            do{
+                var dAux = JSONObject()
+                for (i: Int in 0..datos.columnNames.size - 1){
+                    dAux.put(datos.getColumnName(i), datos.getString(i))
+                }
+                dats.add(dAux)
+            }while(datos.moveToNext())
+            return dats
+        }else{
+            return null
+        }
+    }
+
+    fun selectForId(tableName: String,column:String,  value: String): JSONObject?{
         var query = "select * from $tableName where $column = $value ;"
         val db = this.motor_db.readableDatabase
         var datos = db.rawQuery(query, null)
-        datos.moveToNext()
-        var dats: JSONObject = JSONObject()
-        for (i: Int in 0..datos.columnNames.size - 1){
-            dats.put(datos.getColumnName(i), datos.getString(i))
+        if(datos.isFirst){
+            datos.moveToFirst()
+            var dats: JSONObject = JSONObject()
+            for (i: Int in 0..datos.columnNames.size - 1){
+                dats.put(datos.getColumnName(i), datos.getString(i))
+            }
+            return dats
+        }else{
+            return null
         }
-        return dats
+
     }
 
 
     fun insertsVals(inserts: JSONObject, tableName: String){
         for(register :String in inserts.keys()){
             val row:JSONObject = inserts.getJSONObject(register)
-            println("*************************************\n******************************************"+"variables confg a insertar : ${row.toString()} ")
             val contentValues = ContentValues()
             for (col:String in row.keys()) {
                 contentValues.put(col, row.getString(col))
@@ -155,6 +178,15 @@ class ControlSql(var context: Context, sqltables :String = "")  {
 
         }
 
+    }
+
+    fun getTableNames(): ArrayList<String>{
+        var query = "SELECT name FROM sqlite_master WHERE type='table';"
+        var taNames = ArrayList<String>()
+        select(query)?.forEach {
+            taNames.add(it.getString("name"))
+        }
+        return taNames
     }
 
 }

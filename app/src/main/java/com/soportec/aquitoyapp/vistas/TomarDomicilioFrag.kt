@@ -103,8 +103,8 @@ class TomarDomicilioFrag : Fragment(), apiInterfaz {
 
 
     //funciones heredadas de la interfaz apiInterfaz
-    override fun acionPost(obj: JSONObject) {
-        super.acionPost(obj)
+    override fun actionPost(obj: JSONObject) {
+        super.actionPost(obj)
         Toast.makeText(context, obj.getString("msj"), Toast.LENGTH_SHORT).show()
         findNavController().navigate(R.id.tomar_dom_activo_trans )
     }

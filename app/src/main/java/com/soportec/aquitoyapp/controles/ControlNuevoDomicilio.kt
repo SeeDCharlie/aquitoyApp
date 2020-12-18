@@ -67,8 +67,8 @@ class ControlNuevoDomicilio(var context: Context?, var fragment: Fragment): apiI
 
     }
 
-    override fun acionPost(obj: JSONObject) {
-        super.acionPost(obj)
+    override fun actionPost(obj: JSONObject) {
+        super.actionPost(obj)
         NavegacionActivity.domicilioAux = obj.getJSONObject("datos_domicilio")
         Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()

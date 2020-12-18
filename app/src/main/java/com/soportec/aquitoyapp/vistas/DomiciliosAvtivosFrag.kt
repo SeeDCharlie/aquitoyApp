@@ -64,8 +64,8 @@ class DomiciliosAvtivosFrag : Fragment(), apiInterfaz {
         peticionPost(datos, "domiciliosActivos.php")
     }
 
-    override fun acionPost(obj: JSONObject) {
-        super.acionPost(obj)
+    override fun actionPost(obj: JSONObject) {
+        super.actionPost(obj)
         var listViewDomicilios = view?.findViewById<ListView>(R.id.listViewDos)
         var listaDatosDom = mutableListOf<DomDisponible>()
         datosDomicilio = obj

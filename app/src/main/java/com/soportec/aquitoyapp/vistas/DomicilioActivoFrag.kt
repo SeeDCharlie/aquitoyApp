@@ -23,10 +23,11 @@ import androidx.media.MediaBrowserServiceCompat.RESULT_OK
 import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlDomicilioActivo
 import com.soportec.aquitoyapp.modelos.VariablesConf
+import com.soportec.aquitoyapp.modelos.evtListEvid
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 
-class DomicilioActivoFrag : Fragment() {
+class DomicilioActivoFrag : Fragment(), evtListEvid {
 
 
     var datosDomicilio = NavegacionActivity.domicilioAux
@@ -71,9 +72,10 @@ class DomicilioActivoFrag : Fragment() {
         }
 
         //Evento confirmacion domicilio
-        view.findViewById<ImageButton>(R.id.btnDoAcOk).setOnClickListener {
+        view.findViewById<Button>(R.id.btnDoAcOk).setOnClickListener {
             controlFrag!!.terminarDomicilio(dialog)
         }
+
         //evento cancelar domicilio
         /*view.findViewById<ImageButton>(R.id.btnDoAcCancel).setOnClickListener {
             controlFrag!!.cancelarDomicilio(dialog)
@@ -82,7 +84,7 @@ class DomicilioActivoFrag : Fragment() {
 
     fun initView(v:View){
 
-        controlFrag = ControlDomicilioActivo(v.context ,this)
+        controlFrag = ControlDomicilioActivo(v.context ,this, this)
         dialog = Dialog(v.context)
 
         controlFrag!!.cargarFotos(NavegacionActivity.domicilioAux!!.getInt("dom_id"))
@@ -165,7 +167,12 @@ class DomicilioActivoFrag : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK || requestCode == 1) {
-            controlFrag?.captureImg()
+            controlFrag?.captureImg(code)
         }
+    }
+
+    override fun onCLickListEvidDest(pocicion: Int) {
+        controlFrag!!.popupMenuEvid(pocicion)
+
     }
 }

@@ -76,7 +76,7 @@ class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
         Toast.makeText(context, msj, Toast.LENGTH_SHORT).show()
     }
 
-    override fun acionPost(datos: JSONObject) {
+    override fun actionPost(datos: JSONObject) {
 
         when (datos.getString("tag")){
 

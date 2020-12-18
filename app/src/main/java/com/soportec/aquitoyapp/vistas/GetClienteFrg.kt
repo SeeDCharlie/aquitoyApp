@@ -31,10 +31,6 @@ class GetClienteFrg : Fragment(), apiInterfaz, eventRecyclerView {
     override var baseUrl: String = VariablesConf.BASE_URL_API
     override var requestExecute: RequestQueue? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -105,14 +101,14 @@ class GetClienteFrg : Fragment(), apiInterfaz, eventRecyclerView {
             //Toast.makeText(context,"datos domi :: ${NavegacionActivity.modNuevoDom.toString()} " , Toast.LENGTH_SHORT).show()
 
             if(NavegacionActivity.switchGetCliente == 1){
-                NavegacionActivity.modNuevoDom.nombre_cliente = clientes?.get(pocicion)?.nombre
-                NavegacionActivity.modNuevoDom.id_cliente = clientes?.get(pocicion)?.id_cliente
+                NavegacionActivity.modNuevoDom.nombre_cliente = clientesAux?.get(pocicion)?.nombre
+                NavegacionActivity.modNuevoDom.id_cliente = clientesAux?.get(pocicion)?.id_cliente
             }
             if(NavegacionActivity.switchGetCliente == 2){
-                NavegacionActivity.modNuevoDom.origen = clientes?.get(pocicion)?.direccion
+                NavegacionActivity.modNuevoDom.origen = clientesAux?.get(pocicion)?.direccion
             }
             if(NavegacionActivity.switchGetCliente == 3){
-                NavegacionActivity.modNuevoDom.destino = clientes?.get(pocicion)?.direccion
+                NavegacionActivity.modNuevoDom.destino = clientesAux?.get(pocicion)?.direccion
             }
             findNavController().navigate(R.id.action_getClienteFrg_to_nuevoDomicilioFrag)
         }catch (ex: Exception){
@@ -121,8 +117,8 @@ class GetClienteFrg : Fragment(), apiInterfaz, eventRecyclerView {
     }
 
     // funcion que se activa cuando se envia la peticion de los clientes al servidor
-    override fun acionPost(obj: JSONObject) {
-        super.acionPost(obj)
+    override fun actionPost(obj: JSONObject) {
+        super.actionPost(obj)
         obj.keys().forEach {
             var cliente = obj.getJSONObject(it)
             this.clientes!!.add(
