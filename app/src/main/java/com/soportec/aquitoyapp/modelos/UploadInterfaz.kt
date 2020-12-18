@@ -94,7 +94,7 @@ interface UploadInterfaz {
         }.start()
     }
 
-    private fun File.writeBitmap(bitmap: Bitmap, format: Bitmap.CompressFormat, quality: Int) {
+   fun File.writeBitmap(bitmap: Bitmap, format: Bitmap.CompressFormat, quality: Int) {
         outputStream().use { out ->
             bitmap.compress(format, quality, out)
             out.flush()

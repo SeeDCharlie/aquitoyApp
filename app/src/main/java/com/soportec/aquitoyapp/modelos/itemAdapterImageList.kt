@@ -20,7 +20,7 @@ RecyclerView.Adapter<itemAdapterImageList.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.render(items!!.get(position))
         holder.itemView.setOnClickListener {
-            event.onCLickListEvidDest(position)
+            event.onCLickListEvidDest(position, items!!.get(position).idImg, it)
         }
     }
 
@@ -34,7 +34,7 @@ RecyclerView.Adapter<itemAdapterImageList.ViewHolder>() {
     class ViewHolder(val vista: View) : RecyclerView.ViewHolder(vista) {
 
         fun render(it: modelImgEviden) {
-            vista.imgItem.setImageURI(it.uri)
+            vista.imgItem.setImageBitmap(it.img)
         }
     }
 

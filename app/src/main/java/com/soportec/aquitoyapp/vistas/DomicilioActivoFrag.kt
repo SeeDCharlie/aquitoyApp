@@ -20,6 +20,7 @@ import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.media.MediaBrowserServiceCompat.RESULT_OK
+import androidx.recyclerview.widget.RecyclerView
 import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlDomicilioActivo
 import com.soportec.aquitoyapp.modelos.VariablesConf
@@ -76,6 +77,12 @@ class DomicilioActivoFrag : Fragment(), evtListEvid {
             controlFrag!!.terminarDomicilio(dialog)
         }
 
+        view.findViewById<RecyclerView>(R.id.listImgOri).setOnClickListener {
+            Toast.makeText(this.context, "click on list origen", Toast.LENGTH_SHORT).show()
+        }
+        view.findViewById<RecyclerView>(R.id.listImgDest).setOnClickListener {
+            Toast.makeText(this.context, "click on list destino", Toast.LENGTH_SHORT).show()
+        }
         //evento cancelar domicilio
         /*view.findViewById<ImageButton>(R.id.btnDoAcCancel).setOnClickListener {
             controlFrag!!.cancelarDomicilio(dialog)
@@ -171,8 +178,7 @@ class DomicilioActivoFrag : Fragment(), evtListEvid {
         }
     }
 
-    override fun onCLickListEvidDest(pocicion: Int) {
-        controlFrag!!.popupMenuEvid(pocicion)
-
+    override fun onCLickListEvidDest(pocicion: Int, idImg:Int, v:View) {
+        controlFrag!!.popupMenuEvid(pocicion,idImg, v)
     }
 }
