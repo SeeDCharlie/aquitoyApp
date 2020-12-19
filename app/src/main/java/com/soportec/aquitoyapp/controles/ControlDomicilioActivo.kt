@@ -23,6 +23,7 @@ import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.modelos.*
 import com.soportec.aquitoyapp.vistas.NavegacionActivity
 import okhttp3.OkHttpClient
+import okhttp3.internal.notify
 import org.json.JSONObject
 import java.io.File
 import java.text.SimpleDateFormat
@@ -321,10 +322,14 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: 
             if(obj.getInt("type") == 1){
                 var modelImg = listImgOrigObj!!.get(poci)
                 deleteEvidFromPhone(modelImg.idImg)
+                listImgOrigObj!!.remove(modelImg)
+                listAdapterOrigen!!.notifyItemRemoved(poci)
 
             }else{
                 var modelImg = listImgDestObj!!.get(poci)
                 deleteEvidFromPhone(modelImg.idImg)
+                listImgDestObj!!.remove(modelImg)
+                listAdapterDestino!!.notifyItemRemoved(poci)
             }
         }
 
