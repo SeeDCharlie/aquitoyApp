@@ -3,5 +3,5 @@
     <item
         android:id="@+id/deleteEviden"
         android:title="Eliminar evidencia"
-        android:icon="@mipmap/ico_cancel_uno"/>
+        android:icon="@mipmap/icon_delete_uno"/>
 </menu>
