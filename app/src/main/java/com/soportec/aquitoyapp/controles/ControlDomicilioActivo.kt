@@ -200,7 +200,7 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: 
         var id_dom: Int = NavegacionActivity.domicilioAux!!.getInt("dom_id")
         val dateFormat = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val uploadName: String = "img_${id_dom}_${dateFormat}.jpeg"
-        cargarFoto(switchCamara, image_uri!!, -1)
+        cargarFoto(switchCamara, image_uri!!, id_dom)
         uploadFile(
             documento,
             contraseña,
@@ -341,10 +341,17 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: 
         super.despuesDeCargar(obj)
         Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
-        controldb!!.addEviden(
+
+        var id = controldb!!.addEviden(
             NavegacionActivity.domicilioAux!!.getInt("dom_id"),
             image_uri!!.toString(), switchCamara
         )
+        if(switchCamara == 1){
+            listImgOrigObj!!.get(listImgOrigObj!!.size-1).idImg = id.toInt()
+        }else{
+            listImgDestObj!!.get(listImgDestObj!!.size-1).idImg = id.toInt()
+        }
+
     }
 
     ///manejo de errores de las peticiones a la api
