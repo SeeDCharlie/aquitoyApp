@@ -88,14 +88,12 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: 
         popMenu.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.deleteEviden -> {
-                    showToast("imagen a eliminar, pocicion : ${pocicion}")
                     deleteEviden(pocicion, lista)
                     true
                 }
                 else -> true
             }
         }
-
         try {
             val pop = PopupMenu::class.java.getDeclaredField("mPopup")
             pop.isAccessible = true
@@ -141,7 +139,6 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: 
         var resultado = controldb?.select(query)
         if (resultado != null) {
             println("alv cargando uno")
-            showToast("id dom : ${id_dom} , num imgs : ${resultado.size}")
             resultado.forEach {
                 println(it)
                 cargarFoto(
@@ -277,9 +274,9 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: 
                     val fdelete: File = File(file_dj_path)
                     if (fdelete.exists()) {
                         if (fdelete.delete()) {
-                            msj = "file Deleted :$file_dj_path"
+                            msj = "Evidencia elimimada!"
                         } else {
-                            msj = "file not Deleted :$file_dj_path"
+                            msj = "No se pudo eliminar la evidencia! contacta con un asesor."
                         }
                     }
                 }catch (e: java.lang.Exception){

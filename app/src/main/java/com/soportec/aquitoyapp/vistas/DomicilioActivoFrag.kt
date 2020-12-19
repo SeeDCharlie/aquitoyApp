@@ -61,12 +61,16 @@ class DomicilioActivoFrag : Fragment(), evtListEvid {
         //evento para agregar evidecias de origen
         view.findViewById<ImageButton>(R.id.btnDoAcAdduno).setOnClickListener {
             code = 1
-            getFoto(view)
+            val btnShet = btnStTakePhoto()
+            btnShet.show(this.parentFragmentManager, "Aquitoy Msj")
+            //getFoto(view)
         }
         //evento para agregar evidecias de destino
         view.findViewById<ImageButton>(R.id.btnDoAcAdddos ).setOnClickListener {
             code = 2
-            getFoto(view)
+            val btnShet = btnStTakePhoto()
+            btnShet.show(this.parentFragmentManager, "Aquitoy Msj")
+            //getFoto(view)
         }
         //evento para añadir notas al domicilio
         view.findViewById<ImageButton>(R.id.btnDoAcAddNote ).setOnClickListener {
@@ -178,7 +182,7 @@ class DomicilioActivoFrag : Fragment(), evtListEvid {
             controlFrag?.captureImg(code)
         }
     }
-
+    //evento de las dos listas de imagenes de evidencias. el evento muestra la opcion de eliminar la evidencia
     override fun onCLickListEvidDest(pocicion: Int, lista: ArrayList<modelImgEviden>, v:View) {
         controlFrag!!.popupMenuEvid(pocicion, lista, v)
     }
