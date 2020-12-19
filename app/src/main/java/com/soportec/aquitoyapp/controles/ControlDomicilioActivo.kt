@@ -6,7 +6,6 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.database.Cursor
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
@@ -24,15 +23,13 @@ import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.modelos.*
 import com.soportec.aquitoyapp.vistas.NavegacionActivity
 import okhttp3.OkHttpClient
-import okhttp3.internal.notifyAll
 import org.json.JSONObject
-import java.io.ByteArrayOutputStream
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt:evtListEvid): apiInterfaz, UploadInterfaz {
+class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: evtListEvid): apiInterfaz, UploadInterfaz {
 
     //variables de la interfaz para cargar inamgenes al servidor(UploadInterfaz)
     override var activity: Activity? = fragment.activity
@@ -62,8 +59,16 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt:e
     init {
         listImgOrig = fragment.view?.findViewById(R.id.listImgOri)
         listImgDest = fragment.view?.findViewById(R.id.listImgDest)
-        listImgOrig!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        listImgDest!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        listImgOrig!!.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+        listImgDest!!.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
         listImgOrigObj = ArrayList<modelImgEviden>()
         listImgDestObj = ArrayList<modelImgEviden>()
         listAdapterOrigen = itemAdapterImageList(listImgOrigObj!!, evt)
@@ -75,14 +80,15 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt:e
 
     //funcion que muestra la opcion de eiliminar a una evidencia
 
-    fun popupMenuEvid(pocicion:Int,idImg:Int,v: View){
+    fun popupMenuEvid(pocicion: Int, lista: ArrayList<modelImgEviden>, v: View){
 
         val popMenu = PopupMenu(context, v)
         popMenu.inflate(R.menu.menu_img_evid)
         popMenu.setOnMenuItemClickListener {
             when(it.itemId){
                 R.id.deleteEviden -> {
-                    showToast("imagen a eliminar id : ${idImg} pocicion : ${pocicion}")
+                    showToast("imagen a eliminar, pocicion : ${pocicion}")
+                    deleteEviden(pocicion, lista)
                     true
                 }
                 else -> true
@@ -93,7 +99,10 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt:e
             val pop = PopupMenu::class.java.getDeclaredField("mPopup")
             pop.isAccessible = true
             val menu = pop.get(popMenu)
-            menu.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java).invoke(menu, true)
+            menu.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java).invoke(
+                menu,
+                true
+            )
         }catch (e: Exception){
             e.printStackTrace()
         }finally {
@@ -103,13 +112,30 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt:e
 
     }
 
+    fun deleteEviden(pocicion: Int, lista: ArrayList<modelImgEviden>){
+        var evidenModel = lista.get(pocicion)
+        var type = controldb.select("select * from urievidencias where id = ${evidenModel.idImg} ")
+        if(type != null){
+            var datos = JSONObject()
+            var t = type.get(0).getInt("origen_destino")
+            datos.put("delete_evid", true)
+            datos.put("documento", NavegacionActivity.datosUsuario?.getString("usu_documento"))
+            datos.put("contrasena", NavegacionActivity.datosUsuario?.getString("usu_pass"))
+            datos.put("id_dom", NavegacionActivity.domicilioAux?.getInt("dom_id"))
+            datos.put("type_e", t)
+            datos.put("poci", pocicion)
+
+            peticionPost(datos, "deleteEviden.php")
+        }
+
+    }
 
     //funcion que carga las fotos localmente de un domicilio que esta activo
     fun cargarFotos(id_dom: Int) {
         listImgOrigObj!!.clear()
         listImgDestObj!!.clear()
 
-        var query = "select * from urievidencias where id_dom = $id_dom ;"
+        var query = "select * from urievidencias where id_dom = $id_dom order by id asc;"
 
         var resultado = controldb?.select(query)
         if (resultado != null) {
@@ -117,19 +143,23 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt:e
             showToast("id dom : ${id_dom} , num imgs : ${resultado.size}")
             resultado.forEach {
                 println(it)
-                cargarFoto(it.getInt("origen_destino"), Uri.parse(it.getString("uri")), it.getInt("id"))
+                cargarFoto(
+                    it.getInt("origen_destino"),
+                    Uri.parse(it.getString("uri")),
+                    it.getInt("id")
+                )
             }
 
 
         }
     }
 
-    fun cargarFoto(origDest:Int, uri:Uri, idImg:Int){
+    fun cargarFoto(origDest: Int, uri: Uri, idImg: Int){
 
         var bitMapReduce = MediaStore.Images.Media.getBitmap(activity!!.getContentResolver(), uri)
-        var bitmap = Bitmap.createScaledBitmap(bitMapReduce,270, 210, false )
+        var bitmap = Bitmap.createScaledBitmap(bitMapReduce, 270, 210, false)
 
-        var modelImg: modelImgEviden = modelImgEviden(bitmap,idImg )
+        var modelImg: modelImgEviden = modelImgEviden(bitmap, idImg)
         if(origDest == 1){
             listImgOrigObj!!.add(modelImg)
             listAdapterOrigen!!.notifyDataSetChanged()
@@ -210,7 +240,7 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt:e
 
 
 
-    fun terminarDomicilio(dialog : Dialog){
+    fun terminarDomicilio(dialog: Dialog){
 
         dialog.setContentView(R.layout.dialog_confirm)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -235,6 +265,37 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt:e
         dialog.show()
     }
 
+    fun deleteEvidFromPhone(idImg: Int){
+        var dats = controldb.select("select * from urievidencias where id = $idImg");
+        var msj = ""
+        if( dats != null) {
+            var uri = dats.get(0).getString("uri")
+            if (controldb.deleteFromId("urievidencias", idImg) > 0) {
+                try {
+                    var file_dj_path = getRealPathFromURI(Uri.parse(uri))
+                    val fdelete: File = File(file_dj_path)
+                    if (fdelete.exists()) {
+                        if (fdelete.delete()) {
+                            msj = "file Deleted :$file_dj_path"
+                        } else {
+                            msj = "file not Deleted :$file_dj_path"
+                        }
+                    }
+                }catch (e: java.lang.Exception){
+                    msj = "no se elimino la imagen del celular ${e.message}"
+                }
+            }
+            else{
+                msj = "la img no se elimino de la sqlite!!!!!"
+            }
+        }else{
+            msj = "no existe la img en db sqlite"
+        }
+        Snackbar.make(fragment.requireView(), msj, Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+
+    }
+
     //manejo de respuestas a la api
 
     //funcion que se ejecuta cuando el servidor ha dado una respuesta correcta
@@ -255,6 +316,18 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt:e
                 .setAction("Action", null).show()
             fragment.findNavController().navigate(R.id.action_domicilioActivoFrag_to_domiciliosAvtivosFrag)
         }
+        if(obj.getString("tag") == "delete_evid"){
+            var poci = obj.getInt("poci")
+            if(obj.getInt("type") == 1){
+                var modelImg = listImgOrigObj!!.get(poci)
+                deleteEvidFromPhone(modelImg.idImg)
+
+            }else{
+                var modelImg = listImgDestObj!!.get(poci)
+                deleteEvidFromPhone(modelImg.idImg)
+            }
+        }
+
     }
     //esta funcion se ejecuta cuando la carga de una imagen ha sido correcta
     // y el servidor a dado una respuesta. la informacion devueta por el servidor

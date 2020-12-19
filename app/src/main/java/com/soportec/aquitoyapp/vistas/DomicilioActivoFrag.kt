@@ -25,6 +25,7 @@ import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlDomicilioActivo
 import com.soportec.aquitoyapp.modelos.VariablesConf
 import com.soportec.aquitoyapp.modelos.evtListEvid
+import com.soportec.aquitoyapp.modelos.modelImgEviden
 import java.util.*
 import kotlin.concurrent.fixedRateTimer
 
@@ -178,7 +179,7 @@ class DomicilioActivoFrag : Fragment(), evtListEvid {
         }
     }
 
-    override fun onCLickListEvidDest(pocicion: Int, idImg:Int, v:View) {
-        controlFrag!!.popupMenuEvid(pocicion,idImg, v)
+    override fun onCLickListEvidDest(pocicion: Int, lista: ArrayList<modelImgEviden>, v:View) {
+        controlFrag!!.popupMenuEvid(pocicion, lista, v)
     }
 }

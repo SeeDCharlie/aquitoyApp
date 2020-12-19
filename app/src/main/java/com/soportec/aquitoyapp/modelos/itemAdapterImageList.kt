@@ -20,7 +20,7 @@ RecyclerView.Adapter<itemAdapterImageList.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.render(items!!.get(position))
         holder.itemView.setOnClickListener {
-            event.onCLickListEvidDest(position, items!!.get(position).idImg, it)
+            event.onCLickListEvidDest(position ,items!! , it)
         }
     }
 

@@ -70,6 +70,18 @@ class ControlSql(var context: Context, sqltables :String = "")  {
         }
     }
 
+    fun deleteFromId(tableName:String, id:Int): Int {
+        // IN instead of equal to compare multiple values
+        val selection = "id IN (?)"
+        val selectionArg = arrayOf("$id")
+        val db = motor_db.writableDatabase
+        val deletedRowsCount = db.delete(tableName, selection, selectionArg)
+        db.close()
+        return deletedRowsCount
+    }
+
+
+
     //metodo para agregar una sesion activa
     fun addSession(
         id_user: Int,
