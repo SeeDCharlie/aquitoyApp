@@ -55,11 +55,11 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: 
     var listImgOrigObj: ArrayList<modelImgEviden>? = null
     var listImgDestObj: ArrayList<modelImgEviden>? = null
 
-    var evt:evtListEvid = evt
+    var evt:evtListEvid = evt!!
 
     init {
-        listImgOrig = fragment.view?.findViewById(R.id.listImgOri)
-        listImgDest = fragment.view?.findViewById(R.id.listImgDest)
+        listImgOrig = fragment!!.view?.findViewById(R.id.listImgOri)
+        listImgDest = fragment!!.view?.findViewById(R.id.listImgDest)
         listImgOrig!!.layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.HORIZONTAL,
@@ -72,9 +72,9 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: 
         )
         listImgOrigObj = ArrayList<modelImgEviden>()
         listImgDestObj = ArrayList<modelImgEviden>()
-        listAdapterOrigen = itemAdapterImageList(listImgOrigObj!!, evt)
+        listAdapterOrigen = itemAdapterImageList(listImgOrigObj!!, evt!!)
         listImgOrig?.adapter = listAdapterOrigen
-        listAdapterDestino= itemAdapterImageList(listImgDestObj!!, evt)
+        listAdapterDestino= itemAdapterImageList(listImgDestObj!!, evt!!)
         listImgDest?.adapter = listAdapterDestino
 
     }
@@ -189,24 +189,32 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: 
     }
 
 
-    //funciones de peticiones a la api
     fun captureImg(code_evidencia: Int) {
-        Toast.makeText(this.context, "cargando evidencia!!!", Toast.LENGTH_SHORT).show()
-        var documento: String = NavegacionActivity.datosUsuario!!.getString("usu_documento")
-        var contraseña: String = NavegacionActivity.datosUsuario!!.getString("usu_pass")
-        var id_dom: Int = NavegacionActivity.domicilioAux!!.getInt("dom_id")
-        val dateFormat = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val uploadName: String = "img_${id_dom}_${dateFormat}.jpeg"
-        cargarFoto(switchCamara, image_uri!!, id_dom)
-        uploadFile(
-            documento,
-            contraseña,
-            id_dom,
-            code_evidencia,
-            getRealPathFromURI(image_uri!!)!!,
-            uploadName,
-            image_uri!!
-        )
+        if (image_uri != null){
+            try{
+                Toast.makeText(this.context, "cargando evidencia!!!", Toast.LENGTH_SHORT).show()
+                var documento: String = NavegacionActivity.datosUsuario!!.getString("usu_documento")
+                var contraseña: String = NavegacionActivity.datosUsuario!!.getString("usu_pass")
+                var id_dom: Int = NavegacionActivity.domicilioAux!!.getInt("dom_id")
+                val dateFormat = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+                val uploadName: String = "img_${id_dom}_${dateFormat}.jpeg"
+                cargarFoto(switchCamara, image_uri!!, id_dom)
+                uploadFile(
+                    documento,
+                    contraseña,
+                    id_dom,
+                    code_evidencia,
+                    getRealPathFromURI(image_uri!!)!!,
+                    uploadName,
+                    image_uri!!
+                )
+            }catch (error: Exception){
+                Toast.makeText(this.context, "No se pudo cargar la imagen o el formato no es permitido o la imagen no existe", Toast.LENGTH_SHORT).show()
+            }
+
+
+        }
+
     }
 
     fun agregarNota(dialog: Dialog){
@@ -294,41 +302,41 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: 
 
     }
 
-    //manejo de respuestas a la api
+    //manejo de respuestas de la api
 
     //funcion que se ejecuta cuando el servidor ha dado una respuesta correcta
     //devolviendo un objeto json con informacion
     override fun actionPost(obj: JSONObject) {
         super.actionPost(obj)
-        if(obj.getString("tag") == "nota_agregada"){
-            Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-        if (obj.getString("tag") == "terminar_dom"){
-            Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-            fragment.findNavController().navigate(R.id.action_domicilioActivoFrag_to_domiciliosDisponiblesFrag)
-        }
-        if(obj.getString("tag") == "cancelar_dom"){
-            Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-            fragment.findNavController().navigate(R.id.action_domicilioActivoFrag_to_domiciliosAvtivosFrag)
-        }
-        if(obj.getString("tag") == "delete_evid"){
-            var poci = obj.getInt("poci")
-            if(obj.getInt("type") == 1){
-                var modelImg = listImgOrigObj!!.get(poci)
-                deleteEvidFromPhone(modelImg.idImg)
-                listImgOrigObj!!.remove(modelImg)
-                listAdapterOrigen!!.notifyItemRemoved(poci)
 
-            }else{
-                var modelImg = listImgDestObj!!.get(poci)
-                deleteEvidFromPhone(modelImg.idImg)
-                listImgDestObj!!.remove(modelImg)
-                listAdapterDestino!!.notifyItemRemoved(poci)
+        when(obj.getString("tag")){
+            "nota_agregada" -> {
+                Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+            }
+            "terminar_dom" -> {
+                Snackbar.make(fragment.requireView(), obj.getString("msj"), Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+                fragment.findNavController().navigate(R.id.action_domicilioActivoFrag_to_domiciliosDisponiblesFrag)
+            }
+            "delete_evid" -> {
+                var poci = obj.getInt("poci")
+                if(obj.getInt("type") == 1){
+                    var modelImg = listImgOrigObj!!.get(poci)
+                    deleteEvidFromPhone(modelImg.idImg)
+                    listImgOrigObj!!.remove(modelImg)
+                    listAdapterOrigen!!.notifyItemRemoved(poci)
+
+                }else{
+                    var modelImg = listImgDestObj!!.get(poci)
+                    deleteEvidFromPhone(modelImg.idImg)
+                    listImgDestObj!!.remove(modelImg)
+                    listAdapterDestino!!.notifyItemRemoved(poci)
+                }
             }
         }
+
+
 
     }
     //esta funcion se ejecuta cuando la carga de una imagen ha sido correcta

@@ -37,10 +37,6 @@ class DomicilioActivoFrag : Fragment(), evtListEvid {
     lateinit var dialog: Dialog;
     var code:Int = -1
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,15 +57,24 @@ class DomicilioActivoFrag : Fragment(), evtListEvid {
         //evento para agregar evidecias de origen
         view.findViewById<ImageButton>(R.id.btnDoAcAdduno).setOnClickListener {
             code = 1
-            val btnShet = btnStTakePhoto()
-            btnShet.show(this.parentFragmentManager, "Aquitoy Msj")
+            if (getPermissions(view)){
+                val btnShet = btnStTakePhoto(this.controlFrag!!, code)
+                btnShet.show(this.parentFragmentManager, "Aquitoy Msj")
+            }else{
+                Toast.makeText(this.context, "debe aceptar los permisos", Toast.LENGTH_SHORT).show()
+            }
             //getFoto(view)
         }
         //evento para agregar evidecias de destino
         view.findViewById<ImageButton>(R.id.btnDoAcAdddos ).setOnClickListener {
             code = 2
-            val btnShet = btnStTakePhoto()
-            btnShet.show(this.parentFragmentManager, "Aquitoy Msj")
+            //VariablesConf.getPermissions(view)
+            if(getPermissions(view)){
+                val btnShet = btnStTakePhoto(this.controlFrag!!, code)
+                btnShet.show(this.parentFragmentManager, "Aquitoy Msj")
+            }else{
+                Toast.makeText(this.context, "debe aceptar los permisos", Toast.LENGTH_SHORT).show()
+            }
             //getFoto(view)
         }
         //evento para añadir notas al domicilio
@@ -82,12 +87,6 @@ class DomicilioActivoFrag : Fragment(), evtListEvid {
             controlFrag!!.terminarDomicilio(dialog)
         }
 
-        view.findViewById<RecyclerView>(R.id.listImgOri).setOnClickListener {
-            Toast.makeText(this.context, "click on list origen", Toast.LENGTH_SHORT).show()
-        }
-        view.findViewById<RecyclerView>(R.id.listImgDest).setOnClickListener {
-            Toast.makeText(this.context, "click on list destino", Toast.LENGTH_SHORT).show()
-        }
         //evento cancelar domicilio
         /*view.findViewById<ImageButton>(R.id.btnDoAcCancel).setOnClickListener {
             controlFrag!!.cancelarDomicilio(dialog)
@@ -119,38 +118,23 @@ class DomicilioActivoFrag : Fragment(), evtListEvid {
 
     //funcion que pide permisos a los usuarios para utilizar la camara
     //y abrir la camara para luego recuperar la imagen tomada
-    fun getFoto( v:View) {
+    fun getPermissions(v:View):Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             when {
-                ContextCompat.checkSelfPermission(v.context,
-                    Manifest.permission.CAMERA
-                ) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(v.context,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_GRANTED-> {
-                    // You can use the API that requires the permission.
-                    abrirCamara(code)
+                ContextCompat.checkSelfPermission(v.context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED &&
+                        ContextCompat.checkSelfPermission(v.context,Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                        ContextCompat.checkSelfPermission(v.context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED-> {
+                    return true
                 }
                 else -> {
-                    requestPermissions(arrayOf(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE), targetRequestCode)
+                    requestPermissions(arrayOf(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE), VariablesConf.PERMISSION_CAM_GALLER_CODE)
+                    return true
                 }
             }
         } else {
-            //system os is < marshmallow
-            abrirCamara(code)
+            return false
         }
     }
-    //funcion que inicia la camara para tomar una evidencia
-    fun abrirCamara(code:Int) {
-        controlFrag!!.switchCamara = code
-        val values = ContentValues()
-        values.put(MediaStore.Images.Media.TITLE, "New Picture")
-        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
-        controlFrag!!.image_uri = activity?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, controlFrag!!.image_uri)
-        startActivityForResult(cameraIntent, 1)
-    }
-
 
     //funcion que se ejecuta cuando el usuario a otorgado los permisos
     override fun onRequestPermissionsResult(
@@ -159,29 +143,21 @@ class DomicilioActivoFrag : Fragment(), evtListEvid {
         grantResults: IntArray
     ) {
         when (requestCode) {
-            VariablesConf.PERMISSION_CAM_CODE-> {
+            VariablesConf.PERMISSION_CAM_GALLER_CODE-> {
                 if (grantResults.size > 0 && grantResults[0] ==
                     PackageManager.PERMISSION_GRANTED
                 ) {
                     //sí los permisos son concedidos
-                    abrirCamara(code)
+                    val btnShet = btnStTakePhoto(this.controlFrag!!, code)
+                    btnShet.show(this.parentFragmentManager, "Aquitoy Msj")
                 } else {
-                    Toast.makeText(this.context, "Permission denied", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this.context, "Debe aceptar los permisos para continuar!!!", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
 
-
-    //oyente que captura la imagen seleccionada de la camara
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK || requestCode == 1) {
-            controlFrag?.captureImg(code)
-        }
-    }
     //evento de las dos listas de imagenes de evidencias. el evento muestra la opcion de eliminar la evidencia
     override fun onCLickListEvidDest(pocicion: Int, lista: ArrayList<modelImgEviden>, v:View) {
         controlFrag!!.popupMenuEvid(pocicion, lista, v)
