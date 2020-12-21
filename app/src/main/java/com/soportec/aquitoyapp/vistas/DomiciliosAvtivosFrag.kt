@@ -80,7 +80,7 @@ class DomiciliosAvtivosFrag : Fragment(), apiInterfaz {
                 )
             )
         }
-        listViewDomicilios!!.adapter  = rowAdapterDomDisp(view?.context!!, R.layout.row_uno, listaDatosDom)
+        listViewDomicilios!!.adapter  = rowAdapterDomDisp(view?.context!!, R.layout.dom_model_row, listaDatosDom)
     }
 
     override fun errorOk(obj: JSONObject) {

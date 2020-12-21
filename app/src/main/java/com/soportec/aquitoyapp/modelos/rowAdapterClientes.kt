@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.soportec.aquitoyapp.R
 
-import kotlinx.android.synthetic.main.row_dos.view.*
+import kotlinx.android.synthetic.main.client_model_row.view.*
 
 class rowAdapterClientes(val items: ArrayList<Cliente>, val event: eventRecyclerView) :
     RecyclerView.Adapter<rowAdapterClientes.ViewHolder>() {
@@ -20,7 +20,7 @@ class rowAdapterClientes(val items: ArrayList<Cliente>, val event: eventRecycler
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layo = LayoutInflater.from(parent.context)
-        return ViewHolder(layo.inflate(R.layout.row_dos, parent, false))
+        return ViewHolder(layo.inflate(R.layout.client_model_row, parent, false))
     }
 
     override fun getItemCount(): Int = items.size

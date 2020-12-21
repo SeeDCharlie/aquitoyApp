@@ -53,7 +53,7 @@ class ControlDomiciliosDisponibles(var context: Context?, var fragment: Fragment
                 )
             )
         }
-        listViewDomicilios?.adapter = rowAdapterDomDisp(context!!, R.layout.row_uno, listaDatosDom)
+        listViewDomicilios?.adapter = rowAdapterDomDisp(context!!, R.layout.dom_model_row, listaDatosDom)
     }
     //manejo de errores de las peticiones al servidor
     override fun errorOk(obj: JSONObject) {
