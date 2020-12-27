@@ -18,7 +18,7 @@ interface apiInterfaz {
     var baseUrl: String
     var requestExecute: RequestQueue?
 
-    // funcion para el envio de una peticion POST
+    // Peticion POST
     fun peticionPost(datos: JSONObject, direccion: String) {
         val url = this.baseUrl + direccion
         val request = JsonObjectRequest(
@@ -40,7 +40,7 @@ interface apiInterfaz {
         this.requestExecute!!.add(request)
     }
 
-    // poticion GET
+    // peticion GET
     fun peticionGet(direccion :String){
 
         val request = okhttp3.Request.Builder()

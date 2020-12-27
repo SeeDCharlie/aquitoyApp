@@ -19,9 +19,8 @@ class VariablesConf {
         val IMAGE_PICK_CAM_CODE = 1002
         val URL_UPLOAD_IMG = "https://soportec.co/mensajeria/webservices/guardarEvidencia.php"
         val SERVE_UPLOAD_DIRECTION_PATH = "http://soportec.co/mensajeria/webservices/uploads/"
-
-
-
+        var USU_LATITUD:Double? = -1.0
+        var USU_LONGITUD: Double? = -1.0
 
     }
 

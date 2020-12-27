@@ -55,11 +55,11 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: 
     var listImgOrigObj: ArrayList<modelImgEviden>? = null
     var listImgDestObj: ArrayList<modelImgEviden>? = null
 
-    var evt:evtListEvid = evt!!
+    var evt:evtListEvid = evt
 
     init {
-        listImgOrig = fragment!!.view?.findViewById(R.id.listImgOri)
-        listImgDest = fragment!!.view?.findViewById(R.id.listImgDest)
+        listImgOrig = fragment.view?.findViewById(R.id.listImgOri)
+        listImgDest = fragment.view?.findViewById(R.id.listImgDest)
         listImgOrig!!.layoutManager = LinearLayoutManager(
             context,
             LinearLayoutManager.HORIZONTAL,
@@ -72,14 +72,39 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: 
         )
         listImgOrigObj = ArrayList<modelImgEviden>()
         listImgDestObj = ArrayList<modelImgEviden>()
-        listAdapterOrigen = itemAdapterImageList(listImgOrigObj!!, evt!!)
+        listAdapterOrigen = itemAdapterImageList(listImgOrigObj!!, evt)
         listImgOrig?.adapter = listAdapterOrigen
-        listAdapterDestino= itemAdapterImageList(listImgDestObj!!, evt!!)
+        listAdapterDestino= itemAdapterImageList(listImgDestObj!!, evt)
         listImgDest?.adapter = listAdapterDestino
 
     }
 
     //funcion que muestra la opcion de eiliminar a una evidencia
+
+    fun popupMainMenu(v:View){
+        val popMenu = PopupMenu(context, v)
+        popMenu.inflate(R.menu.menu_dom_activo)
+        popMenu.setOnMenuItemClickListener {
+            when(it.itemId){
+                R.id.giveDom -> {
+                    startGetUsrDom()
+                    true
+                }
+                else -> true
+            }
+        }
+        try {
+            val pop = PopupMenu::class.java.getDeclaredField("mPopup")
+            pop.isAccessible = true
+            val menu = pop.get(popMenu)
+            menu.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java).invoke(
+                menu,true)
+        }catch (e: Exception){
+            e.printStackTrace()
+        }finally {
+            popMenu.show()
+        }
+    }
 
     fun popupMenuEvid(pocicion: Int, lista: ArrayList<modelImgEviden>, v: View){
 
@@ -111,6 +136,11 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: 
 
     }
 
+    fun startGetUsrDom(){
+
+        fragment.findNavController().navigate(R.id.action_domicilioActivoFrag_to_getUsersDom)
+
+    }
     fun deleteEviden(pocicion: Int, lista: ArrayList<modelImgEviden>){
         var evidenModel = lista.get(pocicion)
         var type = controldb.select("select * from urievidencias where id = ${evidenModel.idImg} ")
@@ -326,7 +356,6 @@ class ControlDomicilioActivo(var context: Context, var fragment: Fragment, evt: 
                     deleteEvidFromPhone(modelImg.idImg)
                     listImgOrigObj!!.remove(modelImg)
                     listAdapterOrigen!!.notifyItemRemoved(poci)
-
                 }else{
                     var modelImg = listImgDestObj!!.get(poci)
                     deleteEvidFromPhone(modelImg.idImg)

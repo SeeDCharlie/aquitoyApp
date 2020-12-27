@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/giveDom"
+        android:title="Entregar Domicilio"
+        android:icon="@mipmap/give_dom_ico_one_foreground"/>
+</menu>

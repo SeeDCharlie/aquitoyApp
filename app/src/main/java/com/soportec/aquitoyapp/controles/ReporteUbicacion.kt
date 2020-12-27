@@ -44,6 +44,8 @@ class ReporteUbicacion(
                         long = location?.longitude
                         if (lat != null && long != null) {
                             sendLocation(lat!!, long!!)
+                            VariablesConf.USU_LATITUD = lat
+                            VariablesConf.USU_LONGITUD = long
                         }
                     }
                 println("coordenadas de ubicacions: $lat --- $long")

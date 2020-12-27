@@ -86,11 +86,10 @@ class DomicilioActivoFrag : Fragment(), evtListEvid {
         view.findViewById<Button>(R.id.btnDoAcOk).setOnClickListener {
             controlFrag!!.terminarDomicilio(dialog)
         }
-
-        //evento cancelar domicilio
-        /*view.findViewById<ImageButton>(R.id.btnDoAcCancel).setOnClickListener {
-            controlFrag!!.cancelarDomicilio(dialog)
-        }*/
+        // menu
+        view.findViewById<ImageButton>(R.id.btnDoAcMenu).setOnClickListener {
+            controlFrag!!.popupMainMenu(it)
+        }
     }
 
     fun initView(v:View){

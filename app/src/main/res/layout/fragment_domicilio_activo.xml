@@ -40,7 +40,7 @@
                     tools:layout_editor_absoluteX="1dp" />
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/btnDoAcMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_weight="1"

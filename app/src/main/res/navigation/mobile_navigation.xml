@@ -52,6 +52,9 @@
             android:id="@+id/action_domicilioActivoFrag_to_domiciliosAvtivosFrag"
             app:destination="@id/domiciliosAvtivosFrag"
             app:popUpTo="@id/domiciliosAvtivosFrag" />
+        <action
+            android:id="@+id/action_domicilioActivoFrag_to_getUsersDom"
+            app:destination="@id/getUsersDom" />
     </fragment>
     <fragment
         android:id="@+id/domiciliosAvtivosFrag"
@@ -99,6 +102,15 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/domiciliosAvtivosFrag" />
+    </fragment>
+    <fragment
+        android:id="@+id/getUsersDom"
+        android:name="com.soportec.aquitoyapp.vistas.getUsersDomFrag"
+        android:label="getUsersDom" >
+        <action
+            android:id="@+id/action_getUsersDom_to_domiciliosAvtivosFrag"
+            app:destination="@id/domiciliosAvtivosFrag"
             app:popUpTo="@id/domiciliosAvtivosFrag" />
     </fragment>
 
