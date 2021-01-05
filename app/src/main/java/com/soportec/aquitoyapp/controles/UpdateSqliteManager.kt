@@ -24,24 +24,18 @@ class UpdateSqliteManager(
     fun updateDb(){
         var query = "select id from update_sqlite order by id desc;"
         println("proceso segundo plano de actualizacion!!")
-        try {
-            var id_up = controlSqlite.select(query)
-            if (id_up != null && id_up!!.size > 0){
-                println("solicitando actualizacion")
-                var datos = JSONObject()
-                datos.put("update_app", true)
-                datos.put("id_up", id_up[0].getInt("id"))
-                peticionPost(datos, "updateApp.php")
-            }else{
-                println("no es necesario actualizar la db")
-            }
-        }catch (error: Exception){
+
+        var id_up = controlSqlite.select(query)
+        if (id_up != null && id_up!!.size > 0){
+            println("solicitando actualizacion")
             var datos = JSONObject()
             datos.put("update_app", true)
-            datos.put("id_up", -1)
-            println("solicitando actualizacion dos  !!!")
+            datos.put("id_up", id_up[0].getInt("id"))
             peticionPost(datos, "updateApp.php")
+        }else{
+            println("******************************************" + "no es necesario actualizar la db")
         }
+
 
     }
 
@@ -67,7 +61,7 @@ class UpdateSqliteManager(
                 controlSqlite.motor_db.sqlTableNames = controlSqlite.getTableNames()
                 controlSqlite.motor_db.onUpgrade(controlSqlite.motor_db.readableDatabase, 1,1)
                 controlSqlite.insertsVals(inserts, "var_config")
-                println("se actualizo la db local !!")
+                println("*************************************\n" + "se actualizo la db local !!")
 
             }
         }

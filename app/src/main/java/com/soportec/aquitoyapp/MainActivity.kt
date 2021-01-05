@@ -26,26 +26,11 @@ class MainActivity : AppCompatActivity() {
     //pedir permisos de geolocalizacion
 
     fun pedirPermisoGeolocalizacion() {
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) !==
-            PackageManager.PERMISSION_GRANTED
-        ) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                )
-            ) {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1
-                )
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION  ) !== PackageManager.PERMISSION_GRANTED  ) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.ACCESS_FINE_LOCATION )) {
+                ActivityCompat.requestPermissions( this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1 )
             } else {
-                ActivityCompat.requestPermissions(
-                    this,
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1
-                )
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1 )
             }
 
         } else {
@@ -60,14 +45,8 @@ class MainActivity : AppCompatActivity() {
     ) {
         when (requestCode) {
             1 -> {
-                if (grantResults.isNotEmpty() && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED
-                ) {
-                    if ((ContextCompat.checkSelfPermission(
-                            this@MainActivity,
-                            Manifest.permission.ACCESS_FINE_LOCATION
-                        ) === PackageManager.PERMISSION_GRANTED)
-                    ) {
+                if (grantResults.isNotEmpty() && grantResults[0] ==  PackageManager.PERMISSION_GRANTED  ) {
+                    if ((ContextCompat.checkSelfPermission( this@MainActivity, Manifest.permission.ACCESS_FINE_LOCATION  ) === PackageManager.PERMISSION_GRANTED) ) {
                         control.getDbTables()
                     }
                 } else {

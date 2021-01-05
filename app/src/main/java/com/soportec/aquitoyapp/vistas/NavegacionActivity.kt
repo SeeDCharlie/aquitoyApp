@@ -96,7 +96,7 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
         //asignacion de los datos del usuario al menu
         view.findViewById<TextView>(R.id.txtMePrUsername).setText(
             datosUsuario!!.getString("usu_nombre")
-                    + datosUsuario!!.getString("usu_apellidos")
+                    + " " + datosUsuario!!.getString("usu_apellidos")
         )
         view.findViewById<TextView>(R.id.txtMePrTypeuser).setText(datosUsuario!!.getString("tipousu_nombre"))
         view.findViewById<TextView>(R.id.txtMePrEmail).setText(datosUsuario!!.getString("usu_correo"))
@@ -125,6 +125,7 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
                     true
                 }
                 R.id.logginActivity -> {
+                    nc.popBackStack()
                     logOut()
                     true
                 }
@@ -133,9 +134,8 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
                 }
             }
         }
-
-        startCheckLocation()
         startCheckUpdatedB()
+        startCheckLocation()
     }
 
    /* override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -152,36 +152,26 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
     fun startCheckUpdatedB(){
 
         var re = controldblite!!.selectForId("var_config","id", "2")
-
         if ( re != null){
             var r = re.getString("estate")
+            Toast.makeText(this, "estado del chekeo de actualizacino de la base de datos : $r", Toast.LENGTH_SHORT).show()
             if(r == "0"){
-                //Toast.makeText(this, "iniciando servicio de actualizacion en 2do plano: estado, ${r} ", Toast.LENGTH_SHORT).show()
                 val workRequest =  PeriodicWorkRequestBuilder<UpdateSqliteManager>(16, TimeUnit.MINUTES)
                     // Additional configuration
                     .build()
                 WorkManager.getInstance(this).enqueue(workRequest)
+                Toast.makeText(this, "iniciando servicio de actualizacion en 2do plano: estado, ${r} ", Toast.LENGTH_SHORT).show()
                 var dats = ContentValues()
                 dats.put("estate", 1)
                 controldblite!!.actualizarDato("var_config", dats, "id = ?", arrayOf("2"))
-            }else{
-                //Toast.makeText(this, "NO es necesario iniciar el servicio de actualizacion", Toast.LENGTH_SHORT).show()
             }
-
-        }else{
-            //Toast.makeText(this, "no se inicio el servicio de actualizacion!! ", Toast.LENGTH_SHORT).show()
-
-           /* val workRequest =  PeriodicWorkRequestBuilder<UpdateSqliteManager>(16, TimeUnit.MINUTES)
-                // Additional configuration
-                .build()
-            WorkManager.getInstance(this).enqueue(workRequest)
-            Toast.makeText(this, "iniciando servicio de actualizacion en 2do plano: estado, -1 ", Toast.LENGTH_SHORT).show()*/
         }
     }
 
 
     fun startCheckLocation(){
         var r = controldblite!!.selectForId("var_config","id", "1")?.getString("estate")
+
         if (r == "0"){
             val workRequest: WorkRequest = OneTimeWorkRequest.Builder(ReporteUbicacion::class.java)
                 .build()

@@ -22,7 +22,7 @@ import java.io.File
 class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
 
     var context: Context = ctx
-    var controldb: ControlSql = ControlSql(context)
+    lateinit var controldb: ControlSql
 
     override var baseUrl: String = VariablesConf.BASE_URL_API
     override var requestExecute: RequestQueue? = Volley.newRequestQueue(context)
@@ -31,7 +31,6 @@ class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
 
     // funcion que recupera la sentencia sql que crea las tablas en la db(sqlite) local del celular, solo si aun no existe la db
     fun getDbTables(){
-
         val dbFile: File = context.getDatabasePath("aqitoyDb")
         if (!dbFile.exists()){
             println("la base de datos no existe!!!")
@@ -46,6 +45,7 @@ class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
 
     //aqui se verifica que haya una sesion activa para ejecutar el resto de la aplicacion con los datos de la sesion
     fun checkSesion() {
+        controldb = ControlSql(context)
         var query = "select * from sesiones where activo = 1 order by id desc;"
         var resultado = controldb.getSessions(query)
         if (!resultado.isEmpty()) {

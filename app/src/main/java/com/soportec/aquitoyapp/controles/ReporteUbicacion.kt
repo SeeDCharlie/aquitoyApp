@@ -52,7 +52,7 @@ class ReporteUbicacion(
                 Thread.sleep(1000 * 60 * min)
             }
         }catch (error : Exception){
-            println(error.message)
+            println("error de reporte de ubicacion : " + error.message)
             return Result.retry()
         }
         return Result.success()

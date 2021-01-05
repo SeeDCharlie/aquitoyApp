@@ -45,8 +45,8 @@ class ControlSql(var context: Context, sqltables :String = "")  {
         var query = "select * from $tableName where $column = $value ;"
         val db = this.motor_db.readableDatabase
         var datos = db.rawQuery(query, null)
+        datos.moveToFirst()
         if(datos.isFirst){
-            datos.moveToFirst()
             var dats: JSONObject = JSONObject()
             for (i: Int in 0..datos.columnNames.size - 1){
                 dats.put(datos.getColumnName(i), datos.getString(i))
