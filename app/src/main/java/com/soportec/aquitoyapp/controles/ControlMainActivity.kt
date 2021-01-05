@@ -86,9 +86,16 @@ class ControlMainActivity(ctx: Context, var activity: Activity) : apiInterfaz {
 
             "getDbTables" -> {
                 // se crea la base datos local
+                var datsUpdate = datos.getJSONObject("updateID")
                 var inserts = datos.getJSONObject("inserts")
                 controldb = ControlSql(context, datos.getString("dbTables") )
+                val valuesUpdate = ContentValues().apply {
+                    put("id" , datsUpdate.getInt("id"))
+                    put("update_date" , datsUpdate.getString("update_date"))
+                    put("update_hour" , datsUpdate.getString("update_hour"))
+                }
                 controldb.insertsVals(inserts, "var_config")
+                controldb.insert(valuesUpdate, "update_sqlite")
                 checkSesion()
             }
 

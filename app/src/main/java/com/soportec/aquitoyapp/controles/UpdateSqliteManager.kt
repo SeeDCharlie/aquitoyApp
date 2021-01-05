@@ -1,5 +1,6 @@
 package com.soportec.aquitoyapp.controles
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import androidx.work.Worker
@@ -9,6 +10,7 @@ import com.android.volley.toolbox.Volley
 import com.soportec.aquitoyapp.modelos.VariablesConf
 import com.soportec.aquitoyapp.modelos.apiInterfaz
 import org.json.JSONObject
+import kotlin.concurrent.thread
 
 class UpdateSqliteManager(
     context: Context, workerParams: WorkerParameters
@@ -24,24 +26,23 @@ class UpdateSqliteManager(
     fun updateDb(){
         var query = "select id from update_sqlite order by id desc;"
         println("proceso segundo plano de actualizacion!!")
-
+        var datos = JSONObject()
         var id_up = controlSqlite.select(query)
+        datos.put("update_app", true)
         if (id_up != null && id_up!!.size > 0){
-            println("solicitando actualizacion")
-            var datos = JSONObject()
-            datos.put("update_app", true)
             datos.put("id_up", id_up[0].getInt("id"))
-            peticionPost(datos, "updateApp.php")
         }else{
-            println("******************************************" + "no es necesario actualizar la db")
+            datos.put("id_up", -1)
         }
-
+        peticionPost(datos, "updateApp.php")
+        println("solicitando actualizacion")
 
     }
 
     override fun doWork(): Result {
         try {
             updateDb()
+            println("se ejecuto la actualizacion de la db ")
         }catch (error:Exception){
             print(error.message)
             return Result.retry()
@@ -56,15 +57,25 @@ class UpdateSqliteManager(
 
             "getDbTables" -> {
                 // se crea la base datos local
+                var datsUpdate = obj.getJSONObject("updateID")
                 var inserts = obj.getJSONObject("inserts")
+                val valuesUpdate = ContentValues().apply {
+                    put("id" , datsUpdate.getInt("id"))
+                    put("update_date" , datsUpdate.getString("update_date"))
+                    put("update_hour" , datsUpdate.getString("update_hour"))
+                }
                 controlSqlite.motor_db.sqlTables = obj.getString("dbTables")
-                controlSqlite.motor_db.sqlTableNames = controlSqlite.getTableNames()
-                controlSqlite.motor_db.onUpgrade(controlSqlite.motor_db.readableDatabase, 1,1)
+                controlSqlite.motor_db.sqlTableNames = arrayListOf("sesiones", "urievidencias", "var_config", "update_sqlite")
+                println("table names : ${controlSqlite.getTableNames().size}")
+                controlSqlite.motor_db.onUpgrade(controlSqlite.motor_db.writableDatabase, 1,1)
                 controlSqlite.insertsVals(inserts, "var_config")
+                controlSqlite.insert(valuesUpdate, "update_sqlite")
                 println("*************************************\n" + "se actualizo la db local !!")
 
             }
+            else -> println("******************\n" + "no se actualizo la db o no es necesario")
         }
     }
+
 
 }

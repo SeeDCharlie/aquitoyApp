@@ -15,7 +15,7 @@ class ControlSql(var context: Context, sqltables :String = "")  {
 
     var motor_db: DbLite = DbLite(context, sqltables)
 
-
+    // esta funcion solo inserta un registro a la vez, el parametro 'contenedorDatos' son los pares atributo - valor de 'tableName'
     fun insert(contenedorDatos: ContentValues, tableName: String):Long{
         val db = this.motor_db.writableDatabase
         val respuesta = db.insert(tableName, null, contenedorDatos)
