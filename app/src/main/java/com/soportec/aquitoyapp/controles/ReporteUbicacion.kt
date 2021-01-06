@@ -36,7 +36,7 @@ class ReporteUbicacion(
     override fun doWork(): Result {
         try {
             fusedLocationClient = LocationServices.getFusedLocationProviderClient(context)
-            var min: Long = control_db!!.selectForId("var_config","id", "1")?.getString("variable_conf")!!.toLongOrDefault(10)
+            var min: Long = control_db!!.selectForAtr("var_config","id", "1")?.getString("variable_conf")!!.toLongOrDefault(10)
             while (VariablesConf.CHECK_LOCATION) {
                 fusedLocationClient.lastLocation
                     .addOnSuccessListener { location: Location? ->

@@ -107,7 +107,7 @@
     <fragment
         android:id="@+id/getUsersDom"
         android:name="com.soportec.aquitoyapp.vistas.getUsersDomFrag"
-        android:label="getUsersDom" >
+        android:label="Compañeros Domiciliarios" >
         <action
             android:id="@+id/action_getUsersDom_to_domiciliosAvtivosFrag"
             app:destination="@id/domiciliosAvtivosFrag"

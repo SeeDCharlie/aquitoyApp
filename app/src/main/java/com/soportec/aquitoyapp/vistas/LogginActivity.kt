@@ -1,20 +1,23 @@
 package com.soportec.aquitoyapp.vistas
 
-import android.content.ContentValues
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.work.OneTimeWorkRequest
-import androidx.work.WorkManager
-import androidx.work.WorkRequest
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
+import com.soportec.aquitoyapp.MainActivity
 import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlSql
-import com.soportec.aquitoyapp.controles.ReporteUbicacion
 import com.soportec.aquitoyapp.modelos.VariablesConf
 import com.soportec.aquitoyapp.modelos.apiInterfaz
 import org.json.JSONObject
@@ -36,15 +39,22 @@ class LogginActivity : AppCompatActivity(), apiInterfaz {
         controldb = ControlSql(this)
         requestExecute = Volley.newRequestQueue(this)
 
+
         findViewById<Button>(R.id.btnIngresar).setOnClickListener {
             var datos = JSONObject()
             datos.put("loggin", true)
             datos.put("username", findViewById<EditText>(R.id.inpTextUser).text.toString())
             datos.put("password", findViewById<EditText>(R.id.inpTextPassword).text.toString())
+
+
+
             peticionPost(datos, "log_api.php")
+
         }
 
     }
+
+
 
 
     //funcion que se debe ejecutar si la autenticacion del usuario es correcta

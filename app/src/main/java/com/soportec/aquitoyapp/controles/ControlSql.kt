@@ -41,7 +41,7 @@ class ControlSql(var context: Context, sqltables :String = "")  {
         }
     }
 
-    fun selectForId(tableName: String,column:String,  value: String): JSONObject?{
+    fun selectForAtr(tableName: String, column:String, value: String): JSONObject?{
         var query = "select * from $tableName where $column = $value ;"
         val db = this.motor_db.readableDatabase
         var datos = db.rawQuery(query, null)

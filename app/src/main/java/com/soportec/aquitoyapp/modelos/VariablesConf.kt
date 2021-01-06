@@ -21,6 +21,9 @@ class VariablesConf {
         val SERVE_UPLOAD_DIRECTION_PATH = "http://soportec.co/mensajeria/webservices/uploads/"
         var USU_LATITUD:Double? = -1.0
         var USU_LONGITUD: Double? = -1.0
+        val CHANNEL_ONE_NOTY = "CANAL_UNO"
+        val CHANNEL_TWO_NOTY = "CANAL_DOS"
+
 
     }
 

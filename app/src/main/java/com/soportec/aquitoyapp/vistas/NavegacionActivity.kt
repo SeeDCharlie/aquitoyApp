@@ -27,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.soportec.aquitoyapp.R
 import com.soportec.aquitoyapp.controles.ControlSql
+import com.soportec.aquitoyapp.controles.NotificationsManager
 import com.soportec.aquitoyapp.controles.ReporteUbicacion
 import com.soportec.aquitoyapp.controles.UpdateSqliteManager
 import com.soportec.aquitoyapp.modelos.NuevoDomicilio
@@ -136,6 +137,7 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
         }
         startCheckUpdatedB()
         startCheckLocation()
+        startCheckNotify()
     }
 
    /* override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -151,13 +153,11 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
 
     fun startCheckUpdatedB(){
 
-        var re = controldblite!!.selectForId("var_config","id", "2")
+        var re = controldblite!!.selectForAtr("var_config","id", "2")
         if ( re != null){
             var r = re.getString("estate")
-            Toast.makeText(this, "estado del chekeo de actualizacino de la base de datos : $r", Toast.LENGTH_SHORT).show()
             if(r == "0"){
-                val workRequest =  PeriodicWorkRequestBuilder<UpdateSqliteManager>(16, TimeUnit.MINUTES)
-                    // Additional configuration
+                val workRequest =  PeriodicWorkRequestBuilder<UpdateSqliteManager>(1, TimeUnit.DAYS)
                     .build()
                 WorkManager.getInstance(this).enqueue(workRequest)
                 Toast.makeText(this, "iniciando servicio de actualizacion en 2do plano: estado, ${r} ", Toast.LENGTH_SHORT).show()
@@ -170,7 +170,7 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
 
 
     fun startCheckLocation(){
-        var r = controldblite!!.selectForId("var_config","id", "1")?.getString("estate")
+        var r = controldblite!!.selectForAtr("var_config","id", "1")?.getString("estate")
 
         if (r == "0"){
             val workRequest: WorkRequest = OneTimeWorkRequest.Builder(ReporteUbicacion::class.java)
@@ -179,6 +179,24 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
             var dats = ContentValues()
             dats.put("estate", 1)
             controldblite!!.actualizarDato("var_config", dats, "id = ?", arrayOf("1"))
+        }
+    }
+
+    fun startCheckNotify(){
+        var r = controldblite!!.selectForAtr("var_config","id", "3")?.getString("estate")
+
+        if (r == "0"){
+            /*val workRequest =  PeriodicWorkRequestBuilder<NotificationsManager>(15, TimeUnit.MINUTES)
+                // Additional configuration
+                .build()
+            WorkManager.getInstance(this).enqueue(workRequest)*/
+            val workRequest: WorkRequest = OneTimeWorkRequest.Builder(NotificationsManager::class.java)
+                .build()
+            WorkManager.getInstance(this).enqueue(workRequest)
+            var dats = ContentValues()
+            dats.put("estate", 1)
+            controldblite!!.actualizarDato("var_config", dats, "id = ?", arrayOf("3"))
+            Toast.makeText(this, "start chech notify!!", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -192,6 +210,7 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
 
 
     override fun actionPost(obj: JSONObject) {
+        super.actionPost(obj)
         var vista =  Intent(this, LogginActivity::class.java)
         val valores = ContentValues().apply { put("activo", 0) }
         controldblite!!.actualizarDato(
@@ -200,8 +219,8 @@ class NavegacionActivity : AppCompatActivity(),  apiInterfaz{
         Toast.makeText(this, obj.getString("msj"), Toast.LENGTH_SHORT).show()
         startActivity(vista)
         finish()
-        super.onBackPressed()
     }
+
 
     override fun errorOk(obj: JSONObject) {
         Toast.makeText(this, obj.getString("msj"), Toast.LENGTH_SHORT).show()
