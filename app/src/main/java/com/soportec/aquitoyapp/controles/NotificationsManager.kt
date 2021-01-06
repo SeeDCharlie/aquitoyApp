@@ -113,7 +113,7 @@ class NotificationsManager(
             val pendingIntent: PendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
 
             var builder = NotificationCompat.Builder(context, VariablesConf.CHANNEL_ONE_NOTY)
-                .setSmallIcon(R.mipmap.ico_alert_new_dom_foreground)
+                .setSmallIcon(R.mipmap.ico_app)
                 .setContentTitle("Aquitoy Notification")
                 .setContentText(msj)
                 .setStyle(NotificationCompat.BigTextStyle()
